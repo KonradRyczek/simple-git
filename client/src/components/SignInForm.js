@@ -1,6 +1,6 @@
 import React ,{ useState, state }from "react";
 import styles  from "../styles/globe.css";
-
+import UserMainPage from "../pages/usermainpage"; 
 
 
 const SignInForm = ({ }) => {
@@ -24,10 +24,15 @@ const SignInForm = ({ }) => {
 
       method: 'POST', 
       mode: 'cors', 
-      body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
+      body: JSON.stringify(jsonData) 
        
     })
+    .catch((error) => {
+      console.log(error)
+    })
+
     console.log( JSON.stringify(jsonData) )
+   
 
   } 
 

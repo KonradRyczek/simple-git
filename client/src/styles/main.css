@@ -58,3 +58,12 @@ a:visited{
     background-color: red;
     border-radius: 25px;
 }
+
+.canvas{
+    height: 200px;
+    position: relative;
+    max-height:200px;
+}
+.mainbody{
+    height: 500px;
+}
