@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/main.css";
-import Link from "../components/Link";
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Globe from "../components/Globe";
-
+import { Canvas } from "@react-three/fiber"
+import {OrbitControls} from "@react-three/drei"
 
 const Home = () => {
 return (
@@ -15,8 +15,14 @@ return (
 		</div>		
 		<div className="row mx-auto w-100 mainbody">
 			<div className="col-6 mx-auto bg-primary ">
-				<p>aaa</p>
-				<Globe/>
+				
+				
+				<Canvas>
+					<OrbitControls enableZoom={false}/>
+					<ambientLight intensity={0.2}/>
+					<directionalLight position={[-2,5,2]} intensity={1} />
+					<Globe/>
+				</Canvas>
 			</div>
 			<div className="col-6 mx-auto bg-secondary">
 				<p>aaa</p>

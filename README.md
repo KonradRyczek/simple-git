@@ -20,3 +20,10 @@ The react client is running at port 3000, you can view the client on http://loca
 To run the client type
 `cd client`
 `yarn start`
+
+
+### Globe Three.JS
+- Comand to install ThreeJS for project
+    - `npm install three`
+    - `npm install three @react-three/fiber`
+    - `npm install @react-three/drei `
