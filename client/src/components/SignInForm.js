@@ -9,19 +9,26 @@ const SignInForm = ({ }) => {
   const [password, setPassword] = useState("");
 
   
-   
+  var jsonData = {
+    "username": username, 
+    "password": password, 
+  }
  
   const handleSubmit = (e) =>{
       e.preventDefault()
-      console.log(username, password)
+      //console.log(username, password)
 
-      state = { 
-          username: username, 
-          password: password, 
-      }
+      //localStorage.setItem('state', JSON.stringify(state)); 
      
-      localStorage.setItem('state', JSON.stringify(state)); 
-      console.log( localStorage)
+      fetch('http://localhost:3333/', {  //IP address 
+
+      method: 'POST', 
+      mode: 'cors', 
+      body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
+       
+    })
+    console.log( JSON.stringify(jsonData) )
+
   } 
 
   const validateInput = e => {
