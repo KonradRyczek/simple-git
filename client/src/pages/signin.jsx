@@ -1,8 +1,9 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Input from "../components/Input";
+
 import BtnBrakKonta from "../components/BtnBrakKonta";
+import SignInForm from "../components/SignInForm";
 const Sign_in = () => {
 return (
 	<div>
@@ -13,9 +14,10 @@ return (
 		logowanie
 	</h1>
 	<BtnBrakKonta></BtnBrakKonta>
-	<Input label="login" type="text" className="input" />
-	<Input label="password" type="password" className="input" />
 	
+	<div>
+		<SignInForm></SignInForm>
+	</div>
 	<Footer/>
 	</div>
 );
