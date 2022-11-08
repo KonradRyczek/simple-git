@@ -10,20 +10,26 @@ const SignUpForm = ({ }) => {
     const [confirmpassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
     
-     
+    var jsonData = {
+      "username": username, 
+      "password": password, 
+      "email": email,  
+    }
+   
    
     const handleSubmit = (e) =>{
         e.preventDefault()
-        console.log(username, email, password)
+        //console.log(username, email, password)
 
-        state = { 
-            username: username, 
-            password: password, 
-            email: email, 
-        }
+        fetch('http://localhost:3333/', {  //IP address 
+
+        method: 'POST', 
+        mode: 'cors', 
+        body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
+         
+      })
+      console.log( JSON.stringify(jsonData) )
        
-        localStorage.setItem('state', JSON.stringify(state)); 
-        console.log( localStorage)
     }
 
     
