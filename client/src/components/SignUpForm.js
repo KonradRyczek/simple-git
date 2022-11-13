@@ -21,10 +21,13 @@ const SignUpForm = ({ }) => {
         e.preventDefault()
         //console.log(username, email, password)
 
-        fetch('http://localhost:3333/', {  //IP address 
+        fetch('http://localhost:3333/auth/signup', {  //IP address 
 
         method: 'POST', 
-        mode: 'cors', 
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
          
       })

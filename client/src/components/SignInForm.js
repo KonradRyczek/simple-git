@@ -1,29 +1,31 @@
 import React ,{ useState, state }from "react";
 import styles  from "../styles/globe.css";
-import UserMainPage from "../pages/usermainpage"; 
 
 
 const SignInForm = ({ }) => {
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   
   var jsonData = {
-    "username": username, 
+    "email": email, 
     "password": password, 
   }
  
   const handleSubmit = (e) =>{
       e.preventDefault()
-      //console.log(username, password)
+      //console.log(email, password)
 
       //localStorage.setItem('state', JSON.stringify(state)); 
      
-      fetch('http://localhost:3333/', {  //IP address 
+      fetch('http://localhost:3333/auth/signin', {  //IP address 
 
       method: 'POST', 
-      mode: 'cors', 
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(jsonData) 
        
     })
@@ -45,10 +47,10 @@ const SignInForm = ({ }) => {
 		<form className="formularz"  onSubmit={handleSubmit}> 
  <input
    type="text"
-   name="username"
-   placeholder='Enter Username'
-   value = { username }
-    onChange = {(e) => setUsername(e.target.value)}
+   name="email"
+   placeholder='Enter email'
+   value = { email }
+    onChange = {(e) => setEmail(e.target.value)}
     onBlur={validateInput}
    >
     
