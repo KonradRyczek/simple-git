@@ -30,8 +30,22 @@ const SignUpForm = ({ }) => {
         },
         body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
          
+      }).then((response) => {
+        // Our handler throws an error if the request did not succeed.
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        console.log(response)
+        console.log("Dodano Usera")
+        window.location.pathname = "/signin"
+        alert("stworzono usera - zaloguj się")
+      
+        return response.json();
       })
-      console.log( JSON.stringify(jsonData) )
+      .catch((error) => {
+       console.log(error)
+       alert("Na ten emial już jest założone konto")
+      })
        
     }
 

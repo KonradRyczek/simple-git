@@ -2,10 +2,14 @@ import React ,{ useState, state }from "react";
 import styles  from "../styles/globe.css";
 
 
+
+
+
+
 const SignInForm = ({ }) => {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ const [email, setEmail] = useState("");
+ const [password, setPassword] = useState("");
 
   
   var jsonData = {
@@ -28,13 +32,27 @@ const SignInForm = ({ }) => {
       },
       body: JSON.stringify(jsonData) 
        
-    })
-    .catch((error) => {
-      console.log(error)
+    }) .then((response) => {
+      // Our handler throws an error if the request did not succeed.
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      return response.json();
+   
+    }).then((responseData) => {
+      console.log(responseData.username)
+      const username = responseData.username
+      //window.location.pathname = "/dashboard/"+username 
+      alert("TWÓJ USERNAME: "+responseData.username)
     })
 
-    console.log( JSON.stringify(jsonData) )
+    .catch((error) => {
+     console.log(error)
+     alert("Błędny login lub hasło")
+    })
    
+
 
   } 
 
