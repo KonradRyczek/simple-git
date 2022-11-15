@@ -18,7 +18,7 @@ return (
 				
 				
 				<Canvas>
-					<OrbitControls enableZoom={false}/>
+					<OrbitControls enableZoom={false} autoRotate={true} autoRotateSpeed={3}/>
 					<ambientLight intensity={0.2}/>
 					<directionalLight position={[-2,5,2]} intensity={1} />
 					<Globe/>
@@ -37,3 +37,4 @@ return (
 };
 
 export default Home;
+// 
