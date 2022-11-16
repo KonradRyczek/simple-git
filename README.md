@@ -10,10 +10,17 @@
     - react
     - bootstrap
 
+To install the dependencies from the package.json run
+`yarn install`
+
 ### backend
-To run the backend type
+To run the backend type:
 `cd server`
 `yarn start:dev`
+
+### database
+To view the records type:
+`npx prisma studio`
 
 ### frontend
 The react client is running at port 3000, you can view the client on http://localhost:3000
