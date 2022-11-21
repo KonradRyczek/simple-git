@@ -1,13 +1,15 @@
 import React from "react"
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home"
 import About from "./pages/about"
 import Sign_In from "./pages/signin"
 import Sign_Up from "./pages/signup"
-import SignInForm from "./components/SignInForm"
-import UserMainPage from "./pages/usermainpage"
+import NoPage from "./pages/noPage"
+import Header from "./components/Header";
 
-
+/* 
 const showHome = () => {
   if (window.location.pathname === "/") {
     return <Home />
@@ -37,15 +39,28 @@ const SignIn = () => {
 
 
 
+{showHome()}
+{showAbout()}
+{showSignUp()}
+{showSignIn()}
+{SignIn()}
+
+*/
 export default () => {
   return (
-    <div className="ui container">
-      {showHome()}
-      {showAbout()}
-      {showSignUp()}
-      {showSignIn()}
-      {SignIn()}
     
-    </div>
+    <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Header />}>
+            <Route path="/" index element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/signin" element={<Sign_In />} />
+            <Route path="/signup" element={<Sign_Up />} />
+            <Route path="*" element={<NoPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </>
   )
 }

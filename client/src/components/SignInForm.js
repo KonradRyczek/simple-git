@@ -61,12 +61,13 @@ const SignInForm = ({ }) => {
   }
 
   return (
-    <div className="formularz">
-		<form className="formularz"  onSubmit={handleSubmit}> 
+    <div className="col-md-9 mx-auto">
+		<form className="formularz form-group mb-1"  onSubmit={handleSubmit}> 
  <input
+    className="form-control shadow-none my-1"
    type="text"
    name="email"
-   placeholder='Enter email'
+   placeholder='Enter E-mail'
    value = { email }
     onChange = {(e) => setEmail(e.target.value)}
     onBlur={validateInput}
@@ -76,6 +77,7 @@ const SignInForm = ({ }) => {
  
 
  <input
+  className="form-control shadow-none my-1"
    type="password"
    name="password"
    placeholder='Enter Password'

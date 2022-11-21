@@ -1,6 +1,6 @@
 import React ,{ useState ,state }from "react";
 import styles  from "../styles/globe.css";
-
+import PasswordStrenghtMeter from "./PasswordStrenghtMeter";
 
 
 const SignUpForm = ({ }) => {
@@ -9,6 +9,7 @@ const SignUpForm = ({ }) => {
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
+    
     
     var jsonData = {
       "username": username, 
@@ -49,7 +50,7 @@ const SignUpForm = ({ }) => {
        
     }
 
-    
+
     const validateInput = e => {
         
       }
@@ -57,10 +58,11 @@ const SignUpForm = ({ }) => {
     
       
   return (
-    <div >
-<form className="formularz"  onSubmit={handleSubmit}>
+    <div className="col-md-6 mx-auto">
+<form className="formularz form-group mb-1 "  onSubmit={handleSubmit}>
  
  <input
+ className="form-control shadow-none my-1"
    type="text"
    name="username"
    placeholder='Enter Username'
@@ -68,11 +70,11 @@ const SignUpForm = ({ }) => {
     onChange = {(e) => setUsername(e.target.value)}
     onBlur={validateInput}
    >
-    
    </input>
  
 
  <input
+ className="form-control shadow-none "
    type="password"
    name="password"
    placeholder='Enter Password'
@@ -80,9 +82,10 @@ const SignUpForm = ({ }) => {
     onChange = {(e) => setPassword(e.target.value)}
     onBlur={validateInput}
    ></input>
- 
+ <PasswordStrenghtMeter password={password}/>
 
  <input
+ className="form-control shadow-none my-1"
    type="password"
    name="confirmPassword"
    placeholder='Enter Confirm Password'
@@ -92,6 +95,7 @@ const SignUpForm = ({ }) => {
    ></input>
 
 <input
+className="form-control shadow-none my-1"
     type="text"
     name="emial"
     placeholder='Enter E-mail'
