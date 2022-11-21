@@ -7,7 +7,10 @@ import About from "./pages/about"
 import Sign_In from "./pages/signin"
 import Sign_Up from "./pages/signup"
 import NoPage from "./pages/noPage"
-import Header from "./components/Header";
+import Usermainpage from "./pages/usermainpage"
+
+import ROutlet from "./components/RouterOutlet";
+
 
 /* 
 const showHome = () => {
@@ -52,12 +55,13 @@ export default () => {
     <>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Header />}>
+            <Route path="/" element={<ROutlet />}>
             <Route path="/" index element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/signin" element={<Sign_In />} />
             <Route path="/signup" element={<Sign_Up />} />
             <Route path="*" element={<NoPage />} />
+            <Route path="/dashboard/:username" element={<Usermainpage/>} />
             </Route>
           </Routes>
         </BrowserRouter>
