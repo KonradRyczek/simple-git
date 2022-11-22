@@ -63,7 +63,24 @@ a:visited{
     height: 200px;
     position: relative;
     max-height:200px;
+
+}
+
+.canvas404{
+    height:500px;
+    position: relative;
+    max-height:500px;
+
 }
 .mainbody{
     height: 500px;
+}
+
+.h1404{
+    
+    font-size: 150px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(rgb(4, 131, 25), #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

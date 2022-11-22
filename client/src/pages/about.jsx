@@ -1,6 +1,8 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Redirect, Switch, Route, Router } from "react-router-dom";
+
 
 const About = () => {
 return (

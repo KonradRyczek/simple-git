@@ -18,7 +18,7 @@ return (
 				
 				
 				<Canvas>
-					<OrbitControls enableZoom={false} autoRotate={true} autoRotateSpeed={3}/>
+					<OrbitControls enableZoom={false} autoRotate={true} autoRotateSpeed={3} enablePan={false}/>
 					<ambientLight intensity={0.2}/>
 					<directionalLight position={[-2,5,2]} intensity={1} />
 					<Globe/>
