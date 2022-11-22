@@ -11,7 +11,7 @@ const Home = () => {
 return (
 	<div className="">
 		<div >
-		
+		<Header/>
 		</div>		
 		<div className="row mx-auto w-100 mainbody">
 			<div className="col-6 mx-auto bg-primary ">

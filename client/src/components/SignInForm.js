@@ -2,8 +2,8 @@ import React ,{ useState, state }from "react";
 import styles  from "../styles/globe.css";
 
 
-
-
+import { Link } from "react-router-dom";
+import {usr} from "../components/GlobalVar"
 
 
 const SignInForm = ({ }) => {
@@ -43,8 +43,15 @@ const SignInForm = ({ }) => {
     }).then((responseData) => {
       console.log(responseData.username)
       const username = responseData.username
-      //window.location.pathname = "/dashboard/"+username 
-      alert("TWÓJ USERNAME: "+responseData.username)
+      localStorage.setItem("username",username);
+
+
+      window.location.pathname = "/dashboard/"+username 
+  
+   
+    }).then((responseData) => {
+      const username = responseData.username
+      window.location.pathname = "/dashboard/"+username 
     })
 
     .catch((error) => {

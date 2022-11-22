@@ -10,7 +10,9 @@ const Sign_in = () => {
 	
 return (
 	<div>
-		
+		<div >
+		<Header/>
+		</div>	
 	
 	
 	<h1>

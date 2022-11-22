@@ -6,7 +6,7 @@ import SignUpForm from "../components/SignUpForm";
 const Sign_up = () => {
 return (
 	<div>
-	
+	<Header/>
 	<h1>
 		rejestracja
 	</h1>
