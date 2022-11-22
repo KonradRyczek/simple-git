@@ -12,15 +12,19 @@ return (
 	<div>
 		
 	
-	<Header/>
+	
 	<h1>
 		logowanie
 	</h1>
-	<BtnBrakKonta></BtnBrakKonta>
-	
-	<div>
-		<SignInForm></SignInForm>
-	</div>
+	<div  className="row mx-auto w-100 mainbody">
+		<div className="col-6 mx-auto">
+			<BtnBrakKonta></BtnBrakKonta>
+			</div>
+
+			<div className=" col-6 mx-auto">
+				<SignInForm></SignInForm>
+			</div>
+		</div>
 	<Footer/>
 	</div>
 );

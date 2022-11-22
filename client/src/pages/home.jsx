@@ -11,14 +11,14 @@ const Home = () => {
 return (
 	<div className="">
 		<div >
-		<Header/>
+		
 		</div>		
 		<div className="row mx-auto w-100 mainbody">
 			<div className="col-6 mx-auto bg-primary ">
 				
 				
 				<Canvas>
-					<OrbitControls enableZoom={false} autoRotate={true} autoRotateSpeed={3}/>
+					<OrbitControls enableZoom={false} autoRotate={true} autoRotateSpeed={3} enablePan={false}/>
 					<ambientLight intensity={0.2}/>
 					<directionalLight position={[-2,5,2]} intensity={1} />
 					<Globe/>
