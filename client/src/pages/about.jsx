@@ -9,9 +9,7 @@ return (
 	
 	<div>
 	<Header/>
-	<h1>
-		about
-	</h1>
+	
 <main>
 	<div className="row mx-auto w-100 mainbody">
 			<div className="col-6 mx-auto bg-primary ">

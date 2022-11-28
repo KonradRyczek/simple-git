@@ -1,16 +1,20 @@
 import React from "react"; 
-import SignInForm from "../components/SignInForm";
-import {usr} from "../components/GlobalVar"
+
+
+import UserHeader from "../components/UserHeader";
 
 const UserMainPage = () => {
 
-	const username = localStorage.getItem("username");
-	console.log(username)
+	const access_token = localStorage.getItem("access_token");
+	console.log(access_token)
 	
 return (
 	<div className="">
-	<p>Welcome {username}</p>
+	<UserHeader></UserHeader>
+	<p>Dashboard</p>
 	</div>
+	
+	
   );
 };
 

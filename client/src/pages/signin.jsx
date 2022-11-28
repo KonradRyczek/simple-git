@@ -13,14 +13,10 @@ return (
 		<div >
 		<Header/>
 		</div>	
-	
-	
-	<h1>
-		logowanie
-	</h1>
-	<div  className="row mx-auto w-100 mainbody">
+		
+	<div  className="row mx-auto w-100 mt-5">
 		<div className="col-6 mx-auto">
-			<BtnBrakKonta></BtnBrakKonta>
+			<BtnBrakKonta className={"btn btn-primary"}></BtnBrakKonta>
 			</div>
 
 			<div className=" col-6 mx-auto">

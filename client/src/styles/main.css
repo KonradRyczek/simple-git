@@ -27,6 +27,11 @@
 }
 .header{
     background-color: #22577A;
+    font-size: 20px;
+    color: aliceblue;
+    font-family: sans-serif;
+    font-weight: bold;
+
 }
 
 /*
@@ -52,11 +57,12 @@ a:visited{
     height:40px;
     z-index: 1;
     margin: 10px;
+    font-size: 15px;
 }
 .signup{
-    border:1px solid black;
-    background-color: red;
-    border-radius: 25px;
+   
+    color:white;
+    border-radius: 5px;
 }
 
 .canvas{
@@ -72,7 +78,7 @@ a:visited{
     max-height:500px;
 
 }
-.mainbody{
+.globerow{
     height: 500px;
 }
 
@@ -83,4 +89,7 @@ a:visited{
     background: -webkit-linear-gradient(rgb(4, 131, 25), #333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+.logo-text{
+   font-size: 12px;
 }

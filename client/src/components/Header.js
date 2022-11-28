@@ -6,7 +6,7 @@ const Header = ({ }) => {
   return (
     <>
     <div className="row header">
-      <div className="col-2 navbar-brand">
+      <div className="col-2 ">
         
         <Link to="/" className="item nav-link"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>
        
