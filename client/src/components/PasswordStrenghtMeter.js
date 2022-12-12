@@ -34,7 +34,7 @@ const PasswordStrenghtMeter = ({password}) => {
             case 3:
                 return '#99cc00';
             case 4:
-                return '#33cc33';
+                return '#28a745';
             default:
                 return 'none';           
         }

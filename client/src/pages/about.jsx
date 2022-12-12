@@ -1,45 +1,53 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import img from "../img/account.png"
 import { Redirect, Switch, Route, Router } from "react-router-dom";
 
 
 const About = () => {
-return (
-	
-	<div>
-	<Header/>
-	
-<main>
-	<div className="row mx-auto w-100 mainbody">
-			<div className="col-6 mx-auto bg-primary ">
-				<p>a1</p>
+	return (
+		<div>
+			<div >
+				<Header />
 			</div>
-			<div className="col-6 mx-auto bg-secondary">
-				<p>a2</p>
+			<div className=" background">
+				<div className=" about row mx-auto  w-100 mainbody">
+					<div className=" col-6 d-flex align-items-center">
+						<img src={img} className="aboutIMG mx-auto d-block rounded " alt="text"/>
+					</div>
+					<div className=" col-6 mx-auto text-center aboutTEXT">
+						<p className=""style={{marginTop:'120px'}}>Jakub Sotwin</p>
+						<p className=""> i145913</p>
+						<p className="">Frontend, UX/UI</p>
+					</div>
+				</div>
+				<div className=" about row mx-auto w-100 mainbody">
+				<div className=" col-6 mx-auto  text-center aboutTEXT">
+						<p className=""style={{marginTop:'120px'}}>Konrad Ryczek</p>
+						<p className=""> i145904</p>
+						<p className="">Backend</p>
+					</div>
+					<div className=" col-6  d-flex align-items-center">
+						<img src={img} className="aboutIMG mx-auto d-block rounded " alt="text"/>
+					</div>
+				</div>
+				<div className=" about row mx-auto w-100 mainbody">
+				<div className=" col-6  d-flex align-items-center">
+						<img src={img} className="aboutIMG mx-auto d-block rounded " alt="text"/>
+					</div>
+					<div className=" col-6 mx-auto text-center aboutTEXT">
+						<p className=""style={{marginTop:'120px'}}>Aleksander Postrzednik </p>
+						<p className=""> i145900</p>
+						<p className=""></p>
+					</div>
+				</div>
+			</div>
+			<div>
+				<Footer />
 			</div>
 		</div>
-		<div className="row mx-auto w-100 mainbody">
-			<div className="col-6 mx-auto bg-secondary">
-				<p>b1</p>
-			</div>
-			<div className="col-6 mx-auto bg-primary">
-				<p>b2</p>
-			</div>
-		</div>
-		<div className="row mx-auto w-100 mainbody">
-			<div className="col-6 mx-auto bg-primary ">
-				<p>c1</p>
-			</div>
-			<div className="col-6 mx-auto bg-secondary">
-				<p>c2</p>
-			</div>
-		</div>
-		</main>
-	<Footer/>
-	</div>
-
-);
+	);
 };
 
 export default About;

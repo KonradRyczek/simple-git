@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 const Header = ({ }) => {
   return (
     <>
-    <div className="row header">
+    <div className="row default-text bg-dark">
       <div className="col-2 ">
         
-        <Link to="/" className="item nav-link"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>
+        <Link to="/" className="item nav-link bg-dark"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>
        
       </div>
       <div className="col-10 ">

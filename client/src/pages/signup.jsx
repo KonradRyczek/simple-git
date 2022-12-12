@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import SignUpForm from "../components/SignUpForm";
 const Sign_up = () => {
 	return (
-		<div>
+		<div className="background">
 			<Header />
 
 			<SignUpForm ></SignUpForm>
