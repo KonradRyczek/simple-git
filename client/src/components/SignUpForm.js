@@ -58,11 +58,11 @@ const SignUpForm = ({ }) => {
 
 
   return (
-    <div className="col-md-6 mx-auto mt-5 border  border-4 border-success rounded">
+    <div className="col-md-6 mx-auto mt-5 border  border-4 border-primary rounded default-text" style={{color: "black"}}>
       <form className="formularz form-group mb-1 p-4 " onSubmit={handleSubmit}>
         <label for="rejestracjaUsername">Username:</label><br />
         <input
-          className="form-control shadow-none my-4"
+          className="form-control shadow-none mb-4"
           type="text"
           name="username"
           placeholder='Enter Username'
@@ -75,7 +75,7 @@ const SignUpForm = ({ }) => {
 
         <label for="rejestracjaPasswd">Password:</label><br />
         <input
-          className="form-control shadow-none "
+          className="form-control shadow-none  "
           type="password"
           name="password"
           placeholder='Enter Password'
@@ -88,7 +88,7 @@ const SignUpForm = ({ }) => {
 
         <label for="rejestracjaPasswdConf">Confirm Password:</label><br />
         <input
-          className="form-control shadow-none my-4"
+          className="form-control shadow-none mb-4"
           type="password"
           name="confirmPassword"
           placeholder='Enter Confirm Password'
@@ -100,7 +100,7 @@ const SignUpForm = ({ }) => {
 
         <label for="rejestracjaEmail">E-mail:</label><br />
         <input
-          className="form-control shadow-none my-4"
+          className="form-control shadow-none mb-4"
           type="text"
           name="emial"
           placeholder='Enter E-mail'
@@ -110,7 +110,7 @@ const SignUpForm = ({ }) => {
           onBlur={validateInput}
         ></input>
 
-        <input className="btn btn-success w-100" type="submit" value="Submit" />
+        <input className="btn btn-primary w-100 btn-lg" type="submit" value="Rejestracja" />
       </form>
     </div>
   );

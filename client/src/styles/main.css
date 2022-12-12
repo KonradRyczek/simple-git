@@ -16,23 +16,38 @@
    
 }
 
+.background{
+    background-color: #efeff0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.default-text{
+    color: #9b9d9e;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
 
 .stopka{
-    background-color: #22577A;
+    color: #9b9d9e;
     height: 100px;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-}
-.header{
-    background-color: #22577A;
-    font-size: 20px;
-    color: aliceblue;
     font-family: sans-serif;
     font-weight: bold;
-
 }
+.stopka-text{
+    position: absolute;
+    padding: 5px;
+    right: 20px;
+    bottom: 5px;
+ 
+}
+
+
 
 /*
 a{
@@ -86,10 +101,27 @@ a:visited{
     
     font-size: 150px;
     font-weight: bold;
-    background: -webkit-linear-gradient(rgb(4, 131, 25), #333);
+    background: -webkit-linear-gradient(rgb(235, 235, 235), #333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .logo-text{
    font-size: 12px;
+}
+
+.about{
+    height:400px;
+}
+.aboutIMG{
+    width:200px;
+    height:200px;
+    border:solid #242424 10px;
+    
+}
+.aboutTEXT{
+    color: black;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }

@@ -7,7 +7,9 @@ import BtnError404 from "../components/BtnError404";
 
 const NoPage = () => {
     return (
-    <div className="text-center m-auto mt-5">
+    <div className="text-center ">
+      <div className="homebody">
+				<div class="space stars m-auto mt-5">
     <h1 className="h1404">404</h1>
     <h1 className="h1404">NOT FOUND</h1>
     <div className="mx-auto">
@@ -19,8 +21,9 @@ const NoPage = () => {
 				</Canvas>
 
     </div>
-    <BtnError404 className={"btn btn-success btn-lg"}></BtnError404>
-    
+    <BtnError404 className={"btn btn-dark btn-lg"}></BtnError404>
+    </div>
+    </div>
     </div>
     );
   };

@@ -71,11 +71,11 @@ const SignInForm = ({ }) => {
   }
 
   return (
-    <div className="col-md-9 mx-auto border border-4 border-success p-4 rounded">
-      <form className="formularz form-group mb-1 col-md-9 " onSubmit={handleSubmit}>
+    <div className="col-md-9 mx-auto default-text "style={{color: "black"}}>
+      <form className="formularz form-group mb-1 col-md-9 border border-4 border-primary p-4 rounded" onSubmit={handleSubmit}>
         <label for="loginEmain">E-mail:</label><br />
         <input
-          className="form-control shadow-none my-1"
+          className="form-control shadow-none mb-4"
           type="text"
           name="email"
           placeholder='Enter E-mail'
@@ -89,7 +89,7 @@ const SignInForm = ({ }) => {
 
         <label for="loginPassword">Password:</label><br />
         <input
-          className="form-control shadow-none my-1"
+          className="form-control shadow-none mb-4"
           type="password"
           name="password"
           placeholder='Enter Password'
@@ -99,7 +99,7 @@ const SignInForm = ({ }) => {
           onBlur={validateInput}
          
         ></input>
-        <input className="btn btn-success w-100" type="submit" value="Submit" />
+        <input className="btn btn-primary w-100" type="submit" value="Zaloguj" />
       </form>
     </div>
   );
