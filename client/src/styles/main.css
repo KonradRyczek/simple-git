@@ -16,18 +16,38 @@
    
 }
 
+.background{
+    background-color: #efeff0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.default-text{
+    color: #9b9d9e;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
 
 .stopka{
-    background-color: #22577A;
+    color: #9b9d9e;
     height: 100px;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
+    font-family: sans-serif;
+    font-weight: bold;
 }
-.header{
-    background-color: #22577A;
+.stopka-text{
+    position: absolute;
+    padding: 5px;
+    right: 20px;
+    bottom: 5px;
+ 
 }
+
+
 
 /*
 a{
@@ -52,18 +72,56 @@ a:visited{
     height:40px;
     z-index: 1;
     margin: 10px;
+    font-size: 15px;
 }
 .signup{
-    border:1px solid black;
-    background-color: red;
-    border-radius: 25px;
+   
+    color:white;
+    border-radius: 5px;
 }
 
 .canvas{
     height: 200px;
     position: relative;
     max-height:200px;
+
 }
-.mainbody{
+
+.canvas404{
+    height:500px;
+    position: relative;
+    max-height:500px;
+
+}
+.globerow{
     height: 500px;
+}
+
+.h1404{
+    
+    font-size: 150px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(rgb(235, 235, 235), #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.logo-text{
+   font-size: 12px;
+}
+
+.about{
+    height:400px;
+}
+.aboutIMG{
+    width:200px;
+    height:200px;
+    border:solid #242424 10px;
+    
+}
+.aboutTEXT{
+    color: black;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
