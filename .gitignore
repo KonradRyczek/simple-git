@@ -37,3 +37,6 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# ssh keys
+*.pub
+ssh-key
