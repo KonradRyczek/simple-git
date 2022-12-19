@@ -19,23 +19,23 @@ function NavbarUser() {
     <nav className={sidebar ? 'nav-menu-user active': 'nav-menu-user'} >
         <ul className='nav-menu-items' onClick={showSidebar}>
             <li className='navbar-toogle'>
-            <Link to="#" className='menu-bars'>
+              <Link to="#" className='menu-bars'>
                 <AiIcons.AiOutlineClose/>
-            </Link>
+              </Link>
             </li>
+
             {SidebarData.map((item,index)=>{
-                return(
-                    <li key={index} className={item.cName}>
-                      <Link to={item.path}>
-                        {item.icon}
-                        <span className='spanUser'>{item.title}</span>
-                        </Link>   
-                    </li>
-                )
-                })}
+              return(
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span className='spanUser'>{item.title}</span>
+                  </Link>   
+                </li>
+              )
+              })}
         </ul>
     </nav>
-
     </>
   )
 }

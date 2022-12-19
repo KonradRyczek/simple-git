@@ -2,15 +2,14 @@
   background: radial-gradient(circle at bottom, navy 0, black 100%);
   height: 100vh;
   overflow: hidden;
-  
 }
+
 .space{
   background: rgba(128, 0, 128, 0.1) center / 150px 150px round;
   position:relative;
   height: 100vh;
-  
- 
 }
+
 .stars {
   animation: space 10s ease-in-out infinite;
   background-image:

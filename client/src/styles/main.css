@@ -12,8 +12,6 @@
     .h-100{
        height:250%;
     }
-    
-   
 }
 
 .background{
@@ -39,6 +37,7 @@
     font-family: sans-serif;
     font-weight: bold;
 }
+
 .stopka-text{
     position: absolute;
     padding: 5px;
@@ -46,26 +45,6 @@
     bottom: 5px;
  
 }
-
-
-
-/*
-a{
-    text-decoration: none;
-    color:white;
-}
-a:link{
-    text-decoration: none;
-    color:white;
-}
-a:hover{
-    color:white;
-}
-a:visited{
-    text-decoration: none;
-    color:white;
-}
-*/
 
 .logo{
     width:40px;
@@ -84,7 +63,6 @@ a:visited{
     height: 200px;
     position: relative;
     max-height:200px;
-
 }
 
 .canvas404{
@@ -93,6 +71,7 @@ a:visited{
     max-height:500px;
 
 }
+
 .globerow{
     height: 500px;
 }
@@ -105,6 +84,7 @@ a:visited{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .logo-text{
    font-size: 12px;
 }
@@ -112,12 +92,14 @@ a:visited{
 .about{
     height:400px;
 }
+
 .aboutIMG{
     width:200px;
     height:200px;
     border:solid #242424 10px;
     
 }
+
 .aboutTEXT{
     color: black;
     font-size: 30px;
@@ -133,11 +115,11 @@ a:visited{
     justify-content: start;
     align-items: center;
 }
+
 .menu-bars{
     margin-left: 2rem;
     font-size: 2rem;
     background: none;
-
 }
 
 .nav-menu-user{
@@ -183,6 +165,7 @@ a:visited{
 .nav-menu-items{
     width:100%;
 }
+
 .navbar-toggle{
     background-color: #242424;
     width: 100%;
@@ -191,10 +174,12 @@ a:visited{
     justify-content: start;
     align-items: center;
 }
+
 .spanUser{
     margin-left: 16px;
     font-family: sans-serif;
 }
+
 li{
     list-style: none;
 }

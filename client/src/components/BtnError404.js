@@ -1,10 +1,8 @@
 import React from "react";
 
-
 function Tohome() {
   window.location.pathname = "/"
 }
-
 
 const BtnError404 = ({className}) => {
     

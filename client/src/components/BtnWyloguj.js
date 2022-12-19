@@ -1,13 +1,9 @@
 import React from "react";
 
-
 function logout() {
-  localStorage.clear()
-  
+  localStorage.clear() 
   window.location.pathname = "/"
-  
 }
-
 
 const BtnWyloguj = ({className}) => {
     

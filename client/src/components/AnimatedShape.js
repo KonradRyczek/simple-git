@@ -1,7 +1,6 @@
 import React from "react";
 import { Sphere, MeshDistortMaterial } from "@react-three/drei";
 
-
 export default function AnimatedShape(){
  
   return(
@@ -11,10 +10,7 @@ export default function AnimatedShape(){
         attach="material"
         distort={0.3}
         speed={1.5}
-
-        
         />
-
 
     </Sphere>
   ) 

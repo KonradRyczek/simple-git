@@ -12,62 +12,21 @@ import Usermainpage from "./pages/usermainpage"
 import RouteGuard from "./components/RouteGuard"
 import ROutlet from "./components/RouterOutlet";
 
- 
-/* 
-const showHome = () => {
-  if (window.location.pathname === "/") {
-    return <Home />
-  }
-}
-const showAbout = () => {
-  if (window.location.pathname === "/about") {
-    return <About />
-  }
-}
-const showSignIn = () => {
-  if (window.location.pathname === "/signin") {
-    return <Sign_In />
-  }
-}
-const showSignUp = () => {
-  if (window.location.pathname === "/signup") {
-    return <Sign_Up />
-  }
-}
-const SignIn = () => {
-  if (window.location.pathname === "/dashboard"+SignInForm.username) {
-    console.log(SignInForm.username)
-    return <UserMainPage />
-  }
-}
-
-
-
-{showHome()}
-{showAbout()}
-{showSignUp()}
-{showSignIn()}
-{SignIn()}
-
-*/
-
-
 //check jwt token
-const access_token = () => {
+const access_token = () => 
+{
   const access_token = localStorage.getItem("access_token");
-  if (access_token) {
+  if (access_token) 
+  {
       setAuthToken(access_token);
   }
-
-  }
-
+}
 
 export default () => {
 
   {access_token()}
   
   return (
-    
     <>
     {}
         <BrowserRouter>

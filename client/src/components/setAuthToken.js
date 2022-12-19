@@ -15,7 +15,7 @@ export const setAuthToken = access_token => {
    
    }
    else{
-    //console.log("aa")
+    
     fetch('http://localhost:3333/users/me', { 
 
       method: 'GET', 

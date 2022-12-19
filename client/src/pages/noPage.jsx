@@ -19,7 +19,6 @@ const NoPage = () => {
 					<directionalLight position={[-2,5,2]} intensity={1} />
 					<AnimatedShape/>
 				</Canvas>
-
     </div>
     <BtnError404 className={"btn btn-dark btn-lg"}></BtnError404>
     </div>

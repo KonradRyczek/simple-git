@@ -12,8 +12,6 @@ return (
 	<div className="">
 		<UserHeader></UserHeader>
 	</div>
-	
-	
   );
 };
 
