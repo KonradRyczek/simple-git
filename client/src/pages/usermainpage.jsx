@@ -10,8 +10,7 @@ const UserMainPage = () => {
 	
 return (
 	<div className="">
-	<UserHeader></UserHeader>
-	<p>Dashboard</p>
+		<UserHeader></UserHeader>
 	</div>
 	
 	
