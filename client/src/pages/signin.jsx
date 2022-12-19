@@ -12,12 +12,10 @@ const Sign_in = () => {
 			<div >
 				<Header />
 			</div>
-
 			<div className="row mx-auto w-100 mt-5">
 				<div className="col-6 mx-auto  text-center ">
 					<p className="background aboutTEXT" >Nie masz jeszcze konta {'->'} <BtnBrakKonta className={"btn btn-primary btn-lg"}></BtnBrakKonta></p>
 				</div>
-
 				<div className=" col-6 mx-auto">
 					<SignInForm></SignInForm>
 				</div>

@@ -7,15 +7,13 @@ const Header = ({ }) => {
     <>
     <div className="row default-text bg-dark">
       <div className="col-2 ">
-        
-        <Link to="/" className="item nav-link bg-dark"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>
-       
+        <Link to="/" className="item nav-link bg-dark"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>     
       </div>
       <div className="col-10 ">
         <Navbar/>
       </div>
-     </div>
-     </>
+    </div>
+    </>
   );
 };
 

@@ -20,7 +20,6 @@ const PasswordStrenghtMeter = ({password}) => {
             default:
                 return 'none';           
         }
-
     }
 
     const funcProgressColor = () => {
@@ -40,18 +39,17 @@ const PasswordStrenghtMeter = ({password}) => {
         }
     }
     
-    const chanePasswordColor = () =>({
-        
+    const chanePasswordColor = () =>({       
             width:`${num}%`,
             background: funcProgressColor(),
-            height:"7px"
-           
+            height:"7px"        
     })
     
   return (
     <>
     <div className="progress" style={{ height:"7px"}}>
-       <div className="progress-bar" style={chanePasswordColor()}></div>
+       <div className="progress-bar" style={chanePasswordColor()}>
+       </div>
     </div>
     <p style={{color:funcProgressColor()}}>{creteLabelPassword()}</p>
     </>

@@ -7,21 +7,16 @@ const UserHeader = ({ }) => {
   return (
     <>
     <div className="row default-text bg-dark">
-    
       <div className="col-1 ">
       <NavbarUser/>
-       
-       
       </div>
       <div className="col-2">
-    
-        <Link  className="item nav-link bg-dark"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>
-       
+        <Link  className="item nav-link bg-dark"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>   
       </div>
       <div className="col-9  w-25 ">
-      <BtnWyloguj className={"btn btn-primary btn-lg "}></BtnWyloguj>
+        <BtnWyloguj className={"btn btn-primary btn-lg "}></BtnWyloguj>
       </div>
-     </div>
+    </div>
      </>
   );
 };

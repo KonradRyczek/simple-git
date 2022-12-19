@@ -27,7 +27,6 @@ const Home = () => {
 						<p className="default-text">Nie masz jeszcze konta</p>
 						<BtnBrakKonta className={"btn btn-light btn-lg"}></BtnBrakKonta>
 					</div>
-
 				</div>
 			</div>
 			<div>

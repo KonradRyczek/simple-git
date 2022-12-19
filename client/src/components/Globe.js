@@ -8,7 +8,5 @@ export default function Globe(){
   return <mesh rotation={[0,15,0]}>
     <sphereGeometry attach="geometry" args={[3]} />
     <meshStandardMaterial map={colorMap}/>
-    
-
   </mesh>
 }

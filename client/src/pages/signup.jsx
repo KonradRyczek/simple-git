@@ -7,7 +7,6 @@ const Sign_up = () => {
 	return (
 		<div className="background">
 			<Header />
-
 			<SignUpForm ></SignUpForm>
 			<Footer />
 		</div>
