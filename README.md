@@ -1,5 +1,5 @@
 # simple-git
-Git server with web app.
+Git server with web app interface.
 
 ### Requirements
 To run the app you will need:
@@ -10,15 +10,14 @@ To run the app you will need:
 
 ### Docker structure
 simple-git docker structure is composed of two containers: 
-- *simple_git_db* - the database container running Postgres SQL
-- *simple_git_app* - in this container we'll find the core of the app:
-    - gitosis - the git server managing the user repositories. Gitosis repositories can be found under the following path 
-    > /srv/simple-git.com.
-    - react app - /var/www/simple-git/client
-    - nest app - /var/www/simple-git/server
+- **simple_git_db** - the database container running Postgres SQL
+- **simple_git_app** - in this container we'll find the core of the app:
+    - gitosis - the git server managing the user repositories. Gitosis repositories can be found under the following path `/srv/simple-git.com.`
+    - react app - `/var/www/simple-git/client`
+    - nest app - `/var/www/simple-git/server`
 
 ### Running simple-git
-Before running the application you need to generate two ssh keys. The keys must be named **ssh-key** and **id_rsa**, if you want to use other names for your keys change the key names in the Dockerfile. You can generate the keys writting: <br>
+Before running the application you need to generate two ssh keys. The keys must be named **ssh-key** and **id_rsa**, if you want to use other names change the key names in the Dockerfile. You can generate the keys writting: <br>
 `ssh-keygen` <br>
 `ssh-keygen -f ssh-key` <br>
 And then place the keys in your users **.ssh** folder.
