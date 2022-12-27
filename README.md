@@ -22,11 +22,11 @@ Before running the application you need to generate two ssh keys. The keys must 
 `ssh-keygen -f ssh-key` <br>
 And then place the keys in your users **.ssh** folder.
 
-#### - Backend
+#### Backend
 Open a terminal on the root directory of the project and write: <br>
 `docker-compose up` <br>
 this will create our web app and git server container (simple_git_db) and out database container (simple_git_app). After this the backend will start automatically on watch mode. <br>
-#### - Frontend
+#### Frontend
 To run the frontend you'll need to open a shell on the simple_git_app container. You can ssh into the container using your ssh key: <br>
 `ssh test@localhost -i path-to-key/ssh-key` <br>
 or alternatively open a interactive cli through Docker Desktop. Once you access the container run react in watch mode: <br>
