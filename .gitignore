@@ -40,3 +40,4 @@ lerna-debug.log*
 # ssh keys
 *.pub
 ssh-key
+id_rsa
