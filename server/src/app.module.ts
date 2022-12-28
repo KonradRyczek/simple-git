@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserController } from './user/user.controller';
+import { GitosisModule } from './gitosis/gitosis.module';
+import { ServiceController } from './service/service.controller';
 
 @Module({
   imports: [
@@ -10,8 +12,8 @@ import { UserController } from './user/user.controller';
       isGlobal: true,
     }),
     AuthModule, 
-    PrismaModule
+    PrismaModule, GitosisModule
   ],
-  controllers: [UserController],
+  controllers: [UserController, ServiceController],
 })
 export class AppModule {}
