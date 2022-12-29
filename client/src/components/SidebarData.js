@@ -7,13 +7,13 @@ import * as DiIcons from "react-icons/di"
 export const SidebarData = [
     {
         title: "Dashboard",
-        path: "#",
+        path: "/dashboard",
         icon: <AiIcons.AiOutlineDashboard/>,
         cName: "nav-text"
     },
     {
-        title: "Text",
-        path: "#",
+        title: "Repository",
+        path: "/user/repository",
         icon: <DiIcons.DiGitBranch/>,
         cName: "nav-text"
     },
@@ -30,14 +30,14 @@ export const SidebarData = [
         cName: "nav-text"
     },
     {
-        title: "Text",
-        path: "#",
-        icon: <AiIcons.AiFillHome/>,
+        title: "Settings",
+        path: "/user/settings",
+        icon: <AiIcons.AiFillSetting/>,
         cName: "nav-text"
     },
     {
         title: "Support",
-        path: "#",
+        path: "/user/support",
         icon: <IoIcons.IoIosHelpCircleOutline/>,
         cName: "nav-text"
     },

@@ -11,6 +11,9 @@ import NoPage from "./pages/noPage"
 import Usermainpage from "./pages/usermainpage"
 import RouteGuard from "./components/RouteGuard"
 import ROutlet from "./components/RouterOutlet";
+import Setting from "./pages/userSettings"
+import Support from "./pages/userSupport"
+import Repository from "./pages/userRepository"
 
 //check jwt token
 const access_token = () => 
@@ -38,6 +41,9 @@ export default () => {
             <Route path="/signup" element={<Sign_Up />} />
             <Route path="*" element={<NoPage />} />
             <Route exact path="/dashboard" element={<RouteGuard/>} />
+            <Route path="/user/settings" index element={<Setting />} />
+            <Route path="/user/support" index element={<Support />} />
+            <Route path="/user/repository" index element={<Repository />} />
             </Route>
           </Routes>
         </BrowserRouter>

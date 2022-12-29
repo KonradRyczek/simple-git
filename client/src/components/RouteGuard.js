@@ -17,7 +17,7 @@ const RouteGuard = ({ component: Element, ...rest }) => {
    return (
                hasJWT() ?       
                <Usermainpage/>     
-                   :
+                  :
                 <Navigate  to='/'/>
    );
 };

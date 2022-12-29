@@ -9,12 +9,14 @@ const SignUpForm = ({ }) => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [pubKey, setPubKey] = useState("");
 
 
   var jsonData = {
     "username": username,
     "password": password,
     "email": email,
+    "pubKey":pubKey
   }
 
 
@@ -96,6 +98,19 @@ const SignUpForm = ({ }) => {
           value={confirmpassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           onBlur={validateInput}
+        ></input>
+
+<label for="RsaKEY">Send RSA key:</label><br />
+        <input
+          className="form-control shadow-none mb-4"
+          type="file"
+          name="PubKey"
+          placeholder='PubKey'
+          id="PubKey"
+          value={pubKey}
+          onChange={(e) => setPubKey(e.target.value)}
+          onBlur={validateInput}
+          accept="pub"
         ></input>
 
         <label for="rejestracjaEmail">E-mail:</label><br />
