@@ -11,7 +11,7 @@ const About = () => {
 			<div >
 				<Header />
 			</div>
-			<div className=" background">
+			<div className=" background vh-100">
 				<div className=" about row mx-auto  w-100 mainbody">
 					<div className=" col-6 d-flex align-items-center">
 						<img src={img} className="aboutIMG mx-auto d-block rounded " alt="text"/>
