@@ -4,10 +4,14 @@ import { Injectable } from '@nestjs/common';
 export class GitosisService {
     
 
-    createRepository(){
+    
+}
 
-
-    }
+// createRepository(dto: CreateRepoDto){
+        
+        
+    //     return {dto};
+    // }
     // create repo
 
     // delete repo
@@ -15,4 +19,3 @@ export class GitosisService {
     // add ssh key
 
     // delete ssh key
-}
