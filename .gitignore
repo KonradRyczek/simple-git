@@ -41,3 +41,6 @@ lerna-debug.log*
 *.pub
 ssh-key
 id_rsa
+
+# gitosis-admin
+/gitosis-admin
