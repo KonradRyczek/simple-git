@@ -1,8 +1,8 @@
-import { Controller, Post, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, UseGuards, Body, Get } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
-import { CreateRepoDto } from './dto';
+import { RepoDto } from './dto';
 import { GitosisService } from './gitosis.service';
 
 @UseGuards(JwtGuard)
@@ -12,17 +12,36 @@ export class GitosisController {
     constructor(private gitosis: GitosisService) {}
 
     
-    @Post('createRepository')
-    createRepository(@GetUser() user: User, @Body() body: any) {
-        const dto : CreateRepoDto = new CreateRepoDto();
+    @Post('createPrivateRepo')
+    createPrivateRepo(@GetUser() user: User, @Body() body: any) {
+        const dto : RepoDto = new RepoDto();
         dto.username = user.username;
+        dto.email = user.email;
         dto.repoName = body.repoName;
-        // return this.gitosis.createRepository(dto);
+        console.log({ "data" : dto})
+        return this.gitosis.createPrivateRepo(dto);
     }
 
-    // getMe(@GetUser() user: User) {
-    //     console.log({username: user.username})
-    //     return user;
-    // }
+    @Post('deletePrivateRepo')
+    deletePrivateRepo(@GetUser() user: User, @Body() body: any) {
+        const dto : RepoDto = new RepoDto();
+        dto.username = user.username;
+        dto.email = user.email;
+        dto.repoName = body.repoName;
+        console.log({ "data" : dto})
+        return this.gitosis.deletePrivateRepo(dto);
+    }
 
+    @Get('getRepos')
+    getUserRepos(@GetUser() user: User) {
+
+    }
+
+    @Get('getRepo') 
+    getRepo(@GetUser() user: User, @Body() body: any){
+        const dto : RepoDto = new RepoDto();
+        dto.username = user.username;
+        dto.email = user.email;
+        dto.repoName = body.repoName;
+    }
 }

@@ -1,10 +1,15 @@
 import { ConfigService } from '@nestjs/config';
-import fs from 'fs';
+import { Injectable } from '@nestjs/common/decorators';
+import * as fs from 'fs';
+import path from 'path'
 
+@Injectable()
 export class GitosisConfigManager {
 
     private gitosisConf : any
     private confFilePath : string
+    private confDirPath : string
+    private confFileName : string
 
     addPrivateRepo(owner :string, repoName :string) {
         // check if the owner exists in the gitosisConf object
@@ -35,16 +40,11 @@ export class GitosisConfigManager {
 
     constructor(config: ConfigService) {
         
-        this.confFilePath = config.get("GITOSIS_CONFIG_PATH")
+        this.confFileName = "gitosis.conf"
+        this.confDirPath = config.get("GITOSIS_CONFIG_PATH")
+        this.confFilePath = this.confDirPath + '/' + this.confFileName;
         
-        // import * as path from 'path';
-
-        // const baseDir = '/path/to/base/directory';
-        // const fileName = 'gitosis.conf';
-        // const filePath = path.join(baseDir, fileName);
-        // const data = fs.readFileSync(filePath, 'utf8');
-
-        const data = fs.readFileSync("gitosis.conf", 'utf8');
+        const data = fs.readFileSync(this.confFilePath, 'utf8');
         const lines = data.split('\n');
 
         const json: any = {};
@@ -87,7 +87,10 @@ export class GitosisConfigManager {
     }
 
     saveConfig() {
+        this.saveConfigTo(this.confDirPath, this.confFileName);
+    }
 
+    saveConfigTo(path :string, confFileName :string) {
         let config = "[gitosis]\n";
         for (const key in this.gitosisConf) {
             config += `\n[group ${key}]\n`;
@@ -95,7 +98,7 @@ export class GitosisConfigManager {
             config += `writable = ${this.gitosisConf[key].writable.join(" ")}\n`;
         }
 
-        fs.writeFileSync("test.conf",config);
+        fs.writeFileSync(path + '/' + confFileName,config);
     }
 
     saveConfigToJson() {

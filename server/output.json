@@ -1,0 +1,10 @@
+{
+  "gitosis-admin": {
+    "members": [
+      "irycz@BEPBOP"
+    ],
+    "writable": [
+      "gitosis-admin"
+    ]
+  }
+}
