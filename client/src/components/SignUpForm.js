@@ -5,6 +5,8 @@ import PasswordStrenghtMeter from "./PasswordStrenghtMeter";
 
 const SignUpForm = ({ }) => {
 
+
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
@@ -12,16 +14,24 @@ const SignUpForm = ({ }) => {
   const [pubKey, setPubKey] = useState("");
 
 
+	const changePubKey = (e) => {
+		setPubKey(e.target.files[0]);
+
+	};
+
   var jsonData = {
     "username": username,
     "password": password,
     "email": email,
-    "pubKey":pubKey
+    'File':pubKey
   }
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+
 
 
     fetch('http://localhost:3333/auth/signup', {
@@ -38,8 +48,9 @@ const SignUpForm = ({ }) => {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      console.log(response)
-      console.log("Dodano Usera")
+      
+     console.log(response)
+     //console.log("Dodano Usera")
       window.location.pathname = "/signin"
       alert("stworzono usera - zaloguj się")
 
@@ -51,6 +62,8 @@ const SignUpForm = ({ }) => {
       })
 
   }
+
+ 
 
 
   const validateInput = e => {
@@ -108,9 +121,9 @@ const SignUpForm = ({ }) => {
           placeholder='PubKey'
           id="PubKey"
           value={pubKey}
-          onChange={(e) => setPubKey(e.target.value)}
+          onChange={changePubKey}
           onBlur={validateInput}
-          accept="pub"
+          //accept="pub"
         ></input>
 
         <label for="rejestracjaEmail">E-mail:</label><br />
