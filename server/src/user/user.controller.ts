@@ -12,12 +12,4 @@ export class UserController {
         console.log({username: user.username})
         return user;
     }
-
-    // @Get('me')
-    // getMe(@Req() req: Request){
-    //     console.log({
-    //         user: req.user,
-    //     })
-    //     return req.user;
-    // }
 }

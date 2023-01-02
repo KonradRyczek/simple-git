@@ -1,7 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common/decorators';
 import * as fs from 'fs';
-import path from 'path'
 
 @Injectable()
 export class GitosisConfigManager {
@@ -12,38 +11,51 @@ export class GitosisConfigManager {
     private confFileName : string
 
     addPrivateRepo(owner :string, repoName :string) {
-        // check if the owner exists in the gitosisConf object
-        if (owner in this.gitosisConf) {
-            console.log("found key" + owner)
-            this.gitosisConf[owner]['members'].push(repoName)
-            console.log(this.gitosisConf[owner])
-
-        } else {
-            console.log("didn't find key owner" + owner)
-            this.gitosisConf[owner] = 
-            { 'members' : [owner], 'writable' : [repoName]};
+        console.log("Gitosis config: Adding private repo '" + repoName + "' for user: " + owner )
+        if ( !(owner in this.gitosisConf)) {
+            console.log("Gitosis config: Didn't find " + owner + " in gitosis config when trying to add " + repoName + " repository")
+            this.addUserToGitosisConfig(owner, owner)
         }
+
+        let repoPath = owner + '/' + repoName
+        this.gitosisConf[owner]['writable'].push(repoPath)
+
         this.saveConfig()
     }
 
     deletePrivateRepo(owner: string, repoName: string) {
-        // check if the owner exists in the gitosisConf object
+        console.log("Gitosis config: Deleting private repo '" + repoName + "' for user: " + owner )
         if (owner in this.gitosisConf) {
-            const index = this.gitosisConf[owner]['members'].indexOf(repoName, 0);
+            let repoPath = owner + '/' + repoName
+            const index = this.gitosisConf[owner]['writable'].indexOf(repoPath, 0);
             if (index > -1) {
-                this.gitosisConf[owner]['members'].splice(index, 1);
+                this.gitosisConf[owner]['writable'].splice(index, 1);
             }
         }
         console.log(this.gitosisConf)
         this.saveConfig();
       }
+    
+    addUserToGitosisConfig(user: string, sshKeyName: string) {
+        this.gitosisConf[user] = 
+            { 'members' : [sshKeyName], 'writable' : []};
+        this.saveConfig();
+    }
 
     constructor(config: ConfigService) {
         
-        this.confFileName = "gitosis.conf"
-        this.confDirPath = config.get("GITOSIS_CONFIG_PATH")
+        this.confFileName = "gitosis.conf";
+        this.confDirPath = config.get("GITOSIS_CONFIG_PATH");
         this.confFilePath = this.confDirPath + '/' + this.confFileName;
         
+        // clone the repository first
+
+        this.loadGitosisConfToJSObject();
+    }
+
+
+    private loadGitosisConfToJSObject() {
+        // Load gitosis conf to this.gitosisConf
         const data = fs.readFileSync(this.confFilePath, 'utf8');
         const lines = data.split('\n');
 
@@ -83,14 +95,12 @@ export class GitosisConfigManager {
         }
         
         this.gitosisConf = json;
-        this.saveConfigToJson()
     }
-
-    saveConfig() {
+    private saveConfig() {
         this.saveConfigTo(this.confDirPath, this.confFileName);
     }
 
-    saveConfigTo(path :string, confFileName :string) {
+    private saveConfigTo(path :string, confFileName :string) {
         let config = "[gitosis]\n";
         for (const key in this.gitosisConf) {
             config += `\n[group ${key}]\n`;
@@ -101,7 +111,7 @@ export class GitosisConfigManager {
         fs.writeFileSync(path + '/' + confFileName,config);
     }
 
-    saveConfigToJson() {
+    private saveConfigToJson() {
         console.log(this.gitosisConf)
         const jsonString = JSON.stringify(this.gitosisConf, null, 2);
         fs.writeFile('./output.json', jsonString, (err) => {
