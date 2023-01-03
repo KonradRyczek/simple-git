@@ -6,7 +6,6 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { stringify } from 'querystring';
 
 
 @Injectable()
@@ -16,6 +15,7 @@ export class AuthService {
         private prisma: PrismaService, 
         private jwt: JwtService,
         private config: ConfigService,
+        // private gitosis: GitosisService,
     ) {}
 
     async signup(dto: AuthDto) {
@@ -30,7 +30,11 @@ export class AuthService {
                     hash,
                 }
             });
-            
+
+            // this.gitosisService.createGitosisUser()
+            // add ssh key to the right folder
+            // create user repositories dir
+
             return this.signToken(user.id, user.email);
 
         } catch (error) {

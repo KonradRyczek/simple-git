@@ -46,7 +46,7 @@ export class GitosisController {
 
     }
 
-    @Get('getRepo') 
+    @Get('getRepo')
     getRepo(@GetUser() user: User, @Body() body: any){
         const dto : RepoDto = new RepoDto();
         dto.username = user.username;
