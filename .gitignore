@@ -46,4 +46,4 @@ id_rsa
 /gitosis-admin
 
 # git repositories
-/repos
+/server/repos
