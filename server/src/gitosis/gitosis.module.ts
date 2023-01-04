@@ -5,6 +5,6 @@ import { GitosisService } from './gitosis.service';
 
 @Module({
   controllers: [GitosisController],
-  providers: [GitosisService, GitosisConfigManager]
+  providers: [GitosisService, GitosisConfigManager],
 })
 export class GitosisModule {}

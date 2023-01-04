@@ -13,7 +13,7 @@ export class SignUpDto {
     @IsString()
     @IsNotEmpty()
     password: string
-
+    
     @IsString()
     @IsNotEmpty()
     sshPublicKey: string
