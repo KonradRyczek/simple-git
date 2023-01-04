@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { GitosisConfigManager } from './configManager/gitosis-config-manager';
 import { RepoDto } from './dto';
-import { GitosisUser } from './dto/gitosis-user.dto';
+import { GitosisUserDto } from './dto/gitosis-user.dto';
 
 @Injectable()
 export class GitosisService {
     
     constructor (private gitosisConf : GitosisConfigManager) {}
     
-    addGitosisUser(dto: GitosisUser) {
+    addGitosisUser(dto: GitosisUserDto) {
         //Add ssh key to gitosis-admin.git repo
 
         //Add user to the gitosis.conf file
-        
+        console.log({dtoSent: dto});
+        this.gitosisConf.addUserToGitosis(dto);
     }
 
     createPrivateRepo(dto: RepoDto) {

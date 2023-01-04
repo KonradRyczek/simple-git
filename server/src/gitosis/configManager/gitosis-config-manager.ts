@@ -2,7 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common/decorators';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
-import simpleGit, { SimpleGit } from 'simple-git';
+import {simpleGit,  SimpleGit } from 'simple-git';
+import { GitosisUserDto } from '../dto/gitosis-user.dto';
 
 
 @Injectable()
@@ -38,8 +39,31 @@ export class GitosisConfigManager {
         this.saveConfig()
 
         if (fs.existsSync(this.bareReposPath + '/' + owner)) {
-            const git = simpleGit(this.bareReposPath + '/' + owner);
-            git.init(true);
+            const path = this.bareReposPath + '/' + owner + '/' + repoName + '.git'
+            if (!fs.existsSync(path)) {
+                fs.mkdirSync(path, { recursive: true });
+              }
+            const git = simpleGit(path);
+            git.init(true)
+            .then((data) => {
+                console.log(data);
+                // this.gitAdmin.commit()
+            })
+            .catch((err) => {
+                //console.error(err);
+            });
+        }
+
+        if (fs.existsSync(this.userReposPath + '/' + owner)) {
+            const git = simpleGit(this.userReposPath + '/' + owner);
+            git.clone(this.bareReposPath + '/' + owner + '/' + repoName + '.git')
+            .then((data) => {
+                console.log(data);
+                // this.gitAdmin.commit()
+            })
+            .catch((err) => {
+                //console.error(err);
+            });
         }
     }
 
@@ -65,28 +89,31 @@ export class GitosisConfigManager {
         }
       }
     
-    addUserToGitosis(username: string, sshKey: string) {
-        this.gitosisConf[username] = 
-            { 'members' : [username], 'writable' : []};
+    addUserToGitosis(dto : GitosisUserDto) {
+        console.log(this.gitosisConf)
+        this.gitosisConf[dto.username] = 
+            { 'members' : [dto.username], 'writable' : []};
+        
         this.saveConfig();
         
         //saving ssh key
         const regex = /^(\S*\s{1}\S*)/;
-        const match = sshKey.match(regex);
+        const match = dto.sshPublicKey.match(regex);
+        console.log(this.confKeyDirPath + '/' + dto.username + '.pub')
         if (match) {
             fs.writeFileSync(
-                this.confKeyDirPath + '/' + username + '.pub', 
-                match[0] + ' ' + match[1] + ' ' + username
+                this.confKeyDirPath + '/' + dto.username + '.pub', 
+                match[0] + ' ' + match[1] + ' ' + dto.username
                 );
         }
         
         // Gitosis bare repos dir
-        if (!fs.existsSync(this.userReposPath + '/' + username)) {
-            fs.mkdirSync(this.userReposPath + '/' + username);
+        if (!fs.existsSync(this.userReposPath + '/' + dto.username)) {
+            fs.mkdirSync(this.userReposPath + '/' + dto.username);
         }
         // Non bare repos
-        if (!fs.existsSync(this.bareReposPath + '/' + username)) {
-            fs.mkdirSync(this.userReposPath + '/' + username);
+        if (!fs.existsSync(this.bareReposPath + '/' + dto.username)) {
+            fs.mkdirSync(this.bareReposPath + '/' + dto.username);
         }
 
     }
@@ -106,15 +133,24 @@ export class GitosisConfigManager {
         this.confFilePath = this.confRepoPath + '/' + this.confFileName;
 
         this.confKeyDirName = config.get("GITOSIS_ADMIN_KEY_DIR_NAME");
-        this.confKeyDirPath = this.confRepoPath + this.confKeyDirName
+        this.confKeyDirPath = this.confRepoPath + '/' + this.confKeyDirName
 
         // Git wrapper handlers
         this.gitAdmin = simpleGit(this.adminReposPath);
         this.gitUser = simpleGit(this.userReposPath);
-
+        
         this.gitAdmin.clone('/srv/simple-git.com/repositories/gitosis-admin.git')
-
-        this.loadGitosisConfToJSObject();
+        .then((data) => {
+            console.log(data);
+            this.loadGitosisConfToJSObject();
+            // this.gitAdmin.commit()
+        })
+        .catch((err) => {
+            //console.error(err);
+        }).finally(() => {
+            this.loadGitosisConfToJSObject();
+        });
+        
     }
 
 
@@ -159,6 +195,7 @@ export class GitosisConfigManager {
         }
         
         this.gitosisConf = json;
+        console.log(this.gitosisConf);
     }
     private saveConfig() {
         this.saveConfigTo(this.confRepoPath, this.confFileName);

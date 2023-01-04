@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { RepoDto } from './dto';
-import { GitosisUser } from './dto/gitosis-user.dto';
+import { GitosisUserDto } from './dto/gitosis-user.dto';
 import { GitosisService } from './gitosis.service';
 
 @UseGuards(JwtGuard)
@@ -14,7 +14,7 @@ export class GitosisController {
 
     @Post('addGitosisUser')
     addGitosisUser(@GetUser() user: User, @Body() body: any) {
-        const dto : GitosisUser = new GitosisUser();
+        const dto : GitosisUserDto = new GitosisUserDto();
         dto.username = user.username;
         dto.sshPublicKey = body.sshPublicKey;
         return this.gitosis.addGitosisUser(dto);

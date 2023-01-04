@@ -4,15 +4,21 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 import { SignUpDto } from './dto/signup.dto';
 import * as fs from 'fs';
+import { GitosisService } from 'src/gitosis/gitosis.service';
+import { GitosisUserDto } from 'src/gitosis/dto/gitosis-user.dto';
 
 @Controller('auth')
 export class AuthController {
     // auth service injection
-    constructor(private authService: AuthService) {}
+
+    constructor(
+        private authService: AuthService,
+        private gitosis: GitosisService,
+        ) {}
 
     @Post('signup')
     @UseInterceptors(FileInterceptor('pubKey'))
-    signup(@Body() body: any, @UploadedFile() file) {
+    async signup(@Body() body: any, @UploadedFile() file) {
         const fileAsString = file.buffer.toString('utf8');
         const dto : SignUpDto = new SignUpDto();
         dto.username = body.username;
@@ -21,7 +27,13 @@ export class AuthController {
         dto.sshPublicKey = fileAsString;
 
         console.log({data: dto})
-        return this.authService.signup(dto);
+        const result = await this.authService.signup(dto);
+
+        const gitosisDto : GitosisUserDto = new GitosisUserDto();
+            gitosisDto.sshPublicKey = dto.sshPublicKey;
+            gitosisDto.username = dto.username; 
+            this.gitosis.addGitosisUser(gitosisDto)
+        return result;
     }
 
     @Post("signin")
