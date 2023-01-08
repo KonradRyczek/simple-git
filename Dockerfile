@@ -18,7 +18,7 @@ COPY $GIT_PRIVATE_KEY /root/.ssh/$GIT_PRIVATE_KEY
 
 RUN chmod 700 /root/.ssh 
 RUN chmod 600 /root/.ssh/$GIT_PRIVATE_KEY
-RUN ssh-add ~/.ssh/id_rsa
+
 
 # ssh user:
 RUN useradd -rm -d /home/test -s /bin/bash -g root -G sudo test \
