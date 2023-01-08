@@ -52,35 +52,20 @@ export class GitosisConfigManager implements OnModuleInit{
 
     async onModuleInit() {
         if (!fs.existsSync(this.adminReposPath + '/' + this.confRepoName)) {
-            const gitAdminDir = simpleGit();
-            await gitAdminDir.clone('/srv/simple-git.com/repositories/gitosis-admin.git', this.adminReposPath + '/' + this.confRepoName)
-            await gitAdminDir.cwd(this.adminReposPath + '/' + this.confRepoName);  
-            await gitAdminDir
+            this.gitAdminDir = simpleGit();
+            this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
+            await this.gitAdminDir.clone('git@localhost:gitosis-admin.git',
+                this.adminReposPath + '/' + this.confRepoName);
+            await this.gitAdminDir.cwd(this.adminReposPath + '/' + this.confRepoName);  
+            await this.gitAdminDir
                 .addConfig("user.email", "admin")
                 .addConfig("user.name", "admin@admin.com");
             this.loadGitosisConfToJSObject();
-            // gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
         } else {
-            const gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-            await gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
+            this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
+            await this.gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
             this.loadGitosisConfToJSObject();
         }
-        // Intended for testing, will be deleted:
-        // console.log("Write to: " + this.confKeyDirPath + '/' + "test" + '.pub');
-        // fs.writeFileSync(
-        //     this.confKeyDirPath + '/' + "test" + '.pub', 
-        //     "test"
-        //     );
-        
-
-        // const gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-        // console.log("1")
-        // console.log(await gitAdminDir.status());
-        // await gitAdminDir.pull("origin", "master").exec(() => console.log('pull done.'))
-        //     .add('--all')
-        //     .commit('update')
-        //     .push();
-
     }
 
     
@@ -156,20 +141,20 @@ export class GitosisConfigManager implements OnModuleInit{
                 );
         }
 
-        const gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-        console.log("1")
-        console.log(await gitAdminDir.status());
-        await gitAdminDir.pull("origin", "master").exec(() => console.log('pull done.'))
+        // this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
+        // console.log("1")
+        console.log(await this.gitAdminDir.status());
+        await this.gitAdminDir.pull("origin", "master").exec(() => console.log('pull done.'))
             .add('--all')
             .commit('update')
             .push();
 
-        console.log(await gitAdminDir.log({ '-1': null }));
+        console.log(await this.gitAdminDir.log({ '-1': null }));
         
         // // Create BARE repos dir
         if (!fs.existsSync(this.userReposPath + '/' + dto.username)) {
             fs.mkdirSync(this.userReposPath + '/' + dto.username);
-            const git = simpleGit(this.userReposPath + '/' + dto.username)
+            // const git = simpleGit(this.userReposPath + '/' + dto.username)
         }
         // Create NON BARE repos dir
         if (!fs.existsSync(this.bareReposPath + '/' + dto.username)) {
