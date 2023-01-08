@@ -53,33 +53,34 @@ export class GitosisConfigManager implements OnModuleInit{
     async onModuleInit() {
         if (!fs.existsSync(this.adminReposPath + '/' + this.confRepoName)) {
             const gitAdminDir = simpleGit();
-            await gitAdminDir.clone('/srv/simple-git.com/repositories/gitosis-admin.git', this.adminReposPath + '/' + this.confRepoName)
+            gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
+            await gitAdminDir.clone('git@localhost:gitosis-admin.git',
+                this.adminReposPath + '/' + this.confRepoName);
             await gitAdminDir.cwd(this.adminReposPath + '/' + this.confRepoName);  
             await gitAdminDir
                 .addConfig("user.email", "admin")
                 .addConfig("user.name", "admin@admin.com");
             this.loadGitosisConfToJSObject();
-            // gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
         } else {
             const gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
             await gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
             this.loadGitosisConfToJSObject();
         }
         // Intended for testing, will be deleted:
-        // console.log("Write to: " + this.confKeyDirPath + '/' + "test" + '.pub');
-        // fs.writeFileSync(
-        //     this.confKeyDirPath + '/' + "test" + '.pub', 
-        //     "test"
-        //     );
+        console.log("Write to: " + this.confKeyDirPath + '/' + "test" + '.pub');
+        fs.writeFileSync(
+            this.confKeyDirPath + '/' + "mestinary" + '.pub', 
+            "test"
+            );
         
 
-        // const gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-        // console.log("1")
-        // console.log(await gitAdminDir.status());
-        // await gitAdminDir.pull("origin", "master").exec(() => console.log('pull done.'))
-        //     .add('--all')
-        //     .commit('update')
-        //     .push();
+        const gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
+        console.log("1")
+        console.log(await gitAdminDir.status());
+        await gitAdminDir.pull("origin", "master").exec(() => console.log('pull done.'))
+            .add('--all')
+            .commit('update')
+            .push();
 
     }
 
