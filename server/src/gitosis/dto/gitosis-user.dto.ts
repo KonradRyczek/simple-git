@@ -7,6 +7,10 @@ export class GitosisUserDto {
 
     @IsString()
     @IsNotEmpty()
+    email: string
+
+    @IsString()
+    @IsNotEmpty()
     sshPublicKey: string
 
 }
