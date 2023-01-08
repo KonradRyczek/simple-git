@@ -1,1 +1,2 @@
-export * from "./repo.dto";
+export * from './repo-action.dto';
+export * from './gitosis-user.dto';

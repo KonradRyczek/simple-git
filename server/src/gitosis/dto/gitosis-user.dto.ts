@@ -1,9 +1,13 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class GitosisUser {
+export class GitosisUserDto {
     @IsString()
     @IsNotEmpty()
     username: string
+
+    @IsString()
+    @IsNotEmpty()
+    email: string
 
     @IsString()
     @IsNotEmpty()

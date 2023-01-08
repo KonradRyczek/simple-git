@@ -69,6 +69,7 @@ COPY /client .
 
 WORKDIR /var/www/simple-git/server
 
+
 COPY server/package.json ./
 COPY server/yarn.lock ./
 COPY server/prisma ./prisma/
