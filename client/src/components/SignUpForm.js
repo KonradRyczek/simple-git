@@ -16,7 +16,7 @@ const SignUpForm = ({ }) => {
 
 	const changePubKey = (e) => {
 		setPubKey(e.target.files[0]);
-
+  //  console.log(e.target.files[0])
 	};
 
   var jsonData = {
@@ -113,7 +113,7 @@ const SignUpForm = ({ }) => {
           onBlur={validateInput}
         ></input>
 
-<label for="RsaKEY">Send RSA key:</label><br />
+<label for="RsaKEY">Send SSH Public Key:</label><br />
         <input
           className="form-control shadow-none mb-4"
           type="file"
