@@ -1,7 +1,9 @@
-import { Controller, Post, UseGuards, Body, Get, Param, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, UseGuards, Body, Get, Param, UnauthorizedException, Req } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { request } from 'http';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
+import { pathToFileURL } from 'url';
 import { RepoActionDto, GitosisUserDto, UserDto } from './dto';
 import { GitosisService } from './gitosis.service';
 
@@ -58,8 +60,12 @@ export class GitosisController {
     //     dto.repoName = body.repoName;
     // }
 
+
     @Get('/:username')
-    getAllUserRepos(@Param('username') username : string, @GetUser() user: User) {
+    getAllUserRepos(
+        @Param('username') username : string, 
+        @GetUser() user: User,) {
+
         if (user.username !== username) 
             throw new UnauthorizedException("This profile is private.");
         
@@ -70,8 +76,12 @@ export class GitosisController {
         return this.gitosis.getAllUserRepos(dto);
     }
 
+
     @Get('/:username/:reponame')
-    getUserRepo(@Param('username') username : string, @Param('reponame') reponame : string, @GetUser() user: User) {
+    getUserRepo(@Param('username') username : string, 
+    @Param('reponame') reponame : string, 
+    @GetUser() user: User) {
+
         if (user.username !== username) 
             throw new UnauthorizedException("This profile is private.");
         
@@ -81,5 +91,27 @@ export class GitosisController {
         dto.repoName = reponame;
 
         return this.gitosis.getUserRepo(dto);
+    }
+
+
+    @Get('/:username/:reponame/*')
+    getFileFromRepo(
+        @Param('username') username : string, 
+        @Param('reponame') reponame : string, 
+        @Req() request, Request,
+        // @Param('pathToFile') pathToFile : string, 
+        @GetUser() user: User,) {
+
+        if (user.username !== username) 
+            throw new UnauthorizedException("This profile is private.");
+        
+        const fullPath = request.url;
+
+        // Extract the pathToFile value from the full path
+        const pathToFile = fullPath.substring(
+            fullPath.indexOf(username + '/' + reponame) + '/:username/:reponame'.length - 1,);
+        console.log(pathToFile)
+
+        // this.gitosis();
     }
 }

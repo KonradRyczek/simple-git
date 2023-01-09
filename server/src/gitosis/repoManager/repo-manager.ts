@@ -18,18 +18,10 @@ export class RepoManager {
     constructor (config: ConfigService,) {
         this.userReposPath = config.get("GITOSIS_USER_REPOS_PATH");
         this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH");
+    }
 
+    getFileFromRepo() {
 
-        // console.log(typeof dirToJson())
-        // var dirToJson = require("dir-to-json")
-        // dirToJson("/var/www/simple-git", { sortType: true })
-        // .then(function (dirTree) {
-        //     // console.log(dirTree);
-        //     console.log('the structure looks like: ', JSON.stringify(dirTree, null, 4));
-        // })
-        // .catch(function (err) {
-        //     throw err;
-        // });
     }
 
     async getRepoDirectoryStructure(dto: RepoActionDto) {
@@ -51,10 +43,6 @@ export class RepoManager {
         });
 
         return JSON.stringify(dirTree, null, 4)
-
-        
-
-        
         // var dirToJson = require('directory-structure-json');
         // dirToJson.getStructure(fs, repoPath, function (err, structure, total) {
         //     console.log('there are a total of: ', total.folders, ' folders and ', total.files, ' files');
@@ -82,8 +70,6 @@ export class RepoManager {
     
         // this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
         // await this.gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
-            
-        
     }
 
 }
