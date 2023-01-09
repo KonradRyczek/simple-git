@@ -25,8 +25,8 @@ const ChoseRepo = ({ }) => {
   
     }).then((responseData) => {
   
-     tab.push(responseData)
-
+   //  tab.push(responseData)
+      tab.push("test")
     })
   
       .catch((error) => {
