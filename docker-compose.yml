@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       context: .
       target: development
-    command: sh -c "service ssh start && yarn prisma migrate deploy && yarn start:dev"
+    command: sh -c "service ssh start && yarn prisma migrate deploy && npx prisma db push && yarn start:dev"
     volumes:
       - ./server:/var/www/simple-git/server
       - /var/www/simple-git/server/node_modules
