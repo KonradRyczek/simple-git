@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import dirToJson from "dir-to-json";
+import dirToJson from "dir-to-json"
 import * as fs from 'fs';
+import * as path from 'path';
 import simpleGit from "simple-git";
 import { RepoActionDto } from "../dto";
 // import dirToJson from "dir-to-json";
@@ -18,13 +19,20 @@ export class RepoManager {
         this.userReposPath = config.get("GITOSIS_USER_REPOS_PATH");
         this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH");
 
-        dirToJson("/var/www/simple-git/server/repos/admin/", { sortType: true })
-            .then(function (dirTree){
-                console.log(dirTree);
-            })
+
+        // console.log(typeof dirToJson())
+        // var dirToJson = require("dir-to-json")
+        // dirToJson("/var/www/simple-git", { sortType: true })
+        // .then(function (dirTree) {
+        //     // console.log(dirTree);
+        //     console.log('the structure looks like: ', JSON.stringify(dirTree, null, 4));
+        // })
+        // .catch(function (err) {
+        //     throw err;
+        // });
     }
 
-    getRepoDirectoryStructure(dto: RepoActionDto) {
+    async getRepoDirectoryStructure(dto: RepoActionDto) {
         const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName
         if (!fs.existsSync(repoPath))
             return;
@@ -32,6 +40,21 @@ export class RepoManager {
         const git = simpleGit(repoPath);
         git.pull("origin", "master")
 
+        var dirToJson = require("dir-to-json")
+        const dirTree = await dirToJson(repoPath, { sortType: true })
+        .then(function (dirTree) {
+            // console.log('the structure looks like: ', JSON.stringify(dirTree, null, 4));
+            return dirTree;
+        })
+        .catch(function (err) {
+            throw err;
+        });
+
+        return JSON.stringify(dirTree, null, 4)
+
+        
+
+        
         // var dirToJson = require('directory-structure-json');
         // dirToJson.getStructure(fs, repoPath, function (err, structure, total) {
         //     console.log('there are a total of: ', total.folders, ' folders and ', total.files, ' files');
@@ -40,10 +63,10 @@ export class RepoManager {
         // const dirToJson = require('dir-to-json').dirToJson;
         
 
-        dirToJson(repoPath, { sortType: true })
-            .then(function (dirTree){
-                console.log(dirTree);
-            })
+        // dirToJson(repoPath, { sortType: true })
+        //     .then(function (dirTree){
+        //         console.log(dirTree);
+        //     })
 
 
 

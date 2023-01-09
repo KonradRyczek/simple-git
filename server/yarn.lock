@@ -2094,7 +2094,7 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dir-to-json@^1.0.0:
+dir-to-json@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dir-to-json/-/dir-to-json-1.0.0.tgz#f6b150e06aae8c211a5c7f10ba8f99424f29a126"
   integrity sha512-yDfgiqPrKf4Qje1CgsFRB1Dl1TjV9U8YVo6ykIR1gbRf4E/7ErmrhP1FbUfSccs6hojSgEkLWd7xO6XY7ioplg==

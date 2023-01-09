@@ -69,7 +69,7 @@ export class GitosisService {
                 }
             });
 
-            return this.repoManager.getRepoDirectoryStructure(dto);
+            return this.repoManager.getRepoDirectoryStructure(dto)
 
         } catch (err) {
             console.log(err)
