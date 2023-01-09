@@ -51,7 +51,11 @@ return (
   <div>
   <p className=""> Witaj {localStorage.getItem('username')} oto twój Dashboard</p>
   <CreateRepoForm/>
-  <ChoseRepo/>
+  
+  </div>
+  <div>
+    <p>Moje repozytoria</p>
+    <ChoseRepo/>
   </div>
 
 </>

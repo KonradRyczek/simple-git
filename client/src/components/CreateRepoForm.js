@@ -18,7 +18,7 @@ const CreateRepoForm = ({ }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        fetch('xxx', { //czekam na endpointa
+        fetch('http://localhost:3333/gitosis/createPrivateRepo', { 
 
             method: 'POST',
             mode: 'cors',
@@ -48,8 +48,7 @@ const CreateRepoForm = ({ }) => {
             })
     }
 
-    const validateInput = e => {
-    }
+    
 
     return (
         <div className="">
