@@ -120,7 +120,7 @@ const SignUpForm = ({ }) => {
           name="PubKey"
           placeholder='PubKey'
           id="PubKey"
-          value={pubKey}
+          //value={pubKey}
           onChange={changePubKey}
           onBlur={validateInput}
           //accept="pub"
