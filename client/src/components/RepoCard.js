@@ -33,7 +33,7 @@ const RepoCard = ({data}) => {
           return response.json();
 
       }).then((responseData) => {
-          alert("Pomyślnie stworzono Repozytorioum")
+          alert("Pomyślnie Usunięto Repozytorioum")
 
       })
           .catch((error) => {
