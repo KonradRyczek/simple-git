@@ -4,9 +4,11 @@ import RepoCard from "./RepoCard";
 
 const ChoseRepo = ({ }) => {
     const access_token = "Bearer " + localStorage.getItem("access_token")
+   // const username = localStorage.getItem("username", username);
     const tab = []
+    //const url = "http://localhost:3333/gitosis/:"+username
 
-    fetch('http://localhost:3333/users/me', {
+    fetch("http://localhost:3333/gitosis/:username", {
   
       method: 'GET',
       mode: 'cors',

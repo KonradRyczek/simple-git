@@ -52,19 +52,20 @@ const CreateRepoForm = ({ }) => {
 
     return (
         <div className="">
-            <form className="form-group mb-1 p-4 " onSubmit={handleSubmit}>
+            <form className="form-group " onSubmit={handleSubmit}>
+            <label  className="p-3" for="CreateRepo">Stwórz Repozytorioum</label>
                 <input
-                    className="form-control shadow-none mb-4"
+                    className="form-control shadow-none w-25 d-inline-block ml-2 mt-2 "
                     type="text"
                     name="repoName"
-                    placeholder='Enter Name of your Repository'
+                    placeholder='Wprowadź nazwę  Repozytorioum'
                     id="repoName"
                     value={repoName}
                     onChange={(e) => setRepoName(e.target.value)}
                     //onBlur={validateInput}
                 >
                 </input>
-                <input className="btn btn-dark" type="submit" value="Stwórz" />
+                <input className="btn btn-dark mb-2 float-right" type="submit" value="Stwórz"/>  
             </form>
         </div>
     );

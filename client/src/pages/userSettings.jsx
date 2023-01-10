@@ -30,7 +30,7 @@ const userSetting = () => {
 
           </div>
           <div>
-            <p>Ustawienia</p>
+            
           </div>
         </div>
       </>
