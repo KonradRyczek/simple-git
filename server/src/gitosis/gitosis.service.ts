@@ -3,7 +3,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GitosisConfigManager } from './configManager/gitosis-config-manager';
 import { RepoManager } from './repoManager/repo-manager';
-import { RepoActionDto, GitosisUserDto, UserDto } from './dto';
+import { RepoActionDto, GitosisUserDto, UserDto, RepoFileActionDto } from './dto';
 
 @Injectable()
 export class GitosisService {
@@ -48,6 +48,11 @@ export class GitosisService {
             }
             throw error;
         }
+    }
+
+    getFileFromRepo (dto : RepoFileActionDto) {
+
+        return this.repoManager.getFileFromRepo(dto);
     }
 
     async getUserRepo(dto: RepoActionDto) {

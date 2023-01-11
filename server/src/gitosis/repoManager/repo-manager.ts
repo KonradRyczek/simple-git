@@ -4,7 +4,7 @@ import dirToJson from "dir-to-json"
 import * as fs from 'fs';
 import * as path from 'path';
 import simpleGit from "simple-git";
-import { RepoActionDto } from "../dto";
+import { RepoActionDto, RepoFileActionDto } from "../dto";
 // import dirToJson from "dir-to-json";
 
 
@@ -20,12 +20,40 @@ export class RepoManager {
         this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH");
     }
 
-    getFileFromRepo() {
+    getFileFromRepo(dto : RepoFileActionDto) {
+        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
+        const absoluteFilePath = repoPath + '/' + dto.filePath;
 
+        console.log(repoPath)
+        if (!fs.existsSync(repoPath))
+            return;
+
+        const git = simpleGit(repoPath);
+        git.pull("origin", "master")
+
+        console.log(absoluteFilePath)
+        if (!fs.existsSync(absoluteFilePath))
+            return;
+        
+        
+        try {
+            const fileContent = fs.readFileSync(absoluteFilePath, 'utf-8');
+            // const fileJson = JSON.parse(fileContent);
+            console.log(fileContent);
+
+            return { 
+                filePath: dto.filePath,
+                owner: dto.username,
+                file: fileContent,
+            };
+            
+        } catch (err) {
+            return err;
+        }
     }
 
     async getRepoDirectoryStructure(dto: RepoActionDto) {
-        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName
+        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
         if (!fs.existsSync(repoPath))
             return;
 

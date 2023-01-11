@@ -1,10 +1,11 @@
 import { Controller, Post, UseGuards, Body, Get, Param, UnauthorizedException, Req } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { request } from 'http';
+import { REPL_MODE_SLOPPY } from 'repl';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { pathToFileURL } from 'url';
-import { RepoActionDto, GitosisUserDto, UserDto } from './dto';
+import { RepoActionDto, GitosisUserDto, UserDto, RepoFileActionDto } from './dto';
 import { GitosisService } from './gitosis.service';
 
 @UseGuards(JwtGuard)
@@ -78,9 +79,10 @@ export class GitosisController {
 
 
     @Get('/:username/:reponame')
-    getUserRepo(@Param('username') username : string, 
-    @Param('reponame') reponame : string, 
-    @GetUser() user: User) {
+    getUserRepo(
+        @Param('username') username : string, 
+        @Param('reponame') reponame : string, 
+        @GetUser() user: User) {
 
         if (user.username !== username) 
             throw new UnauthorizedException("This profile is private.");
@@ -103,15 +105,21 @@ export class GitosisController {
         @GetUser() user: User,) {
 
         if (user.username !== username) 
-            throw new UnauthorizedException("This profile is private.");
+            throw new UnauthorizedException("This profile's' content is private.");
         
         const fullPath = request.url;
 
         // Extract the pathToFile value from the full path
         const pathToFile = fullPath.substring(
-            fullPath.indexOf(username + '/' + reponame) + '/:username/:reponame'.length - 1,);
+            fullPath.indexOf( '/' + username + '/' + reponame + '/') + ('/' + username + '/' + reponame + '/').length);
         console.log(pathToFile)
+        
+        const dto : RepoFileActionDto = new RepoFileActionDto();
+        dto.email = user.email;
+        dto.username = user.username;
+        dto.repoName = reponame;
+        dto.filePath = pathToFile;
 
-        // this.gitosis();
+        return this.gitosis.getFileFromRepo(dto);
     }
 }
