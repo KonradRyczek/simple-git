@@ -133,6 +133,7 @@ const SignUpForm = ({ }) => {
           name="PubKey"
           placeholder='PubKey'
           id="PubKey"
+          //value={pubKey}
           onChange={changePubKey}
           accept="pub"
         ></input>

@@ -1,120 +1,165 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common/decorators';
+import { OnModuleInit } from '@nestjs/common';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
-import simpleGit, { SimpleGit } from 'simple-git';
+import {simpleGit,  SimpleGit } from 'simple-git';
+import { RepoActionDto, GitosisUserDto } from '../dto';
 
 
 @Injectable()
-export class GitosisConfigManager {
+export class GitosisConfigManager implements OnModuleInit{
+
     //JS object representing gitosis configuration
     private gitosisConf : any
-
     private confRepoPath : string
     private confFilePath : string
     private confFileName : string
     private confRepoName : string
     private confKeyDirName : string
     private confKeyDirPath : string
-
     private bareReposPath : string
-
     private adminReposPath : string
     private userReposPath : string
 
-    private gitAdmin: SimpleGit;
+    private gitAdminDir: SimpleGit;
+    private gitAdminRepo: SimpleGit;
     private gitUser: SimpleGit;
 
-    addPrivateRepo(owner :string, repoName :string) {
-        console.log("Gitosis config: Adding private repo '" + repoName + "' for user: " + owner )
-        if ( !(owner in this.gitosisConf)) {
-            console.log("Gitosis config: Didn't find " + owner + " in gitosis config when trying to add " + repoName + " repository")
-            return;
-        }
 
-        let repoPath = owner + '/' + repoName
-        this.gitosisConf[owner]['writable'].push(repoPath)
+    constructor(
+        config: ConfigService,
+        ) {
+        //  ** SETTING UP CLASS VARIABLES **
+        // Location of user and admin NON BARE repositories (CLONED COPIES OF THE BARE REPOS)
+        this.adminReposPath = config.get("GITOSIS_ADMIN_REPOS_PATH");
+        this.userReposPath = config.get("GITOSIS_USER_REPOS_PATH");
+        // Location of bare repositories (Repositories served by the gitosis service)
+        this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH")
+        this.confRepoName = config.get("GITOSIS_ADMIN_REPO_NAME");
+        this.confFileName = config.get("GITOSIS_ADMIN_CONFIG_FILENAME");
+        // Path to gitosis-admin and to gitosis-admin/gitosis.conf
+        this.confRepoPath = this.adminReposPath + '/' + this.confRepoName;
+        this.confFilePath = this.confRepoPath + '/' + this.confFileName;
+        // Path to folder with the PUBLIC SSH KEYS
+        this.confKeyDirName = config.get("GITOSIS_ADMIN_KEY_DIR_NAME");
+        this.confKeyDirPath = this.confRepoPath + '/' + this.confKeyDirName
 
-        this.saveConfig()
+        // this.gitAdminDir: SimpleGit;
+        // this.gitAdminRepo: SimpleGit;
+        // this.gitUser: SimpleGit;
+    }
 
-        if (fs.existsSync(this.bareReposPath + '/' + owner)) {
-            const git = simpleGit(this.bareReposPath + '/' + owner);
-            git.init(true);
+    async onModuleInit() {
+        if (!fs.existsSync(this.adminReposPath + '/' + this.confRepoName)) {
+            this.gitAdminDir = simpleGit();
+            this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
+            await this.gitAdminDir.clone('git@localhost:gitosis-admin.git',
+                this.adminReposPath + '/' + this.confRepoName);
+            await this.gitAdminDir.cwd(this.adminReposPath + '/' + this.confRepoName);  
+            await this.gitAdminDir
+                .addConfig("user.email", "admin")
+                .addConfig("user.name", "admin@admin.com");
+            this.loadGitosisConfToJSObject();
+        } else {
+            this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
+            await this.gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
+            this.loadGitosisConfToJSObject();
         }
     }
 
-    deletePrivateRepo(owner: string, repoName: string) {
-        console.log("Gitosis config: Deleting private repo '" + repoName + "' for user: " + owner )
-        if ( !(owner in this.gitosisConf)) {
-            console.log("Gitosis config: Didn't find " + owner + " in gitosis config when trying to delete " + repoName + " repository")
+    
+    async addPrivateRepo(dto : RepoActionDto) {
+        console.log("Gitosis config: Adding private repo '" + dto.repoName + "' for user: " + dto.username )
+        if ( !(dto.username in this.gitosisConf)) {
+            console.log("Gitosis config: Didn't find " + dto.username + " in gitosis config when trying to add " + dto.repoName + " repository")
+            return;
+        }
+
+        let repoPath = dto.username + '/' + dto.repoName
+        this.gitosisConf[dto.username]['writable'].push(repoPath)
+
+        this.saveConfig()
+
+        if (fs.existsSync(this.bareReposPath + '/' + dto.username)) {
+            const path = this.bareReposPath + '/' + dto.username + '/' + dto.repoName + '.git'
+            if (!fs.existsSync(path)) {
+                fs.mkdirSync(path, { recursive: true });
+            }
+            const git = simpleGit(path);
+            await git.init(true)
+        }
+
+        if (fs.existsSync(this.userReposPath + '/' + dto.username)) {
+            const git = simpleGit(this.userReposPath + '/' + dto.username);
+            git.clone(this.bareReposPath + '/' + dto.username + '/' + dto.repoName + '.git')
+                .addConfig("user.name", dto.username)
+                .addConfig("user.email", dto.email);
+        }
+    }
+
+
+    deletePrivateRepo(dto : RepoActionDto) {
+        console.log("Gitosis config: Deleting private repo '" + dto.repoName + "' for user: " + dto.username )
+        if ( !(dto.username in this.gitosisConf)) {
+            console.log("Gitosis config: Didn't find " + dto.username + " in gitosis config when trying to delete " + dto.repoName + " repository")
         } else {
-            let repoPath = owner + '/' + repoName
-            const index = this.gitosisConf[owner]['writable'].indexOf(repoPath, 0);
+            let repoPath = dto.username + '/' + dto.repoName
+            const index = this.gitosisConf[dto.username]['writable'].indexOf(repoPath, 0);
             if (index > -1) {
-                this.gitosisConf[owner]['writable'].splice(index, 1);
+                this.gitosisConf[dto.username]['writable'].splice(index, 1);
             }
             this.saveConfig();
         }
 
-        if (fs.existsSync(this.userReposPath + '/' + owner + '/' + repoName + '.git')) {
-            rimraf.sync(this.userReposPath + '/' + owner + '/' + repoName + '.git');
+        if (fs.existsSync(this.userReposPath + '/' + dto.username + '/' + dto.repoName)) {
+            rimraf.sync(this.userReposPath + '/' + dto.username + '/' + dto.repoName);
         }
 
-        if (fs.existsSync(this.bareReposPath + '/' + owner + '/' + repoName + '.git')) {
-            rimraf.sync(this.bareReposPath + '/' + owner + '/' + repoName + '.git');
+        if (fs.existsSync(this.bareReposPath + '/' + dto.username + '/' + dto.repoName + '.git')) {
+            rimraf.sync(this.bareReposPath + '/' + dto.username + '/' + dto.repoName + '.git');
         }
-      }
-    
-    addUserToGitosis(username: string, sshKey: string) {
-        this.gitosisConf[username] = 
-            { 'members' : [username], 'writable' : []};
-        this.saveConfig();
-        
-        //saving ssh key
-        const regex = /^(\S*\s{1}\S*)/;
-        const match = sshKey.match(regex);
-        if (match) {
-            fs.writeFileSync(
-                this.confKeyDirPath + '/' + username + '.pub', 
-                match[0] + ' ' + match[1] + ' ' + username
-                );
-        }
-        
-        // Gitosis bare repos dir
-        if (!fs.existsSync(this.userReposPath + '/' + username)) {
-            fs.mkdirSync(this.userReposPath + '/' + username);
-        }
-        // Non bare repos
-        if (!fs.existsSync(this.bareReposPath + '/' + username)) {
-            fs.mkdirSync(this.userReposPath + '/' + username);
-        }
-
     }
     
-
-    constructor(config: ConfigService) {
+    
+    async addUserToGitosis(dto : GitosisUserDto) {
+        console.log(this.gitosisConf)
+        this.gitosisConf[dto.username] = 
+            { 'members' : [dto.username], 'writable' : []};
         
-        // Location of user and admin non bare repositories
-        this.adminReposPath = config.get("GITOSIS_ADMIN_REPOS_PATH");
-        this.userReposPath = config.get("GITOSIS_USER_REPOS_PATH");
-        // Location of bare repositories
-        this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH")
-        this.confRepoName = config.get("GITOSIS_ADMIN_REPO_NAME");
-        this.confFileName = config.get("GITOSIS_ADMIN_CONFIG_FILENAME");
+        this.saveConfig();
+        
+        // Save ssh key with username appended at the end
+        // filename: keydir/username.pub
+        const regex = /^(\S*\s{1}\S*)/;
+        const match = dto.sshPublicKey.match(regex);
+        console.log(this.confKeyDirPath + '/' + dto.username + '.pub')
+        if (match) {
+            fs.writeFileSync(
+                this.confKeyDirPath + '/' + dto.username + '.pub', 
+                match[0] + ' ' + match[1] + ' ' + dto.username
+                );
+        }
 
-        this.confRepoPath = this.adminReposPath + '/' + this.confRepoName;
-        this.confFilePath = this.confRepoPath + '/' + this.confFileName;
+        // this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
+        // console.log("1")
+        console.log(await this.gitAdminDir.status());
+        await this.gitAdminDir.pull("origin", "master").exec(() => console.log('pull done.'))
+            .add('--all')
+            .commit('update')
+            .push();
 
-        this.confKeyDirName = config.get("GITOSIS_ADMIN_KEY_DIR_NAME");
-        this.confKeyDirPath = this.confRepoPath + this.confKeyDirName
-
-        // Git wrapper handlers
-        this.gitAdmin = simpleGit(this.adminReposPath);
-        this.gitUser = simpleGit(this.userReposPath);
-
-        this.gitAdmin.clone('/srv/simple-git.com/repositories/gitosis-admin.git')
-
-        this.loadGitosisConfToJSObject();
+        console.log(await this.gitAdminDir.log({ '-1': null }));
+        
+        // // Create BARE repos dir
+        if (!fs.existsSync(this.userReposPath + '/' + dto.username)) {
+            fs.mkdirSync(this.userReposPath + '/' + dto.username);
+            // const git = simpleGit(this.userReposPath + '/' + dto.username)
+        }
+        // Create NON BARE repos dir
+        if (!fs.existsSync(this.bareReposPath + '/' + dto.username)) {
+            fs.mkdirSync(this.bareReposPath + '/' + dto.username);
+        }
     }
 
 
@@ -159,10 +204,14 @@ export class GitosisConfigManager {
         }
         
         this.gitosisConf = json;
+        console.log(this.gitosisConf);
     }
+
+
     private saveConfig() {
         this.saveConfigTo(this.confRepoPath, this.confFileName);
     }
+
 
     private saveConfigTo(path :string, confFileName :string) {
         let config = "[gitosis]\n";
@@ -173,7 +222,12 @@ export class GitosisConfigManager {
         }
 
         fs.writeFileSync(path + '/' + confFileName,config);
+        const adminRepo = simpleGit(this.adminReposPath + '/' + this.confRepoName)
+        adminRepo.add(".")
+            .then(() => adminRepo.commit("Updated config"))
+            .then(() => adminRepo.push())
     }
+
 
     private saveConfigToJson() {
         console.log(this.gitosisConf)

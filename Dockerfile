@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Replace below file names with your own keys:
 ARG GIT_PUBLIC_KEY="id_rsa.pub"
 ARG SSH_PUBLIC_KEY="ssh-key.pub"
-
+ARG GIT_PRIVATE_KEY="id_rsa"
 
 RUN apt-get update 
 RUN apt-get install -y sudo git python2 python-setuptools sudo openssh-server
@@ -14,6 +14,10 @@ RUN apt-get install -y sudo git python2 python-setuptools sudo openssh-server
 COPY sshd_config /etc/ssh/sshd_config
 COPY $SSH_PUBLIC_KEY /tmp/$SSH_PUBLIC_KEY
 COPY $GIT_PUBLIC_KEY /tmp/$GIT_PUBLIC_KEY
+COPY $GIT_PRIVATE_KEY /root/.ssh/$GIT_PRIVATE_KEY
+
+RUN chmod 700 /root/.ssh 
+RUN chmod 600 /root/.ssh/$GIT_PRIVATE_KEY
 
 
 # ssh user:
@@ -68,6 +72,7 @@ RUN yarn install
 COPY /client .
 
 WORKDIR /var/www/simple-git/server
+
 
 COPY server/package.json ./
 COPY server/yarn.lock ./
