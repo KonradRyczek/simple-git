@@ -1,4 +1,4 @@
-import React, { useState, state } from "react";
+import React, { useState, useEffect, state } from "react";
 import styles from "../styles/globe.css";
 
 import setAuthToken from "../components/setAuthToken"
@@ -9,7 +9,19 @@ const SignInForm = ({ }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const loginError = 'Błędny login lub hasło';
+  const [validation, setValidation] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const validate = () => {
+    return email.trim() !== "" && password.trim() !== ""
+  }
+ 
+  useEffect(() => {
+    if (isSubmitted) {
+        setValidation(validate());
+    }
+  }, [email, password]);
 
   var jsonData = {
     "email": email,
@@ -18,6 +30,11 @@ const SignInForm = ({ }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setIsSubmitted(true);
+    if (validation) {
+        // send the data to the server
+        return;
+    }
 
     fetch('http://localhost:3333/auth/signin', {
 
@@ -57,17 +74,8 @@ const SignInForm = ({ }) => {
 
       .catch((error) => {
         console.log(error)
-        alert("Błędny login lub hasło")
-        
-       
+        //alert("Błędny login lub hasło")
       })
-
-
-
-  }
-
-  const validateInput = e => {
-
   }
 
   return (
@@ -82,10 +90,8 @@ const SignInForm = ({ }) => {
           id="loginEmain"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onBlur={validateInput}
-        >
-
-        </input>
+          onBlur={() => validate({'email':email})}
+        ></input>
 
         <label for="loginPassword">Password:</label><br />
         <input
@@ -96,9 +102,10 @@ const SignInForm = ({ }) => {
           id="loginPassword"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onBlur={validateInput}
-         
+          onBlur={() => validate({'password':password})}      
         ></input>
+        {isSubmitted && ((email.trim() === "" ? "error" : "") || (password.trim() === "" ? "error" : "")) && <div className="error">{loginError}</div>}
+        <br />
         <input className="btn btn-primary w-100" type="submit" value="Zaloguj" />
       </form>
     </div>
