@@ -15,5 +15,9 @@ export class RepoFileActionDto {
 
     @IsString()
     @IsNotEmpty()
+    branchName: string
+
+    @IsString()
+    @IsNotEmpty()
     filePath: string
 }

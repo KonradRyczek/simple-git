@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import {simpleGit,  SimpleGit } from 'simple-git';
 import { RepoActionDto, GitosisUserDto } from '../dto';
+import { exec } from 'child_process';
 
 
 @Injectable()
@@ -90,6 +91,13 @@ export class GitosisConfigManager implements OnModuleInit{
             }
             const git = simpleGit(path);
             await git.init(true)
+
+            exec('chown git:git -R ' + path, (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`Error: ${error}`);
+                    return;
+                }
+            });
         }
 
         if (fs.existsSync(this.userReposPath + '/' + dto.username)) {

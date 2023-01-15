@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GitosisConfigManager } from './configManager/gitosis-config-manager';
@@ -50,14 +50,9 @@ export class GitosisService {
         }
     }
 
-    getFileFromRepo (dto : RepoFileActionDto) {
-
-        return this.repoManager.getFileFromRepo(dto);
-    }
 
     async getUserRepo(dto: RepoActionDto) {
         try {
-
             const user = await this.prisma.user.findUnique({
                 where: {
                     username: dto.username,
@@ -65,7 +60,6 @@ export class GitosisService {
             });
             if (!user) 
                 throw new NotFoundException();
-            
             
             const repository = await this.prisma.repository.findFirst({
                 where: {
@@ -79,6 +73,22 @@ export class GitosisService {
         } catch (err) {
             console.log(err)
         }
+    }
+    
+
+    async getFileFromRepoForBranch (dto : RepoFileActionDto) {
+        const branches = await this.repoManager.getRepoBranches(dto);
+        if (dto.branchName == null || branches == null)
+            throw new InternalServerErrorException();
+        if ( !(dto.branchName in branches) )
+            throw new NotFoundException();
+        
+        return this.repoManager.getFileFromRepo(dto);
+    }
+
+
+    async getRepoBranches(dto: RepoActionDto) {
+        return this.repoManager.getRepoBranches(dto);
     }
 
     async createPrivateRepo(dto: RepoActionDto) {
