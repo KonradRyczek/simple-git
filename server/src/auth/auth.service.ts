@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common/decorators';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { AuthDto } from './dto';
+import { AuthDto, SignUpDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { ForbiddenException } from '@nestjs/common';
@@ -18,7 +18,7 @@ export class AuthService {
         // private gitosis: GitosisService,
     ) {}
 
-    async signup(dto: AuthDto) {
+    async signup(dto: SignUpDto) {
 
         const hash = await argon.hash(dto.password);
 
@@ -34,8 +34,15 @@ export class AuthService {
             // this.gitosisService.createGitosisUser()
             // add ssh key to the right folder
             // create user repositories dir
-
-            return this.signToken(user.id, user.email);
+            const token = await this.signToken(user.id, user.email)
+            const response = {
+                "user" : {
+                    "username" : user.username,
+                    "email" : user.email,
+                },
+                "access_token": token.access_token
+            }
+            return response;
 
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
@@ -48,7 +55,6 @@ export class AuthService {
     }
 
     async signin(dto: AuthDto) {
-
         const user = await this.prisma.user.findUnique({
             where: {
                 email: dto.email
@@ -66,7 +72,15 @@ export class AuthService {
         if (!pwMatches)
             throw new ForbiddenException('Incorrect credentials')
         
-        return this.signToken(user.id, user.email);
+        const token = await this.signToken(user.id, user.email);
+        const response = {
+            "user" : {
+                "username" : user.username,
+                "email" : user.email,
+            },
+            "access_token": token.access_token
+        }
+        return response;
     }
 
     async signToken(
