@@ -33,13 +33,19 @@ export class GitosisService {
                     }
                   }
                 }
-              });
+            });
               
-              console.log(user.repositories);
+            console.log(user.repositories);
 
-            //   user.repositories.
+            const response = {
+                "owner": {
+                    "username" : dto.username,
+                    "email" : dto.email,
+                },
+                "repositories" : user.repositories,
+            }
 
-              return user.repositories;
+            return response;
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code == 'P2002') {
@@ -51,7 +57,7 @@ export class GitosisService {
     }
 
 
-    async getUserRepo(dto: RepoActionDto) {
+    async getUserRepoAutomatically(dto: RepoActionDto) {
         try {
             const user = await this.prisma.user.findUnique({
                 where: {
@@ -68,27 +74,67 @@ export class GitosisService {
                 }
             });
 
+            
+            const branches = await this.getRepoBranches(dto);
+            
+            if ("master" in branches)
+                dto.branchName = "master"
+            else
+                dto.branchName = branches[1];
+            
+            if (!this.isBranchValidForRepo(dto))
+                throw new NotFoundException();
+            
             return this.repoManager.getRepoDirectoryStructure(dto)
 
         } catch (err) {
             console.log(err)
         }
     }
+
+
+    async getUserRepoForBranch(dto: RepoActionDto) {
+        try {
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    username: dto.username,
+                }
+            });
+            if (!user) 
+                throw new NotFoundException();
+            
+            const repository = await this.prisma.repository.findFirst({
+                where: {
+                    userId: user.id,
+                    repopath: dto.username + '/' + dto.repoName,
+                }
+            });
+
+            if (!this.isBranchValidForRepo(dto))
+                throw new NotFoundException();
+
+            return this.repoManager.getRepoDirectoryStructure(dto)
+
+        } catch (err) {
+            console.log(err)
+        }
+    } 
     
 
     async getFileFromRepoForBranch (dto : RepoFileActionDto) {
         const branches = await this.repoManager.getRepoBranches(dto);
         if (dto.branchName == null || branches == null)
             throw new InternalServerErrorException();
-        if ( !(dto.branchName in branches) )
+        if ( !(branches.branches.includes(dto.branchName)) )
             throw new NotFoundException();
+        
         
         return this.repoManager.getFileFromRepo(dto);
     }
 
 
     async getRepoBranches(dto: RepoActionDto) {
-        return this.repoManager.getRepoBranches(dto);
+        return await this.repoManager.getRepoBranches(dto);
     }
 
     async createPrivateRepo(dto: RepoActionDto) {
@@ -146,6 +192,14 @@ export class GitosisService {
         }
         
         return {dto};
+    }
+
+
+    async isBranchValidForRepo(dto : RepoActionDto) : Promise<boolean>{
+        const branches = this.getRepoBranches(dto);
+        if (dto.branchName in branches) 
+            return true;
+        return false;
     }
     
 }

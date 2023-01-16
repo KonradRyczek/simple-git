@@ -64,8 +64,8 @@ export class GitosisConfigManager implements OnModuleInit{
             this.loadGitosisConfToJSObject();
         } else {
             this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-            // this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
-            // this.gitAdminDir.addRemote("origin", "git@localhost:gitosis-admin.git");
+            this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
+            this.gitAdminDir.addRemote("origin", "git@localhost:gitosis-admin.git");
             await this.gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
             this.loadGitosisConfToJSObject();
         }

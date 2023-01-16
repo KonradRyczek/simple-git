@@ -12,4 +12,8 @@ export class RepoActionDto {
     @IsString()
     @IsNotEmpty()
     repoName: string
+
+    @IsString()
+    @IsNotEmpty()
+    branchName: string
 }

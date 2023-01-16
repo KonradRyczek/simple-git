@@ -24,23 +24,27 @@ export class GitosisController {
     // }
     
     @Post('createPrivateRepo')
-    createPrivateRepo(@GetUser() user: User, @Body() body: any) {
-        const dto : RepoActionDto = new RepoActionDto();
-        dto.username = user.username;
-        dto.email = user.email;
-        dto.repoName = body.repoName;
-        console.log({ "data" : dto});
-        return this.gitosis.createPrivateRepo(dto);
+    createPrivateRepo(
+        @GetUser() user: User, 
+        @Body() body: any) {
+            const dto : RepoActionDto = new RepoActionDto();
+            dto.username = user.username;
+            dto.email = user.email;
+            dto.repoName = body.repoName;
+            console.log({ "data" : dto});
+            return this.gitosis.createPrivateRepo(dto);
     }
 
     @Post('deletePrivateRepo')
-    deletePrivateRepo(@GetUser() user: User, @Body() body: any) {
-        const dto : RepoActionDto = new RepoActionDto();
-        dto.username = user.username;
-        dto.email = user.email;
-        dto.repoName = body.repoName;
-        console.log({ "data" : dto});
-        return this.gitosis.deletePrivateRepo(dto);
+    deletePrivateRepo(
+        @GetUser() user: User, 
+        @Body() body: any) {
+            const dto : RepoActionDto = new RepoActionDto();
+            dto.username = user.username;
+            dto.email = user.email;
+            dto.repoName = body.repoName;
+            console.log({ "data" : dto});
+            return this.gitosis.deletePrivateRepo(dto);
     }
 
 
@@ -49,14 +53,14 @@ export class GitosisController {
         @Param('username') username : string, 
         @GetUser() user: User,) {
 
-        if (user.username !== username) 
-            throw new UnauthorizedException("This profile is private.");
-        
-        const dto : UserDto = new UserDto();
-        dto.username = user.username;
-        dto.email = user.email;
-        console.log({"data" : dto})
-        return this.gitosis.getAllUserRepos(dto);
+            if (user.username !== username) 
+                throw new UnauthorizedException("This profile is private.");
+            
+            const dto : UserDto = new UserDto();
+            dto.username = user.username;
+            dto.email = user.email;
+            console.log({"data" : dto})
+            return this.gitosis.getAllUserRepos(dto);
     }
 
 
@@ -66,17 +70,38 @@ export class GitosisController {
         @Param('reponame') reponame : string, 
         @GetUser() user: User) {
 
-        if (user.username !== username) 
-            throw new UnauthorizedException("This profile is private.");
-        
-        const dto : RepoActionDto = new RepoActionDto();
-        dto.username = user.username;
-        dto.email = user.email;
-        dto.repoName = reponame;
+            if (user.username !== username) 
+                throw new UnauthorizedException("This profile is private.");
+            
+            const dto : RepoActionDto = new RepoActionDto();
+            dto.username = user.username;
+            dto.email = user.email;
+            dto.repoName = reponame;
+            dto.branchName = null;
 
-        return this.gitosis.getUserRepo(dto);
+            return this.gitosis.getUserRepoAutomatically(dto);
     }
 
+
+    @Get('/:username/:reponame/tree/:branchname')
+    getUserRepoByBranch(
+        @Param('username') username : string, 
+        @Param('reponame') reponame : string, 
+        @Param('branchname') branchname : string,
+        @GetUser() user: User,) {
+            
+            if (user.username !== username) 
+                throw new UnauthorizedException("This profile is private.");
+            
+            const dto : RepoActionDto = new RepoActionDto();
+            dto.username = user.username;
+            dto.email = user.email;
+            dto.repoName = reponame;
+            dto.branchName = branchname;
+
+            return this.gitosis.getUserRepoForBranch(dto);
+        
+    }
 
     @Get('/:username/:reponame/tree/:branchname/*')
     getFileFromRepoWithBranch(
@@ -86,25 +111,26 @@ export class GitosisController {
         @Req() request, Request,
         @GetUser() user: User,) {
 
-        if (user.username !== username) 
-            throw new UnauthorizedException("This profile's' content is private.");
-        
-        const fullPath = request.url;
-        const substract = '/${username}/{reponame}/tree/${branchname}/';
-        const pathToFile = fullPath.substring(
-            fullPath.indexOf(substract) + (substract).length);
-        console.log(pathToFile)
-        
-        const dto : RepoFileActionDto = new RepoFileActionDto();
-        dto.email = user.email;
-        dto.username = user.username;
-        dto.repoName = reponame;
-        dto.branchName = branchname;
-        dto.filePath = pathToFile;
+            if (user.username !== username) 
+                throw new UnauthorizedException("This profile's' content is private.");
+            
+            const fullPath = request.url;
+            const substract = `/${username}/${reponame}/tree/${branchname}/`;
+            console.log(substract)
+            const pathToFile = fullPath.substring(
+                fullPath.indexOf(substract) + (substract).length);
+            console.log(pathToFile)
+            
+            const dto : RepoFileActionDto = new RepoFileActionDto();
+            dto.email = user.email;
+            dto.username = user.username;
+            dto.repoName = reponame;
+            dto.branchName = branchname;
+            dto.filePath = pathToFile;
 
-        return this.gitosis.getFileFromRepoForBranch(dto);
+            return this.gitosis.getFileFromRepoForBranch(dto);
     }
-    
+
 
     @Get('/:username/:reponame/branches')
     getRepoBranches(
@@ -112,15 +138,15 @@ export class GitosisController {
         @Param('reponame') reponame : string, 
         @GetUser() user: User) {
 
-        if (user.username !== username) 
-            throw new UnauthorizedException("This profile is private.");
-        
-        const dto : RepoActionDto = new RepoActionDto();
-        dto.username = user.username;
-        dto.email = user.email;
-        dto.repoName = reponame;
+            if (user.username !== username) 
+                throw new UnauthorizedException("This profile is private.");
+            
+            const dto : RepoActionDto = new RepoActionDto();
+            dto.username = user.username;
+            dto.email = user.email;
+            dto.repoName = reponame;
 
-        return this.gitosis.getRepoBranches(dto);
+            return this.gitosis.getRepoBranches(dto);
     }
 
 
