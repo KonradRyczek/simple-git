@@ -12,6 +12,7 @@ const SignInForm = ({ }) => {
   const loginError = 'Błędny login lub hasło';
   const [validation, setValidation] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validate = () => {
     return email.trim() !== "" && password.trim() !== ""
@@ -35,7 +36,7 @@ const SignInForm = ({ }) => {
         // send the data to the server
         return;
     }
-
+    
     fetch('http://localhost:3333/auth/signin', {
 
       method: 'POST',
@@ -46,42 +47,43 @@ const SignInForm = ({ }) => {
 
       },
       body: JSON.stringify(jsonData)
-
+      
 
     }).then((response) => {
 
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-
       return response.json();
 
     }).then((responseData) => {
-
-      const access_token = responseData.access_token
-
+      if (responseData.access_token) {
+      const access_token = responseData.access_token  
       localStorage.setItem("access_token", access_token);
       setAuthToken(access_token);
       console.log(responseData.access_token)
       console.log(jsonData)
       window.location.pathname = "/dashboard"//+access_token 
+      }
 
-
-    })/*.then((responseData) => {
+    }).catch((error) => {
+        console.log(error)
+        //alert("Błędny login lub hasło")
+        if(error.message === 'HTTP error: 401' 
+        || error.message === 'HTTP error: 403'){
+          setErrorMessage(loginError);
+      }
+      })
+      /*.then((responseData) => {
       const access_token = responseData.access_token
       window.location.pathname = "/dashboard/"+access_token 
     })*/
-
-      .catch((error) => {
-        console.log(error)
-        //alert("Błędny login lub hasło")
-      })
   }
 
   return (
     <div className="col-md-9 mx-auto default-text "style={{color: "black"}}>
       <form className="formularz form-group mb-1 col-md-9 border border-4 border-primary p-4 rounded" onSubmit={handleSubmit}>
-        <label for="loginEmain">E-mail:</label><br />
+        <label htmlFor="loginEmain">E-mail:</label><br />
         <input
           className="form-control shadow-none mb-4"
           type="text"
@@ -93,7 +95,7 @@ const SignInForm = ({ }) => {
           onBlur={() => validate({'email':email})}
         ></input>
 
-        <label for="loginPassword">Password:</label><br />
+        <label htmlFor="loginPassword">Password:</label><br />
         <input
           className="form-control shadow-none mb-4"
           type="password"
@@ -104,7 +106,8 @@ const SignInForm = ({ }) => {
           onChange={(e) => setPassword(e.target.value)}
           onBlur={() => validate({'password':password})}      
         ></input>
-        {isSubmitted && ((email.trim() === "" ? "error" : "") || (password.trim() === "" ? "error" : "")) && <div className="error">{loginError}</div>}
+        {/* {isSubmitted && ((email.trim() === "" ? "error" : "") || (password.trim() === "" ? "error" : "")) && <div className="error">{loginError}</div>} */}
+        {isSubmitted && ((email.trim() === "" || errorMessage ) ? <div className="error">{loginError}</div> : "")}
         <br />
         <input className="btn btn-primary w-100" type="submit" value="Zaloguj" />
       </form>
