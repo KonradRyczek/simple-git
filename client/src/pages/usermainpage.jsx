@@ -33,12 +33,17 @@ const UserMainPage = () => {
     localStorage.setItem("email", email);
     const username = responseData.username
     localStorage.setItem("username", username);
+    console.log(email,username)
 
   })
 
     .catch((error) => {
       console.log(error)
     })
+
+
+
+  
 
 
 // const [explorerData, setExplorerData] = useState(explorer);
@@ -49,12 +54,14 @@ return (
 		<UserHeader></UserHeader>
 	</div>
   <div>
-  <p className=""> Witaj {localStorage.getItem('username')} oto twój Dashboard</p>
+  <h1 className="text-center"> Witaj {localStorage.getItem('username')} oto twój Dashboard</h1>
   <CreateRepoForm/>
   
   </div>
+  <hr/>
   <div>
-    <p>Moje repozytoria</p>
+  
+    <h1 className="text-center">Moje repozytoria</h1>
     <ChoseRepo/>
   </div>
 

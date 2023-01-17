@@ -10,12 +10,21 @@ function hasJWT() {
     return flag
 }
 
+function GetRepoTree(){
+    
+}
+
 const UserRepository = () => {
 
     const [explorerData, setExplorerData] = useState(explorer);
 
+
+
+
+
+
     return (
-       // hasJWT() ?
+        hasJWT() ?
             <>
                 <div className="">
                     <UserHeader></UserHeader>
@@ -37,8 +46,8 @@ const UserRepository = () => {
                 </div>
 
             </>
-           // :
-          //  <Navigate to='/' />
+            :
+            <Navigate to='/' />
     );
 };
 

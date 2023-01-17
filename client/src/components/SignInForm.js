@@ -78,6 +78,25 @@ const SignInForm = ({ }) => {
       const access_token = responseData.access_token
       window.location.pathname = "/dashboard/"+access_token 
     })*/
+
+
+      .catch((error) => {
+        console.log(error)
+        alert("Błędny login lub hasło")
+        
+       
+      })
+
+
+
+      
+
+  }
+
+  const validateInput = e => {
+
+
+
   }
 
   return (
