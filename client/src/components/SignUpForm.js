@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { isRegularExpressionLiteral } from 'typescript';
 import "../styles/signup.css";
 import PasswordStrenghtMeter from "./PasswordStrenghtMeter";
+import { useForm } from "react-hook-form"
  
 const SignUpForm = ({ }) => {
  
@@ -42,46 +44,61 @@ const SignUpForm = ({ }) => {
     email,
     File: pubKey,
   }
+  
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitted(true);
+  //   if (validation) {
+  //       // send the data to the server
+  //       return;
+  //   }
+    
+    
+    // fetch('http://localhost:3333/auth/signup', {
  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    if (validation) {
-        // send the data to the server
-        return;
-    }
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(jsonData)
  
-    fetch('http://localhost:3333/auth/signup', {
+    // }).then((response) => {
  
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(jsonData)
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error: ${response.status}`);
+    //   }
  
-    }).then((response) => {
+    //   console.log(response)
+    //   //console.log("Dodano Usera")
+    //   window.location.pathname = "/signin"
+    //   alert("stworzono usera - zaloguj się")
  
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
+    //   return response.json();
+    // }).catch((error) => {
+    //     console.log(error)
+    // })
  
-      console.log(response)
-      //console.log("Dodano Usera")
-      window.location.pathname = "/signin"
-      alert("stworzono usera - zaloguj się")
- 
-      return response.json();
+  // }
+  
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("pubKey", data.file[0]);
+    formData.append("username", jsonData.username);
+    formData.append("email", jsonData.email);
+    formData.append("password", jsonData.password);
+
+    const res = await fetch("http://localhost:3333/auth/signup", {
+      method: "POST",
+      body: formData,
     })
-      .catch((error) => {
-        console.log(error)
-      })
- 
   }
- 
+
   return (
     <div className="col-md-6 mx-auto mt-5 border  border-4 border-primary rounded default-text" style={{ color: "black" }}>
-      <form className="formularz form-group mb-1 p-4 " onSubmit={(e) => handleSubmit(e)}>
+      <form className="formularz form-group mb-1 p-4 " onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="rejestracjaUsername">Username:</label><br />
         <input
           className="form-control shadow-none mb-4"
@@ -129,10 +146,10 @@ const SignUpForm = ({ }) => {
         <label htmlFor="RsaKEY">Send SSH Public Key:</label><br />
         <input
           className="form-control shadow-none mb-4"
-          type="file"
-          name="PubKey"
-          placeholder='PubKey'
-          id="PubKey"
+          type="file" {...register("file")}
+          // name="PubKey"
+          // placeholder='PubKey'
+          // id="PubKey"
           //value={pubKey}
           onChange={changePubKey}
           accept="pub"
