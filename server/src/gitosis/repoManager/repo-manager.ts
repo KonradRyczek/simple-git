@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import dirToJson from "dir-to-json"
 import * as fs from 'fs';
 import * as path from 'path';
 import simpleGit from "simple-git";
-import { RepoActionDto } from "../dto";
+import { RepoActionDto, RepoFileActionDto } from "../dto";
 // import dirToJson from "dir-to-json";
 
 
@@ -20,17 +20,81 @@ export class RepoManager {
         this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH");
     }
 
-    getFileFromRepo() {
+    getFileFromRepo(dto : RepoFileActionDto) {
+        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
+        const absoluteFilePath = repoPath + '/' + dto.filePath;
 
+        console.log(repoPath)
+        if (!fs.existsSync(repoPath))
+            throw new NotFoundException("Couldn't find repo");
+
+        const git = simpleGit(repoPath);
+        git.pull("origin", dto.branchName)
+
+        console.log(absoluteFilePath)
+        if (!fs.existsSync(absoluteFilePath))
+            throw new NotFoundException("Couldn't find the file");
+        
+        
+        try {
+            const fileContent = fs.readFileSync(absoluteFilePath, 'utf-8');
+            // const fileJson = JSON.parse(fileContent);
+            console.log(fileContent);
+
+            return { 
+                "owner" : {
+                    "username": dto.username,
+                    "email": dto.email,
+                },
+                "repoName" : dto.repoName,
+                "branchName" : dto.branchName,
+                "filePath": dto.filePath,
+                "fileContent": fileContent,
+            };
+            
+        } catch (err) {
+            return err;
+        }
     }
 
-    async getRepoDirectoryStructure(dto: RepoActionDto) {
-        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName
+    async getRepoBranches(dto: RepoActionDto) {
+        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
         if (!fs.existsSync(repoPath))
             return;
 
         const git = simpleGit(repoPath);
-        git.pull("origin", "master")
+        await git.fetch();
+        const allBranches = await git.branch()
+
+        const filteredBranches = allBranches.all.filter(
+            branch => branch.startsWith("remotes/origin/"));
+        const branches = filteredBranches.map(
+            branch => branch.replace('remotes/origin/', ''));
+
+        const response = {
+            "owner" : {
+                "username": dto.username,
+                "email": dto.email,
+            },
+            "repoName": dto.repoName,
+            "branches" : branches,
+        }
+        return response;
+    }
+
+
+    async getRepoDirectoryStructure(dto: RepoActionDto) {
+        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
+
+        if (!fs.existsSync(repoPath))
+            return;
+
+        const git = simpleGit(repoPath);
+        await git.fetch()
+            .checkout(dto.branchName)
+            .pull();
+        // await git.checkout()
+        // await git.pull("origin", "master")
 
         var dirToJson = require("dir-to-json")
         const dirTree = await dirToJson(repoPath, { sortType: true })
@@ -41,35 +105,18 @@ export class RepoManager {
         .catch(function (err) {
             throw err;
         });
-
-        return JSON.stringify(dirTree, null, 4)
-        // var dirToJson = require('directory-structure-json');
-        // dirToJson.getStructure(fs, repoPath, function (err, structure, total) {
-        //     console.log('there are a total of: ', total.folders, ' folders and ', total.files, ' files');
-        //     console.log('the structure looks like: ', JSON.stringify(structure, null, 4));
-        // });
-        // const dirToJson = require('dir-to-json').dirToJson;
         
+        const response = {
+            "owner" : {
+                "username": dto.username,
+                "email": dto.email,
+            },
+            "repoName": dto.repoName,
+            "branch" : dto.branchName,
+            "repotree": dirTree,
+        }
 
-        // dirToJson(repoPath, { sortType: true })
-        //     .then(function (dirTree){
-        //         console.log(dirTree);
-        //     })
-
-
-
-        // this.gitAdminDir = simpleGit();
-        // this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
-        // await this.gitAdminDir.clone('git@localhost:gitosis-admin.git',
-        //     this.adminReposPath + '/' + this.confRepoName);
-        // await this.gitAdminDir.cwd(this.adminReposPath + '/' + this.confRepoName);  
-        // await this.gitAdminDir
-        //     .addConfig("user.email", "admin")
-        //     .addConfig("user.name", "admin@admin.com");
-        
-    
-        // this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-        // await this.gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
+        return response;
     }
 
 }

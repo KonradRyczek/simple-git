@@ -59,6 +59,17 @@
     border-radius: 5px;
 }
 
+.span{
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+}
+
+.input:invalid ~ span{
+    display: block;
+}
+
 .canvas{
     height: 200px;
     position: relative;

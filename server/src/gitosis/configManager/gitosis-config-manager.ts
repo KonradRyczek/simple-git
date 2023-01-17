@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import {simpleGit,  SimpleGit } from 'simple-git';
 import { RepoActionDto, GitosisUserDto } from '../dto';
+import { exec } from 'child_process';
 
 
 @Injectable()
@@ -63,8 +64,8 @@ export class GitosisConfigManager implements OnModuleInit{
             this.loadGitosisConfToJSObject();
         } else {
             this.gitAdminDir = simpleGit(this.adminReposPath + '/' + this.confRepoName);
-            // this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
-            // this.gitAdminDir.addRemote("origin", "git@localhost:gitosis-admin.git");
+            this.gitAdminDir.env("GIT_SSH_COMMAND", "ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa")
+            this.gitAdminDir.addRemote("origin", "git@localhost:gitosis-admin.git");
             await this.gitAdminDir.pull("origin", "master").status().exec(() => console.log('pull done.'));
             this.loadGitosisConfToJSObject();
         }
@@ -90,6 +91,13 @@ export class GitosisConfigManager implements OnModuleInit{
             }
             const git = simpleGit(path);
             await git.init(true)
+
+            exec('chown git:git -R ' + path, (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`Error: ${error}`);
+                    return;
+                }
+            });
         }
 
         if (fs.existsSync(this.userReposPath + '/' + dto.username)) {
