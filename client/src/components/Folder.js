@@ -43,7 +43,7 @@ const CheckOpen = () => {
 const OpenFile = () => {
     const access_token = "Bearer " + localStorage.getItem("access_token")
     
-    const username = "zark"
+    const username = localStorage.getItem("username")
     const reponame = "bbb"
     const pathToFile = "bbb"
 
@@ -65,7 +65,7 @@ const OpenFile = () => {
       return response.json();
   
     }).then((responseData) => {
-      console.log(responseData)
+
 
     })
     

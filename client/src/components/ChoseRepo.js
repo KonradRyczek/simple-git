@@ -2,18 +2,18 @@ import React, { useState, state } from "react";
 import styles from "../styles/globe.css";
 import RepoCard from "./RepoCard";
 
-const ChoseRepo = ({ }) => {
+const ChoseRepo =  ({ }) => {
 
   const access_token = "Bearer " + localStorage.getItem("access_token")
-  const username = "zark" //localStorage.getItem("username", username);
+  const username = localStorage.getItem("username");
   const tab = []
   const flag = false
 
-  async function WaitingforRepos() {
+  async function WaitingforRepos()  {
 
     //const url = "http://localhost:3333/gitosis/:"+username
 
-    fetch('http://localhost:3333/gitosis/' + username, {
+  await  fetch('http://localhost:3333/gitosis/' + username, {
 
       method: 'GET',
       mode: 'cors',
@@ -30,12 +30,13 @@ const ChoseRepo = ({ }) => {
       }
       return response.json();
 
-    }).then(async (responseData) => {
-      //console.log(responseData)
+    }).then( (responseData) => {
+      console.log(responseData.repositories[0].reponame)
       
-      tab.push(responseData)
-      console.log(tab)//tab.push("test")
-      flag = true
+      tab.push(responseData.repositories)
+      const reponame = responseData.repositories[0].reponame
+      localStorage.setItem("reponame", reponame);
+     
 
     })
 
@@ -43,7 +44,7 @@ const ChoseRepo = ({ }) => {
         console.log(error)
       })
 
-      return flag
+
   }
 
 
