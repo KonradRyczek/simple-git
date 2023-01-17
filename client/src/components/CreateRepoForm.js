@@ -14,6 +14,8 @@ const CreateRepoForm = ({ }) => {
     var jsonData = {
         "repoName": repoName,
     }
+    console.log(jsonData)
+    console.log(access_token)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -44,8 +46,10 @@ const CreateRepoForm = ({ }) => {
         })
             .catch((error) => {
                 console.log(error)
-                alert("Coś poszło nie tak :(")
+             //   alert("Coś poszło nie tak :(")
             })
+
+
     }
 
     
@@ -58,7 +62,7 @@ const CreateRepoForm = ({ }) => {
                     className="form-control shadow-none w-25 d-inline-block ml-2 mt-2 "
                     type="text"
                     name="repoName"
-                    placeholder='Wprowadź nazwę  Repozytorioum'
+                    placeholder='Wprowadź nazwę Repozytorioum'
                     id="repoName"
                     value={repoName}
                     onChange={(e) => setRepoName(e.target.value)}

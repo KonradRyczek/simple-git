@@ -16,7 +16,7 @@ const SignUpForm = ({ }) => {
 
 	const changePubKey = (e) => {
 		setPubKey(e.target.files[0]);
-  //  console.log(e.target.files[0])
+   // console.log(e.target.files[0])
 	};
 
   var jsonData = {
@@ -26,13 +26,10 @@ const SignUpForm = ({ }) => {
     'File':pubKey
   }
 
-
+  console.log(jsonData)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-
-
 
     fetch('http://localhost:3333/auth/signup', {
 
@@ -51,7 +48,7 @@ const SignUpForm = ({ }) => {
       
      console.log(response)
      //console.log("Dodano Usera")
-      window.location.pathname = "/signin"
+      //window.location.pathname = "/signin"
       alert("stworzono usera - zaloguj się")
 
       return response.json();

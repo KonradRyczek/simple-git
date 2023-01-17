@@ -12,6 +12,12 @@ export const SidebarData = [
         cName: "nav-text"
     },
     {
+        title: "Branches",
+        path: "/dashboard",
+        icon: <DiIcons.DiGitBranch/>,
+        cName: "nav-text"
+    },
+    {
         title: "Repository",
         path: "/user/repository",
         icon: <DiIcons.DiGitBranch/>,

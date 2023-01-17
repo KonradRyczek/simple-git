@@ -5,6 +5,9 @@ const RepoCard = ({data}) => {
 
   const access_token = "Bearer " + localStorage.getItem("access_token")
   //const username = localStorage.getItem("username", username);
+  const username = "zark"
+  const reponame = "bbb"
+
   const otworzRepo = (e) => {
 
     var jsonData = {
@@ -13,7 +16,7 @@ const RepoCard = ({data}) => {
   }
       e.preventDefault()
 
-      fetch('http://localhost:3333/gitosis/:username/:reponame', { 
+      fetch('http://localhost:3333/gitosis/'+username+'/'+reponame, { 
 
           method: 'GET',
           mode: 'cors',
@@ -49,7 +52,7 @@ const RepoCard = ({data}) => {
   const usunRepo = (e) => {
 
     var jsonData = {
-      "repoName": e.name,
+      "repoName": "bbb"//e.name,
   }
       e.preventDefault()
 
@@ -83,13 +86,13 @@ const RepoCard = ({data}) => {
           })
   }
 
-console.log(data)
+console.log(data+"data")
   return (
     <>
    {data.map((exp)=>{   
             return(
               <div className="border">
-                <p  key={exp.id} onClick={otworzRepo}>{exp.username}</p>    
+                <p  onClick={otworzRepo}>{exp.reponame}</p>    
                 <p onClick={usunRepo}><AiIcons.AiFillDelete/></p>  
               </div>     
             )

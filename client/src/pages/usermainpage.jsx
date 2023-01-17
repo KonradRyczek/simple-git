@@ -33,12 +33,17 @@ const UserMainPage = () => {
     localStorage.setItem("email", email);
     const username = responseData.username
     localStorage.setItem("username", username);
+    console.log(email,username)
 
   })
 
     .catch((error) => {
       console.log(error)
     })
+
+
+
+  
 
 
 // const [explorerData, setExplorerData] = useState(explorer);

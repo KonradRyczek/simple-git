@@ -12,7 +12,7 @@ function hasJWT() {
 const userSetting = () => {
 
   return (
- //   hasJWT() ?
+    hasJWT() ?
       <>
         <div className="">
           <UserHeader/>
@@ -39,8 +39,8 @@ const userSetting = () => {
 
 
 
-    //  :
-   //   <Navigate to='/' />
+      :
+      <Navigate to='/' />
   );
 };
 

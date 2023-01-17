@@ -16,7 +16,7 @@ function hasJWT() {
 const userSupport= () => {
 
 return (
-  //  hasJWT() ?  
+    hasJWT() ?  
         <>
         <div className="">
         
@@ -29,8 +29,8 @@ return (
 
 
 
-    //    :
-    //    <Navigate  to='/'/>       
+      :
+       <Navigate  to='/'/>       
 );
   };
   
