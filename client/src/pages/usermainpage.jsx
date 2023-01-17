@@ -8,9 +8,11 @@ import ChoseRepo from "../components/ChoseRepo";
 
 const UserMainPage = () => {
 
-  const access_token = "Bearer " + localStorage.getItem("access_token")
+const access_token = "Bearer " + localStorage.getItem("access_token")
+const username = localStorage.getItem("username");
+const reponame = localStorage.getItem("username"); //default
 
-  fetch('http://localhost:3333/users/me', {
+fetch('http://localhost:3333/gitosis/'+username+'/'+reponame+'/branches', {
 
     method: 'GET',
     mode: 'cors',
@@ -29,11 +31,9 @@ const UserMainPage = () => {
 
   }).then((responseData) => {
 
-    const email = responseData.email
-    localStorage.setItem("email", email);
-    const username = responseData.username
-    localStorage.setItem("username", username);
-    console.log(email,username)
+    const branches = responseData.branches
+    localStorage.setItem("branches", branches);
+    console.log("user: "+username+" reponame: "+reponame +" branches: "+branches )
 
   })
 
@@ -42,8 +42,6 @@ const UserMainPage = () => {
     })
 
 
-
-  
 
 
 // const [explorerData, setExplorerData] = useState(explorer);

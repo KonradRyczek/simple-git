@@ -57,13 +57,18 @@ const SignInForm = ({ }) => {
       return response.json();
 
     }).then((responseData) => {
+      console.log(responseData.user.username)
       if (responseData.access_token) {
-      const access_token = responseData.access_token  
+      const access_token = responseData.access_token 
+      const username = responseData.user.username
+      const email = responseData.user.email
       localStorage.setItem("access_token", access_token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("email", email);
       setAuthToken(access_token);
       console.log(responseData.access_token)
-      console.log(jsonData)
-      window.location.pathname = "/dashboard"//+access_token 
+     // console.log(jsonData)
+      window.location.pathname = "/"+username //+access_token 
       }
 
     }).catch((error) => {
