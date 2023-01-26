@@ -34,6 +34,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
+			<div className="blank"></div>
 			<div>
 				<Footer />
 			</div>
