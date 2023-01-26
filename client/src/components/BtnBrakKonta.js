@@ -8,7 +8,7 @@ function ToSignUP() {
 const BtnBrakKonta = ({className}) => {
     
   return (
-    <button className={className} onClick={ToSignUP}>Zarejestruj się </button>
+    <button className={className} onClick={ToSignUP}>Sign Up</button>
   );
 };
 

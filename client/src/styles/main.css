@@ -14,36 +14,39 @@
     }
 }
 
+.blank {
+    height: 30%;
+}
+
 .background{
     background-color: #efeff0;
     height: 100vh;
-    overflow: hidden;
 }
 
 .default-text{
-    color: #9b9d9e;
-    font-size: 20px;
-    font-family: sans-serif;
+    color: white;
+    font-size: 25px;
+    font-family: 'Orbitron', courier, sans-serif;
     font-weight: bold;
 }
 
-.stopka{
-    color: #9b9d9e;
-    height: 100px;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    font-family: sans-serif;
-    font-weight: bold;
+.footer {
+    background-color: #333;
+    margin-top: 30px;
+    background-color: transparent;
+    padding: 15px;
+    position: relative;
+    min-height: 55px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .stopka-text{
     position: absolute;
-    padding: 5px;
+    padding: 0px 25px;
     right: 20px;
-    bottom: 5px;
- 
+    font-family: 'Roboto';
+    font-weight: bold;
+    color: white;
 }
 
 .logo{
@@ -51,10 +54,11 @@
     height:40px;
     z-index: 1;
     margin: 10px;
-    font-size: 15px;
+    font-size: 25px;
+    color: white;
 }
+
 .signup{
-   
     color:white;
     border-radius: 5px;
 }
@@ -88,12 +92,21 @@
 }
 
 .h1404{
-    
     font-size: 150px;
     font-weight: bold;
     background: -webkit-linear-gradient(rgb(235, 235, 235), #333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.btn.btn-lg {
+    background-color: rgb(15, 76, 79);  
+    font-family: "Courier New", Courier, monospace;
+    font-size: 25px;
+    color:rgb(0, 254, 192);
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .logo-text{
@@ -222,5 +235,26 @@ li{
   .fileTresc{
     background-color: lightgray;
     margin-top: 6px;
-    
   }
+
+ .btn.btn-primary.w-100.btn-lg {
+    border-color: rgb(0, 181, 136);
+    background-color: rgb(0, 181, 136);
+    color: white;
+ }
+
+ .btn.btn-primary.btn-lg {
+    border-color: rgb(0, 181, 136);
+    background-color: rgb(0, 181, 136);
+    color: white;
+ }
+
+.a-text-primary {
+    color: rgb(0, 254, 192);
+    text-decoration: none;
+}
+
+.a-text-primary:hover {
+    color: rgb(40, 117, 125);
+}
+

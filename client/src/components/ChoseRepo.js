@@ -1,5 +1,4 @@
 import React, { useState, state } from "react";
-import styles from "../styles/globe.css";
 import RepoCard from "./RepoCard";
 
 const ChoseRepo =  ({ }) => {

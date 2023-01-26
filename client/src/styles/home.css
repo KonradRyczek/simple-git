@@ -1,55 +1,122 @@
 .homebody {
-  background: radial-gradient(circle at bottom, navy 0, black 100%);
-  height: 100vh;
-  overflow: hidden;
-}
-
-.space{
-  background: rgba(128, 0, 128, 0.1) center / 150px 150px round;
-  position:relative;
-  height: 100vh;
-}
-
-.stars {
-  animation: space 10s ease-in-out infinite;
   background-image:
-    radial-gradient(
-      1px 1px at 25px 5px, 
-      white, 
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      1px 1px at 50px 25px, 
-      white, 
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      1px 1px at 125px 20px, 
-      white, 
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      1.5px 1.5px at 50px 75px, 
-      white, 
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      2px 2px at 15px 125px, 
-      white, 
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      2.5px 2.5px at 110px 80px, 
-      white, 
-      rgba(255, 255, 255, 0)
-    );
+  linear-gradient(90deg, #182223 3%, rgba(21, 33, 33, 0) 100%),
+  url("../img/reflected.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  overflow: auto;
 }
 
-@keyframes space {
-  50% {
-    opacity: 0.75;
-  }
-  100% {
-      opacity: 1;
-  }
+.container {
+  border-radius:20px;
+  border: 5px #d86615 solid;  
+  opacity: 0.5;
+  background-color: #484C37;
+  padding: 20px;
+  color: #f5f5f5;
+  margin-bottom: 100px;
 }
+
+.container p {
+  opacity: 1;
+}
+
+.frame3 {
+  position: relative;
+  width: 651px;
+  height: 332px;
+  left: 207px;
+  top: 104px;
+}
+
+.simply-work-together {
+ width: 751px;
+ height: 73px;
+ font-family: 'Roboto';
+ font-weight: 700;
+ font-size: 60px;
+ line-height: 73px;
+ margin-bottom: 30px;
+}
+
+.simple-git {
+ width: 673px;
+ height: 108px;
+ font-family: 'Roboto';
+ font-weight: 400;
+ font-size: 23px;
+ line-height: 36px;
+ margin-bottom: 30px;
+}
+
+.italso {
+  position: relative;
+  width: 673px;
+  height: 108px;
+  left: 207px;
+  top: 104px;
+  font-family: 'Roboto';
+  font-weight: 350;
+  font-size: 21px;
+  line-height: 36px;
+  margin-bottom: 30px;
+}
+
+.frame6 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 17px;
+  width: 537px;
+  height: 61px;
+}
+
+.signup {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;  
+  width: 260px;
+  height: 61px;
+  border-radius: 11px;
+  background-color: #29CECE;
+  color: #FFFFFF;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 22px;
+}
+
+.signin {
+  text-decoration: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  width: 260px;
+  height: 61px;
+  border: 1px solid #FFFFFF;
+  border-radius: 11px;
+  color: #FFFFFF;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup:hover {
+  color: #cfcfcf;
+  background-color: #1ea2a2;
+  }
+  
+  .signin:hover {
+  color: #677a7a;
+  border: 1px solid #677a7a;
+  }

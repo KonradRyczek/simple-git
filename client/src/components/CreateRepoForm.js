@@ -1,5 +1,4 @@
 import React, { useState, state } from "react";
-import styles from "../styles/globe.css";
 
 import setAuthToken from "../components/setAuthToken"
 import { Link } from "react-router-dom";

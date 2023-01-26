@@ -86,9 +86,9 @@ const SignUpForm = ({ }) => {
   }
  
   return (
-    <div className="col-md-6 mx-auto mt-5 border  border-4 border-primary rounded default-text" style={{ color: "black" }}>
+    <div className="signup-form col-md-6 mx-auto mt-5 default-text" style={{ color: "black" }}>
       <form className="formularz form-group mb-1 p-4 " onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="rejestracjaUsername">Username:</label><br />
+        <label htmlFor="rejestracjaUsername"><h2>Username:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
           type="text"
@@ -103,9 +103,9 @@ const SignUpForm = ({ }) => {
         { isSubmitted && !/^[a-zA-Z0-9]{3,18}$/.test(username) && <div className="error">{usernameError}</div>}
         <br />
  
-        <label htmlFor="rejestracjaPasswd">Password:</label><br />
+        <label htmlFor="rejestracjaPasswd"><h2>Password:</h2></label><br />
         <input
-          className="form-control shadow-none  "
+          className="form-control shadow-none mb-4"
           type="password"
           name="password"
           placeholder='Enter Password'
@@ -118,7 +118,7 @@ const SignUpForm = ({ }) => {
         <br /><br />
         <PasswordStrenghtMeter password={password} />
  
-        <label htmlFor="rejestracjaPasswdConf">Confirm Password:</label><br />
+        <label htmlFor="rejestracjaPasswdConf"><h2>Confirm Password:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
           type="password"
@@ -132,7 +132,7 @@ const SignUpForm = ({ }) => {
         {isSubmitted && password !== confirmPassword && <div className="error">{confirmPasswordError}</div>}
         <br />
  
-        <label htmlFor="RsaKEY">Send SSH Public Key:</label><br />
+        <label htmlFor="RsaKEY"><h2>Send SSH Public Key:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
           type="file"
@@ -146,7 +146,7 @@ const SignUpForm = ({ }) => {
         {isSubmitted && pubKey == "" && <div className="error">{pubKeyError}</div>}
         <br />
  
-        <label htmlFor="rejestracjaEmail">E-mail:</label><br />
+        <label htmlFor="rejestracjaEmail"><h2>E-mail:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
           type="text"
@@ -160,13 +160,13 @@ const SignUpForm = ({ }) => {
         {isSubmitted && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && <div className="error">{emailError}</div>}
         <br />
  
-        <input className="btn btn-primary w-100 btn-lg" type="submit" value="Rejestracja" />
+        <input className="btn btn-primary w-100 text-center btn-lg" type="submit" value="Sign Up" />
  
         <br />
       <p className="text-muted text-center mt-3 mb-3">
-        Masz już konto?{" "}
-        <a href="/signin" className="text-primary">
-          Zaloguj się
+        Already have an account?{" "}
+        <a href="/signin" className="a-text-primary">
+          Sign In
         </a>
       </p>
       </form>
