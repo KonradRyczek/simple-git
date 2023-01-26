@@ -15,6 +15,8 @@
 }
 
 .blank {
+    margin-top: 150px;
+    min-height: 100px;
     height: 30%;
 }
 

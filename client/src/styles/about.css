@@ -9,15 +9,17 @@
 }
 
 .text-center-h1 {
+    font-family: 'Neon';
     text-align: center;
-    font-size: 60px;
-    margin-top: 20px;
+    font-size: 55px;
+    margin: 30px;
     margin-bottom: 50px;
     color: #dd6036;
     animation: glow 0.50s ease-in-out infinite alternate-reverse;
 }
 
 .background h2 {
+    font-family: 'Neon';
     margin-top: 20px;
     margin-left: 50px;
     color: #dd6036;
@@ -25,7 +27,7 @@
 }
 
 .about.row.mx-auto.mb-5.w-100 {
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -73,7 +75,7 @@
         text-shadow:
         0 0 7px rgb(255, 100, 0),
         0 0 15px rgb(255, 110, 0),
-        0 0 22px rgb(255, 120, 0),
+        0 0 21px rgb(255, 120, 0),
         0 0 30px rgb(255, 130, 0);
     }
 }
