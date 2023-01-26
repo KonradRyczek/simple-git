@@ -7,8 +7,12 @@ const Sign_up = () => {
 	return (
 		<div className="background">
 			<Header />
-			<SignUpForm ></SignUpForm>
-			<Footer />
+			<div className="form-container">
+    			<SignUpForm ></SignUpForm>
+			</div>
+			<div className="footer-container">
+    			<Footer />
+			</div>
 		</div>
 	);
 };

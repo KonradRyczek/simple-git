@@ -1,5 +1,4 @@
 import React, { useState, useEffect, state } from "react";
-import styles from "../styles/globe.css";
 
 import setAuthToken from "../components/setAuthToken"
 import { Link } from "react-router-dom";
@@ -82,8 +81,8 @@ const SignInForm = ({ }) => {
 
   return (
     <div className="col-md-9 mx-auto default-text "style={{color: "black"}}>
-      <form className="formularz form-group mb-1 col-md-9 border border-4 border-primary p-4 rounded" onSubmit={handleSubmit}>
-        <label htmlFor="loginEmain">E-mail:</label><br />
+      <form className="signin-form col-md-6 mx-auto mt-5 default-text" onSubmit={handleSubmit}>
+        <label htmlFor="loginEmain"><h2>E-mail:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
           type="text"
@@ -95,7 +94,7 @@ const SignInForm = ({ }) => {
           onBlur={() => validate({'email':email})}
         ></input>
 
-        <label htmlFor="loginPassword">Password:</label><br />
+        <label htmlFor="loginPassword"><h2>Password:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
           type="password"
@@ -109,7 +108,7 @@ const SignInForm = ({ }) => {
         {/* {isSubmitted && ((email.trim() === "" ? "error" : "") || (password.trim() === "" ? "error" : "")) && <div className="error">{loginError}</div>} */}
         {isSubmitted && ((email.trim() === "" || errorMessage ) ? <div className="error">{loginError}</div> : "")}
         <br />
-        <input className="btn btn-primary w-100" type="submit" value="Zaloguj" />
+        <input className="btn btn-primary w-60 btn-lg" type="submit" value="Sign In" />
       </form>
     </div>
   );

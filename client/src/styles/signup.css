@@ -1,6 +1,7 @@
 .background {
     background: linear-gradient(to right, #0B524E, #0F6B66, #159992);
     font-family: 'Poppins', sans-serif;
+    overflow: auto;
 }
 
 #form {
@@ -13,7 +14,7 @@
 }
 
 #form h1 {
-    color: #0f2027;
+    color: #1d5871;
     text-align: center;
 }
 
@@ -22,17 +23,46 @@
     margin-top: 10px;
     width: 100%;
     color: white;
-    background-color: rgb(41, 57, 194);
+    background-color: rgb(41, 189, 194);
     border: none;
     border-radius: 4px;
 }
 
-.col-md-6.mx-auto.mt-5.border.border-4.border-primary.rounded.default-text {
-    background-color: #f5f5f5;
+.signin-form.col-md-6.mx-auto.mt-5.default-text {
+    background-color: rgba(44, 44, 44, 0.7);
+    border-style: glow 0.50s ease-in-out infinite alternate-reverse;
+    border: 1px solid #DD4536;
+	border-radius: 2px;
+	display: block;
+    line-height: 25px;
+	font-size: 20px;
+	padding: 30px;
+	width: 50%;
+    padding-bottom: 40px;
   }
 
-.formularz.form-group.mb-1.col-md-9.border.border-4.border-primary.p-4.rounded {
-    background-color: #f5f5f5;
+.signup-form.col-md-6.mx-auto.mt-5.default-text {
+    background-color: rgba(44, 44, 44, 0.7);
+    border-style: glow 0.50s ease-in-out infinite alternate-reverse;
+    border: 1px solid #DD4536;
+	border-radius: 2px;
+	display: block;
+    line-height: 25px;
+	font-size: 20px;
+	padding: 30px;
+	width: 50%;
+    padding-bottom: 40px;
+    margin-bottom: 150px;
+  }
+
+.form-control.shadow-none.mb-4 {
+    background-color: rgb(15, 76, 79);  
+    font-family: "Courier New", Courier, monospace;
+    font-size: 19px;
+    color:rgb(0, 254, 192);
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin: 10px;
 }
 
 .input-control {
@@ -41,7 +71,7 @@
 }
 
 .input-control input {
-    border: 2px solid #f0f0f0;
+    border: 2px solid #DD4536;
 	border-radius: 4px;
 	display: block;
 	font-size: 12px;

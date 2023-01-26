@@ -5,24 +5,23 @@ import BtnBrakKonta from "../components/BtnBrakKonta";
 import SignInForm from "../components/SignInForm";
 const Sign_in = () => {
 
-
-
 	return (
 		<div className="background">
 			<div >
 				<Header />
 			</div>
-			<div className="row mx-auto w-100 mt-5">
+			<div className="row mx-auto w-100">
 				<div className=" col-12 mx-auto text-center">
 						<SignInForm></SignInForm>
 				</div>
 			</div>
 			<br />
-			<div className=" col-12 mx-auto text-center">
-				<p className="background aboutTEXT" >
-					Nie masz jeszcze konta {'->'} <BtnBrakKonta className={"btn btn-primary btn-lg"}></BtnBrakKonta>
-				</p>
+			<div className="col-12 mx-auto text-center">
+				<h2>
+					Nie masz jeszcze konta {'->'} &nbsp;<BtnBrakKonta className={"btn btn-primary btn-lg"}></BtnBrakKonta>
+				</h2>
 			</div>
+			<div className="blank"></div>
 			<Footer />
 		</div>
 	);
