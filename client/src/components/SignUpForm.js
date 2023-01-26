@@ -33,7 +33,7 @@ const SignUpForm = ({ }) => {
  
 	const changePubKey = (e) => {
 		setPubKey(e.target.files[0]);
-  //  console.log(e.target.files[0])
+   // console.log(e.target.files[0])
 	};
  
   var jsonData = {
@@ -42,7 +42,10 @@ const SignUpForm = ({ }) => {
     email,
     File: pubKey,
   }
- 
+
+
+  console.log(jsonData)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -51,6 +54,7 @@ const SignUpForm = ({ }) => {
         return;
     }
  
+
     fetch('http://localhost:3333/auth/signup', {
  
       method: 'POST',
@@ -65,10 +69,12 @@ const SignUpForm = ({ }) => {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
- 
-      console.log(response)
-      //console.log("Dodano Usera")
-      window.location.pathname = "/signin"
+
+      
+     console.log(response)
+     //console.log("Dodano Usera")
+      //window.location.pathname = "/signin"
+
       alert("stworzono usera - zaloguj się")
  
       return response.json();

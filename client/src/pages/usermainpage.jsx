@@ -8,9 +8,11 @@ import ChoseRepo from "../components/ChoseRepo";
 
 const UserMainPage = () => {
 
-  const access_token = "Bearer " + localStorage.getItem("access_token")
+const access_token = "Bearer " + localStorage.getItem("access_token")
+const username = localStorage.getItem("username");
+const reponame = localStorage.getItem("username"); //default
 
-  fetch('http://localhost:3333/users/me', {
+fetch('http://localhost:3333/gitosis/'+username+'/'+reponame+'/branches', {
 
     method: 'GET',
     mode: 'cors',
@@ -29,16 +31,17 @@ const UserMainPage = () => {
 
   }).then((responseData) => {
 
-    const email = responseData.email
-    localStorage.setItem("email", email);
-    const username = responseData.username
-    localStorage.setItem("username", username);
+    const branches = responseData.branches
+    localStorage.setItem("branches", branches);
+    console.log("user: "+username+" reponame: "+reponame +" branches: "+branches )
 
   })
 
     .catch((error) => {
       console.log(error)
     })
+
+
 
 
 // const [explorerData, setExplorerData] = useState(explorer);
@@ -49,12 +52,14 @@ return (
 		<UserHeader></UserHeader>
 	</div>
   <div>
-  <p className=""> Witaj {localStorage.getItem('username')} oto twój Dashboard</p>
+  <h1 className="text-center"> Witaj {localStorage.getItem('username')} oto twój Dashboard</h1>
   <CreateRepoForm/>
   
   </div>
+  <hr/>
   <div>
-    <p>Moje repozytoria</p>
+  
+    <h1 className="text-center">Moje repozytoria</h1>
     <ChoseRepo/>
   </div>
 

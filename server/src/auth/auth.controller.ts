@@ -35,13 +35,14 @@ export class AuthController {
             this.gitosis.addUserToGitosis(gitosisDto);
             return result;
         } catch (err) {
-            console.error(err);
+            throw err;
         }
         
     }
 
     @Post("signin")
     signin(@Body() dto: AuthDto) {
+        
         return this.authService.signin(dto);
     }
 

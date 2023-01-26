@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class RepoActionDto {
+export class UserDto {
     @IsString()
     @IsNotEmpty()
     username: string
@@ -9,11 +9,4 @@ export class RepoActionDto {
     @IsNotEmpty()
     email: string
 
-    @IsString()
-    @IsNotEmpty()
-    repoName: string
-
-    @IsString()
-    @IsNotEmpty()
-    branchName: string
 }

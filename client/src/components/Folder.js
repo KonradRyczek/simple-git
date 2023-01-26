@@ -41,8 +41,33 @@ const CheckOpen = () => {
 }
 
 const OpenFile = () => {
+    const access_token = "Bearer " + localStorage.getItem("access_token")
     
-    console.log(explorer.name, explorer.id)
+    const username = localStorage.getItem("username")
+    const reponame = "bbb"
+    const pathToFile = "bbb"
+
+    fetch('http://localhost:3333/gitosis/'+username+'/'+reponame+'/'+pathToFile, {
+  
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': access_token
+  
+      },
+  
+    }).then((response) => {
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.json();
+  
+    }).then((responseData) => {
+
+
+    })
     
 }
 

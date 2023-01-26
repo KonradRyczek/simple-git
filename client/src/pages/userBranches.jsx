@@ -10,11 +10,8 @@ function hasJWT() {
     return flag
 }
 
-function GetRepoTree(){
-    
-}
 
-const UserRepository = () => {
+const UserBranches = () => {
 
     const [explorerData, setExplorerData] = useState(explorer);
 
@@ -30,19 +27,7 @@ const UserRepository = () => {
                     <UserHeader></UserHeader>
                 </div>
                 <div>
-
-                </div>
-
-                <div className="  row mx-auto mt-1 vh-100">
-                    <div className=" col-6 align-items-center">
-                        <Folder explorer={explorerData} />
-                    </div>
-                    <div className="fileTresc col-6 border border-white rounded">
-                        <p>Kod źródłowy pliku pobrany jsonem</p>
-                        {//<p>{localStorage.getItem('plik')}</p>
-                        }
-                    </div>
-
+                    <p>List of branches</p>
                 </div>
 
             </>
@@ -51,4 +36,4 @@ const UserRepository = () => {
     );
 };
 
-export default UserRepository;
+export default UserBranches;
