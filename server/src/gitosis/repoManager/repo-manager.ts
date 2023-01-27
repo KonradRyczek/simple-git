@@ -1,11 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import dirToJson from "dir-to-json"
 import * as fs from 'fs';
-import * as path from 'path';
 import simpleGit from "simple-git";
 import { RepoActionDto, RepoFileActionDto } from "../dto";
-// import dirToJson from "dir-to-json";
 
 
 @Injectable()
