@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import * as fs from 'fs';
 import simpleGit from "simple-git";
-import { RepoActionDto, RepoFileActionDto } from "../dto";
+import { CreateBranchDto, RepoActionDto, RepoFileActionDto } from "../dto";
 
 
 @Injectable()
@@ -54,15 +54,14 @@ export class RepoManager {
         }
     }
 
-    async getRepoBranches(dto: RepoActionDto) {
-        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
+    async getRepoBranches(username : string, repoName : string) {
+        const repoPath = this.userReposPath + '/' + username + '/' + repoName;
         if (!fs.existsSync(repoPath))
             return;
 
         const git = simpleGit(repoPath);
         await git.fetch();
         const allBranches = await git.branch()
-
         const filteredBranches = allBranches.all.filter(
             branch => branch.startsWith("remotes/origin/"));
         const branches = filteredBranches.map(
@@ -70,13 +69,29 @@ export class RepoManager {
 
         const response = {
             "owner" : {
-                "username": dto.username,
-                "email": dto.email,
+                "username": username,
             },
-            "repoName": dto.repoName,
+            "repoName": repoName,
             "branches" : branches,
         }
         return response;
+    }
+
+    async createRepoBranch(dto: CreateBranchDto) {
+        const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
+
+        if (!fs.existsSync(repoPath))
+            return;
+        
+        const git = simpleGit(repoPath);
+
+        // Checkout the branch the new branch will be based on
+        await git.checkout(dto.fromBranch);
+        await git.checkout(["-b", dto.newBranch]);
+        // Push the new branch to the remote repository
+        await git.push('origin', dto.newBranch);
+
+        return await this.getRepoBranches(dto.username, dto.repoName);
     }
 
 

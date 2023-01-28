@@ -3,7 +3,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GitosisConfigManager } from './configManager/gitosis-config-manager';
 import { RepoManager } from './repoManager/repo-manager';
-import { RepoActionDto, GitosisUserDto, UserDto, RepoFileActionDto } from './dto';
+import { RepoActionDto, GitosisUserDto, UserDto, RepoFileActionDto, CreateBranchDto } from './dto';
 
 @Injectable()
 export class GitosisService {
@@ -75,14 +75,14 @@ export class GitosisService {
             });
 
             
-            const branches = await this.getRepoBranches(dto);
+            const branches = await this.getRepoBranches(dto.username, dto.repoName);
             
             if ("master" in branches)
                 dto.branchName = "master"
             else
                 dto.branchName = branches[1];
             
-            if (!this.isBranchValidForRepo(dto))
+            if (!this.existsBranchInRepo(dto.username, dto.repoName, dto.branchName))
                 throw new NotFoundException();
             
             return this.repoManager.getRepoDirectoryStructure(dto)
@@ -110,7 +110,7 @@ export class GitosisService {
                 }
             });
 
-            if (!this.isBranchValidForRepo(dto))
+            if (!this.existsBranchInRepo(dto.username, dto.repoName, dto.branchName))
                 throw new NotFoundException();
 
             return this.repoManager.getRepoDirectoryStructure(dto)
@@ -122,7 +122,7 @@ export class GitosisService {
     
 
     async getFileFromRepoForBranch (dto : RepoFileActionDto) {
-        const branches = await this.repoManager.getRepoBranches(dto);
+        const branches = await this.repoManager.getRepoBranches(dto.username, dto.repoName);
         if (dto.branchName == null || branches == null)
             throw new InternalServerErrorException();
         if ( !(branches.branches.includes(dto.branchName)) )
@@ -133,8 +133,19 @@ export class GitosisService {
     }
 
 
-    async getRepoBranches(dto: RepoActionDto) {
-        return await this.repoManager.getRepoBranches(dto);
+    async getRepoBranches(username : string, repoName : string) {
+        return await this.repoManager.getRepoBranches(username, repoName);
+    }
+
+    async createRepoBranch(dto: CreateBranchDto) {
+        const repoDto = new RepoActionDto();
+        
+        if (!await this.existsBranchInRepo(dto.username, dto.repoName, dto.fromBranch))
+            throw new NotFoundException('From branch doesn\'t exist');
+        if (await this.existsBranchInRepo(dto.username, dto.repoName, dto.newBranch))
+            throw new ForbiddenException('Branch already exists');
+        
+        return this.repoManager.createRepoBranch(dto);
     }
 
     async createPrivateRepo(dto: RepoActionDto) {
@@ -195,9 +206,9 @@ export class GitosisService {
     }
 
 
-    async isBranchValidForRepo(dto : RepoActionDto) : Promise<boolean>{
-        const branches = this.getRepoBranches(dto);
-        if (dto.branchName in branches) 
+    async existsBranchInRepo(username, repoName, branch) : Promise<boolean>{
+        const data = await this.getRepoBranches(username, repoName);
+        if (data.branches.find(elem => elem === branch)) 
             return true;
         return false;
     }
