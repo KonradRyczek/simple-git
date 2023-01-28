@@ -1,11 +1,9 @@
-import { Controller, Post, UseGuards, Body, Get, Param, UnauthorizedException, Req } from '@nestjs/common';
+import { Controller, Post, UseGuards, Body, Get, Param, UnauthorizedException, Req, HttpException, HttpStatus } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { request } from 'http';
-import { REPL_MODE_SLOPPY } from 'repl';
+import { validate } from 'class-validator';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
-import { pathToFileURL } from 'url';
-import { RepoActionDto, GitosisUserDto, UserDto, RepoFileActionDto } from './dto';
+import { RepoActionDto, UserDto, RepoFileActionDto, CreateBranchDto } from './dto';
 import { GitosisService } from './gitosis.service';
 
 @UseGuards(JwtGuard)
@@ -146,34 +144,36 @@ export class GitosisController {
             dto.email = user.email;
             dto.repoName = reponame;
 
-            return this.gitosis.getRepoBranches(dto);
+            return this.gitosis.getRepoBranches(dto.username, dto.repoName);
+    }
+
+    @Post('/:username/:reponame/branches')
+    async createRepoBranch(
+        @Param('username') username : string, 
+        @Param('reponame') reponame : string, 
+        @GetUser() user: User,
+        @Body() body: any) {
+
+            if (user.username !== username) 
+                throw new UnauthorizedException("This profile is private.");
+            
+            const createBranchDto = new CreateBranchDto();
+            createBranchDto.fromBranch = body.fromBranch;
+            createBranchDto.newBranch = body.newBranch;
+            createBranchDto.email = user.email;
+            createBranchDto.username = user.username;
+            createBranchDto.repoName = reponame;
+            
+            const errors = await validate(createBranchDto);
+
+            if (errors.length > 0) {
+              throw new HttpException({message: errors}, HttpStatus.BAD_REQUEST);
+            }
+            
+            console.log({data: createBranchDto});
+
+            return this.gitosis.createRepoBranch(createBranchDto);
     }
 
 
-    // @Get('/:username/:reponame')
-    // getFileFromRepo(
-    //     @Param('username') username : string, 
-    //     @Param('reponame') reponame : string, 
-    //     @Req() request, Request,
-    //     @GetUser() user: User,) {
-
-    //     if (user.username !== username) 
-    //         throw new UnauthorizedException("This profile's' content is private.");
-        
-    //     const fullPath = request.url;
-
-    //     const pathToFile = fullPath.substring(
-    //         fullPath.indexOf( '/' + username + '/' + reponame + '/') + ('/' + username + '/' + reponame + '/').length);
-    //     console.log(pathToFile)
-        
-    //     const dto : RepoFileActionDto = new RepoFileActionDto();
-    //     dto.email = user.email;
-    //     dto.username = user.username;
-    //     dto.repoName = reponame;
-    //     dto.filePath = pathToFile;
-
-    //     return this.gitosis.getFileFromRepo(dto);
-    // }
-
-    
 }
