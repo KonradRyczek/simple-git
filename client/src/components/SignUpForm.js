@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "../styles/signup.css";
 import PasswordStrenghtMeter from "./PasswordStrenghtMeter";
+import { useForm } from "react-hook-form"
  
 const SignUpForm = ({ }) => {
  
@@ -33,7 +34,6 @@ const SignUpForm = ({ }) => {
  
 	const changePubKey = (e) => {
 		setPubKey(e.target.files[0]);
-   // console.log(e.target.files[0])
 	};
  
   var jsonData = {
@@ -42,52 +42,37 @@ const SignUpForm = ({ }) => {
     email,
     File: pubKey,
   }
+  
+  const { register, handleSubmit } = useForm();
 
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("pubKey", data.file[0]);
+    formData.append("username", jsonData.username);
+    formData.append("email", jsonData.email);
+    formData.append("password", jsonData.password);
 
-  console.log(jsonData)
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    if (validation) {
-        // send the data to the server
-        return;
-    }
- 
-
-    fetch('http://localhost:3333/auth/signup', {
- 
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(jsonData)
- 
+    const res = await fetch("http://localhost:3333/auth/signup", {
+      method: "POST",
+      body: formData,
     }).then((response) => {
- 
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-
-      
-     console.log(response)
-     //console.log("Dodano Usera")
-      //window.location.pathname = "/signin"
-
-      alert("stworzono usera - zaloguj się")
- 
+      console.log(response)
+      //console.log("Dodano Usera")
+      window.location.pathname = "/signin"
+      // alert("stworzono usera - zaloguj się")
       return response.json();
     })
       .catch((error) => {
         console.log(error)
-      })
- 
+    })
   }
- 
+
   return (
     <div className="signup-form col-md-6 mx-auto mt-5 default-text" style={{ color: "black" }}>
-      <form className="formularz form-group mb-1 p-4 " onSubmit={(e) => handleSubmit(e)}>
+      <form className="formularz form-group mb-1 p-4 " onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="rejestracjaUsername"><h2>Username:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
@@ -132,14 +117,10 @@ const SignUpForm = ({ }) => {
         {isSubmitted && password !== confirmPassword && <div className="error">{confirmPasswordError}</div>}
         <br />
  
-        <label htmlFor="RsaKEY"><h2>Send SSH Public Key:</h2></label><br />
+        <label htmlFor="PublicKey"><h2>Send SSH Public Key:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
-          type="file"
-          name="PubKey"
-          placeholder='PubKey'
-          id="PubKey"
-          //value={pubKey}
+          type="file" {...register("file")}
           onChange={changePubKey}
           accept="pub"
         ></input>
