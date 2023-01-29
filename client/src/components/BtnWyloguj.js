@@ -8,7 +8,7 @@ function logout() {
 const BtnWyloguj = ({className}) => {
     
   return (
-    <button className={className} onClick={logout}>Logout</button>
+    <button className={className} onClick={logout}>Log out</button>
   );
 };
 
