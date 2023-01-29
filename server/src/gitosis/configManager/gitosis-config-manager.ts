@@ -102,9 +102,16 @@ export class GitosisConfigManager implements OnModuleInit{
 
         if (fs.existsSync(this.userReposPath + '/' + dto.username)) {
             const git = simpleGit(this.userReposPath + '/' + dto.username);
-            git.clone(this.bareReposPath + '/' + dto.username + '/' + dto.repoName + '.git')
+            await git.clone(this.bareReposPath + '/' + dto.username + '/' + dto.repoName + '.git')
+                .cwd(this.userReposPath + '/' + dto.username + '/' + dto.repoName)
                 .addConfig("user.name", dto.username)
                 .addConfig("user.email", dto.email);
+            fs.writeFileSync(this.userReposPath + '/' + dto.username + '/' + dto.repoName + '/README.md', '# ' + dto.repoName);
+            // add the README.md file to the repository
+            await git.cwd(this.userReposPath + '/' + dto.username + '/' + dto.repoName)
+                .add(['README.md'])
+                .commit("Initial commit: added README.md with the name of the repository")
+                .push("origin", "master");
         }
     }
 
