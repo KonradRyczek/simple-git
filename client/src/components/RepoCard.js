@@ -5,17 +5,21 @@ const RepoCard = ({data}) => {
 
   const access_token = "Bearer " + localStorage.getItem("access_token")
   //const username = localStorage.getItem("username", username);
-  const username = "zark"
-  const reponame = "bbb"
+  const username = localStorage.getItem("username");
+  // const reponame = 
+
+  console.log("RepoCard " + data);
 
   const otworzRepo = (e) => {
+    console.log("e: " + e);
+    const reponame = e;
 
-    var jsonData = {
-      "repoName": e.name,
-    //  "username": username
-  }
-      e.preventDefault()
-
+    // var jsonData = {
+    //     "repoName": e,
+    //   //  "username": username
+    // }
+      // e.preventDefault()
+    
       fetch('http://localhost:3333/gitosis/'+username+'/'+reponame, { 
 
           method: 'GET',
@@ -24,8 +28,8 @@ const RepoCard = ({data}) => {
               'Content-Type': 'application/json',
               'Authorization': access_token
 
-          },
-          body: JSON.stringify(jsonData)
+          }
+          // body: JSON.stringify(jsonData)
 
 
       }).then((response) => {
@@ -39,7 +43,7 @@ const RepoCard = ({data}) => {
       }).then((responseData) => {
         
           console.log(responseData)
-          window.location.pathname = "/user/repository"
+          window.location.pathname = username + '/' + reponame;
 
       })
           .catch((error) => {
@@ -92,8 +96,9 @@ console.log(data+"data")
    {data.map((exp)=>{   
             return(
               <div className="border">
-                <p  onClick={otworzRepo}>{exp.reponame}</p>    
-                <p onClick={usunRepo}><AiIcons.AiFillDelete/></p>  
+                <a onClick={() => otworzRepo(exp.reponame)}>{exp.reponame}</a>
+                {/* <a  onClick={otworzRepo(exp.repoName)}>{exp.reponame}</a>     */}
+                <a  onClick={usunRepo}><AiIcons.AiFillDelete/></a>  
               </div>     
             )
            })}

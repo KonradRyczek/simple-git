@@ -10,40 +10,36 @@ const UserMainPage = () => {
 
 const access_token = "Bearer " + localStorage.getItem("access_token")
 const username = localStorage.getItem("username");
-const reponame = localStorage.getItem("username"); //default
+// const reponame = localStorage.getItem("username"); //default
 
-fetch('http://localhost:3333/gitosis/'+username+'/'+reponame+'/branches', {
+// fetch('http://localhost:3333/gitosis/'+username+'/'+reponame+'/branches', {
 
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': access_token
+//     method: 'GET',
+//     mode: 'cors',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': access_token
 
-    },
+//     },
 
-  }).then((response) => {
+//   }).then((response) => {
 
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
+//     if (!response.ok) {
+//       throw new Error(`HTTP error: ${response.status}`);
+//     }
+//     return response.json();
 
-  }).then((responseData) => {
+//   }).then((responseData) => {
 
-    const branches = responseData.branches
-    localStorage.setItem("branches", branches);
-    console.log("user: "+username+" reponame: "+reponame +" branches: "+branches )
+//     const branches = responseData.branches
+//     localStorage.setItem("branches", branches);
+//     console.log("user: "+username+" reponame: "+reponame +" branches: "+branches )
 
-  })
+//   })
 
-    .catch((error) => {
-      console.log(error)
-    })
-
-
-
-
+//     .catch((error) => {
+//       console.log(error)
+//     })
 // const [explorerData, setExplorerData] = useState(explorer);
 	
 return (
@@ -58,7 +54,6 @@ return (
   </div>
   <hr/>
   <div>
-  
     <h1 className="text-center">Moje repozytoria</h1>
     <ChoseRepo/>
   </div>
