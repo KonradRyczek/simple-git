@@ -102,9 +102,8 @@ export class RepoManager {
             return;
 
         const git = simpleGit(repoPath);
-        await git.fetch()
-            .checkout(dto.branchName)
-            .pull();
+        await git.pull({ '--force': null })
+            .checkout(dto.branchName);
         // await git.checkout()
         // await git.pull("origin", "master")
 

@@ -75,14 +75,15 @@ export class GitosisService {
             });
 
             
-            const branches = await this.getRepoBranches(dto.username, dto.repoName);
-            
-            if ("master" in branches)
-                dto.branchName = "master"
+            const data = await this.getRepoBranches(dto.username, dto.repoName);
+            let branchName = "";
+            if (data.branches.length === 0)
+            if ("master" in data.branches)
+                branchName = "master"
             else
-                dto.branchName = branches[1];
+                branchName = data.branches[1];
             
-            if (!this.existsBranchInRepo(dto.username, dto.repoName, dto.branchName))
+            if (!this.existsBranchInRepo(dto.username, dto.repoName, branchName))
                 throw new NotFoundException();
             
             return this.repoManager.getRepoDirectoryStructure(dto)
@@ -122,10 +123,10 @@ export class GitosisService {
     
 
     async getFileFromRepoForBranch (dto : RepoFileActionDto) {
-        const branches = await this.repoManager.getRepoBranches(dto.username, dto.repoName);
-        if (dto.branchName == null || branches == null)
+        const data = await this.repoManager.getRepoBranches(dto.username, dto.repoName);
+        if (dto.branchName == null || data == null)
             throw new InternalServerErrorException();
-        if ( !(branches.branches.includes(dto.branchName)) )
+        if ( !(data.branches.includes(dto.branchName)) )
             throw new NotFoundException();
         
         
