@@ -11,8 +11,8 @@ const About = () => {
 			<div >
 				<Header />
 			</div>
-			<div class="about row mx-auto mb-5 w-100">
-				<div className="frame1 col-md-8 mx-auto mt-5 mb-150 default-text">
+			<div class="about container-xl d-flex flex-column align-items-center p-responsive position-relative">
+				<div className="neon-frame mx-auto mt-5 mb-150 default-text">
   					<h1 class="text-center-h1">Simple Git Dependency Requirements</h1>
   						<p>Git server with web app interface.</p>
 						<h2 className="h2">Requirements</h2>
@@ -52,7 +52,7 @@ const About = () => {
 							<ul><code>cd /var/www/simple-git/client</code></ul>
 							<ul><code>yarn start</code></ul>
 				</div>
-				<div className="col-md-8 mx-auto mt-5 mb-150 default-text">
+				<div className="neon-frame mb-100">
 					<h2>Collaborators</h2>
 					<ul className="disc">
    						<li>Konrad Ryczek<code>Backend</code></li>
@@ -60,7 +60,7 @@ const About = () => {
     					<li>Aleksander Postrzednik<code>Frontend</code></li>
   					</ul>
 				</div>
-				<div className="blank"></div>
+				<div className="blank">.</div>
 			</div>
 			<div>
 				<Footer />

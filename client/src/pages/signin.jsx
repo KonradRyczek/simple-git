@@ -18,7 +18,7 @@ const Sign_in = () => {
 			<br />
 			<div className="col-12 mx-auto text-center">
 				<h2>
-					Nie masz jeszcze konta {'->'} &nbsp;<BtnBrakKonta className={"btn btn-primary btn-lg"}></BtnBrakKonta>
+				Don't have an account yet {'->'} &nbsp;<BtnBrakKonta className={"btn btn-primary btn-lg"}></BtnBrakKonta>
 				</h2>
 			</div>
 			<div className="blank"></div>

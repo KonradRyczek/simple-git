@@ -51,7 +51,7 @@ const PasswordStrenghtMeter = ({password}) => {
        <div className="progress-bar" style={chanePasswordColor()}>
        </div>
     </div>
-    <p style={{color:funcProgressColor()}}>{creteLabelPassword()}</p>
+    <p className="pass" style={{color:funcProgressColor()}}>{creteLabelPassword()}</p>
     </>
   );
 };

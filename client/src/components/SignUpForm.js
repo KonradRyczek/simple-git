@@ -71,8 +71,7 @@ const SignUpForm = ({ }) => {
   }
 
   return (
-    <div className="signup-form col-md-6 mx-auto mt-5 default-text" style={{ color: "black" }}>
-      <form className="formularz form-group mb-1 p-4 " onSubmit={handleSubmit(onSubmit)}>
+      <form className="signup-form mx-auto mt-5 default-text" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="rejestracjaUsername"><h2>Username:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
@@ -140,18 +139,17 @@ const SignUpForm = ({ }) => {
         ></input>
         {isSubmitted && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && <div className="error">{emailError}</div>}
         <br />
- 
-        <input className="btn btn-primary w-100 text-center btn-lg" type="submit" value="Sign Up" />
- 
+          <div className="d-flex">
+            <input className="sign-submit w-25 mx-auto default-text" type="submit" value="Sign Up" />
+          </div>
         <br />
-      <p className="text-muted text-center mt-3 mb-3">
+      <p className="account text-muted text-center mt-3 mb-3">
         Already have an account?{" "}
         <a href="/signin" className="a-text-primary">
           Sign In
         </a>
       </p>
       </form>
-    </div>
   );
 };
  

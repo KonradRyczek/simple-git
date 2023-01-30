@@ -104,8 +104,7 @@ const SignInForm = ({ }) => {
   }
 
   return (
-    <div className="col-md-9 mx-auto default-text "style={{color: "black"}}>
-      <form className="signin-form col-md-6 mx-auto mt-5 default-text" onSubmit={handleSubmit}>
+      <form className="signin-form mx-auto mt-5 default-text" onSubmit={handleSubmit}>
         <label htmlFor="loginEmain"><h2>E-mail:</h2></label><br />
         <input
           className="form-control shadow-none mb-4"
@@ -132,9 +131,8 @@ const SignInForm = ({ }) => {
         {/* {isSubmitted && ((email.trim() === "" ? "error" : "") || (password.trim() === "" ? "error" : "")) && <div className="error">{loginError}</div>} */}
         {isSubmitted && ((email.trim() === "" || errorMessage ) ? <div className="error">{loginError}</div> : "")}
         <br />
-        <input className="btn btn-primary w-60 btn-lg" type="submit" value="Sign In" />
+        <input className="sign-submit w-25" type="submit" value="Sign In" />
       </form>
-    </div>
   );
 };
 
