@@ -13,7 +13,7 @@ const Home = () => {
 				<Header />
 			</div>
 			<div class="homepage">		
-				<div class="col-md-12">
+				<div class="container-lg d-flex flex-column mr-auto">
 					<div class="frame3 d-flex flex-column align-items-start">
 						<h1 class="text-white simply-work-together">
 							Simply Work Together</h1>
