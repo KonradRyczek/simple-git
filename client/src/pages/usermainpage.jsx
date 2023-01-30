@@ -1,10 +1,11 @@
 import React ,{ useState }from "react"; 
-
+import "../styles/user.css";
 import explorer from "../data/folderData";
 import UserHeader from "../components/UserHeader";
 import Folder from "../components/Folder";
 import CreateRepoForm from "../components/CreateRepoForm";
 import ChoseRepo from "../components/ChoseRepo";
+import Footer from "../components/Footer";
 
 const UserMainPage = () => {
 
@@ -44,20 +45,25 @@ const username = localStorage.getItem("username");
 	
 return (
   <>
-	<div className="">
-		<UserHeader></UserHeader>
-	</div>
-  <div>
-  <h1 className="text-center"> Witaj {localStorage.getItem('username')} oto twój Dashboard</h1>
-  <CreateRepoForm/>
-  
+  <div className="background-user">
+	  <div>
+		  <UserHeader></UserHeader>
+	  </div>
+    <div className="dashboard container-xl d-flex flex-column align-items-center p-responsive height-full position-relative z-1">
+      <h1 className="text-center-h3"> Hello {localStorage.getItem('username')}, here is your Dashboard</h1>
+        <CreateRepoForm/>
+      <hr/>
+      <div>
+      <h1 className="text-center mt-4 mb-5">My repositories</h1>
+        <div className="repositories">
+          <ChoseRepo/>
+        </div>
+      </div>
+    </div>
+    <div>
+				<Footer />
+		</div>
   </div>
-  <hr/>
-  <div>
-    <h1 className="text-center">Moje repozytoria</h1>
-    <ChoseRepo/>
-  </div>
-
 </>
   );
 };

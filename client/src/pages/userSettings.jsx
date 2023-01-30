@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/user.css";
 import { Route, Navigate } from 'react-router-dom';
 import UserHeader from "../components/UserHeader";
 import img from "../img/account.png"
@@ -14,7 +15,8 @@ const userSetting = () => {
   return (
     hasJWT() ?
       <>
-        <div className="">
+      <div className="background-user">
+        <div>
           <UserHeader/>
         </div>
         <div>
@@ -32,6 +34,7 @@ const userSetting = () => {
           <div>
             
           </div>
+        </div>
         </div>
       </>
 

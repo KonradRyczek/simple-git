@@ -95,11 +95,11 @@ console.log(data+"data")
     <>
    {data.map((exp)=>{   
             return(
-              <div className="border">
-                <a onClick={() => otworzRepo(exp.reponame)}>{exp.reponame}</a>
-                {/* <a  onClick={otworzRepo(exp.repoName)}>{exp.reponame}</a>     */}
-                <a  onClick={usunRepo}><AiIcons.AiFillDelete/></a>  
-              </div>     
+                <div className="repo">
+                  <a className="repoName" onClick={() => otworzRepo(exp.reponame)}>{exp.reponame}</a>
+                  {/* <a  onClick={otworzRepo(exp.repoName)}>{exp.reponame}</a>     */}
+                  <a onClick={usunRepo}><AiIcons.AiFillDelete/></a>  
+                </div>     
             )
            })}
    

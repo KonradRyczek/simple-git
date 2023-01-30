@@ -1,5 +1,5 @@
 import React, { useState, state } from "react";
-
+import "../styles/user.css";
 import setAuthToken from "../components/setAuthToken"
 import { Link } from "react-router-dom";
 import { usr } from "../components/GlobalVar"
@@ -51,24 +51,24 @@ const CreateRepoForm = ({ }) => {
 
     }
 
-    
-
     return (
         <div className="">
-            <form className="form-group " onSubmit={handleSubmit}>
-            <label  className="p-3" for="CreateRepo">Stwórz Repozytorioum</label>
+            <form className="form-group mx-auto" onSubmit={handleSubmit}>
+            <label  className="p-3" for="CreateRepo">Create new Repository</label>
+                <div className="d-flex align-items-center justify-content-center">
                 <input
-                    className="form-control shadow-none w-25 d-inline-block ml-2 mt-2 "
+                    className="form-control-repo shadow-none"
                     type="text"
                     name="repoName"
-                    placeholder='Wprowadź nazwę Repozytorioum'
+                    placeholder='Enter the name of the repository'
                     id="repoName"
                     value={repoName}
                     onChange={(e) => setRepoName(e.target.value)}
                     //onBlur={validateInput}
                 >
                 </input>
-                <input className="btn btn-dark mb-2 float-right" type="submit" value="Stwórz"/>  
+                <input className="create" type="submit" value="Create"/>
+                </div>  
             </form>
         </div>
     );

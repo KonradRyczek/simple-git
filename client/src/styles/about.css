@@ -21,21 +21,22 @@
 .background h2 {
     font-family: 'Neon';
     margin-top: 20px;
-    margin-left: 50px;
+    margin-left: 45px;
     color: #dd6036;
     animation: glow 0.50s ease-in-out infinite alternate-reverse;
 }
 
-.about.row.mx-auto.mb-5.w-100 {
+.about {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 15px;
     margin-top: 50px;
+    margin-bottom: 100px;
   }
   
-.about.row.mx-auto.w-100 p {
+.about p {
     padding: 10px;
     margin: 10px;
     margin-left: 20px;
@@ -80,7 +81,7 @@
     }
 }
 
-.col-md-8.mx-auto.mt-5.mb-150.default-text {
+.neon-frame{
     background-color: rgba(44, 44, 44, 0.7);
     border-style: glow 0.50s ease-in-out infinite alternate-reverse;
     border: 1px solid #dd6036;
@@ -89,6 +90,8 @@
     line-height: 25px;
 	font-size: 20px;
 	padding: 10px;
-	width: 60%;
-    padding-bottom: 40px;
+	width: 80%;
+    margin-bottom: 5%;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }

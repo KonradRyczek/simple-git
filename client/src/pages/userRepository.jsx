@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/user.css";
 import { Route, Navigate } from 'react-router-dom';
 import explorer from "../data/folderData";
 import UserHeader from "../components/UserHeader";
@@ -26,13 +27,10 @@ const UserRepository = () => {
     return (
         hasJWT() ?
             <>
-                <div className="">
+            <div className="background">
+                <div>
                     <UserHeader></UserHeader>
                 </div>
-                <div>
-
-                </div>
-
                 <div className="  row mx-auto mt-1 vh-100">
                     <div className=" col-6 align-items-center">
                         <Folder explorer={explorerData} />
@@ -44,9 +42,9 @@ const UserRepository = () => {
                     </div>
 
                 </div>
-
+            </div>
             </>
-            :
+             :
             <Navigate to='/' />
     );
 };
