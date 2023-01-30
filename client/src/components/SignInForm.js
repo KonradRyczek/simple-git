@@ -131,7 +131,14 @@ const SignInForm = ({ }) => {
         {/* {isSubmitted && ((email.trim() === "" ? "error" : "") || (password.trim() === "" ? "error" : "")) && <div className="error">{loginError}</div>} */}
         {isSubmitted && ((email.trim() === "" || errorMessage ) ? <div className="error">{loginError}</div> : "")}
         <br />
-        <input className="sign-submit w-25" type="submit" value="Sign In" />
+          <input className="sign-submit w-25" type="submit" value="Sign In" />
+        <br />
+        <p className="account text-muted text-center mt-3 mb-3">
+          Don't have an account?{" "}
+          <a href="/signup" className="a-text-primary">
+            Sign Up
+          </a>
+        </p>
       </form>
   );
 };
