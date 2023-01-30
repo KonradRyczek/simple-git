@@ -15,12 +15,6 @@ const Sign_in = () => {
 						<SignInForm></SignInForm>
 				</div>
 			</div>
-			<br />
-			<div className="col-12 mx-auto text-center">
-				<h2>
-				Don't have an account yet {'->'} &nbsp;<BtnBrakKonta className={"btn btn-primary btn-lg"}></BtnBrakKonta>
-				</h2>
-			</div>
 			<div className="blank"></div>
 			<Footer />
 		</div>
