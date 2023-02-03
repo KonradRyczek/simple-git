@@ -14,7 +14,7 @@
     font-size: 55px;
     margin: 30px;
     margin-bottom: 50px;
-    color: #dd6036;
+    color: #FBF267;
     animation: glow 0.50s ease-in-out infinite alternate-reverse;
 }
 
@@ -22,7 +22,7 @@
     font-family: 'Neon';
     margin-top: 20px;
     margin-left: 45px;
-    color: #dd6036;
+    color: #FBF267;
     animation: glow 0.50s ease-in-out infinite alternate-reverse;
 }
 
@@ -67,24 +67,24 @@
 @keyframes glow{
     100%{
         text-shadow:
-        0 0 7px rgb(255, 100, 0),
-        0 0 15px rgb(255, 110, 0),
-        0 0 22px rgb(255, 120, 0),
-        0 0 31px rgb(255, 130, 0);
+        0 0 7px rgb(255, 62, 48),
+        0 0 15px rgb(255, 62, 48),
+        0 0 22px rgb(255, 62, 48),
+        0 0 31px rgb(255, 62, 48);
     }
     0%{
         text-shadow:
-        0 0 7px rgb(255, 100, 0),
-        0 0 15px rgb(255, 110, 0),
-        0 0 21px rgb(255, 120, 0),
-        0 0 30px rgb(255, 130, 0);
+        0 0 7px rgb(255, 62, 48),
+        0 0 15px rgb(255, 62, 48),
+        0 0 21px rgb(255, 62, 48),
+        0 0 30px rgb(255, 62, 48);
     }
 }
 
 .neon-frame{
     background-color: rgba(44, 44, 44, 0.7);
     border-style: glow 0.50s ease-in-out infinite alternate-reverse;
-    border: 1px solid #dd6036;
+    border: 1px solid #FC8E51;
 	border-radius: 2px;
 	display: block;
     line-height: 25px;

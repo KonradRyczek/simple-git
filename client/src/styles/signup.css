@@ -31,7 +31,7 @@
 .signin-form {
     background-color: rgba(44, 44, 44, 0.7);
     border-style: glow 0.50s ease-in-out infinite alternate-reverse;
-    border: 1px solid #DD4536;
+    border: 1px solid #FC8E51;
 	border-radius: 2px;
     display: block;
     line-height: 25px;
@@ -44,7 +44,7 @@
 .signup-form {
     background-color: rgba(44, 44, 44, 0.7);
     border-style: glow 0.50s ease-in-out infinite alternate-reverse;
-    border: 1px solid #DD4536;
+    border: 1px solid #FC8E51;
 	border-radius: 2px;
 	display: block;
     line-height: 22px;
