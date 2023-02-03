@@ -1,21 +1,21 @@
 import React from "react";
 import Navbar from "./Navbar";
-import logo from "../img/git.png"
-
-import Link from "../components/Link";
-import  "../styles/main.css";
+import logo from "../img/logo.png"
+import { Link } from "react-router-dom";
 const Header = ({ }) => {
   return (
-    <div className="row header">
-      <div className="col-2 navbar-brand">
-        
-        <Link href="/" className="item nav-link"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>
-       
+    <>
+    <header className="header">
+      <div className="header-container container-lg d-flex flex-row align-items-center height-full">
+        <div className="header-left d-flex">
+          <Link to="/" className="header-logo bg-transparent text-white pt-3"><img src={logo} className="logo" alt="text"/>SimpleGit</Link>     
+        </div>
+        <div className="HeaderMenu--logged-out align-items-center">
+          <Navbar/>
+        </div>
       </div>
-      <div className="col-10 ">
-        <Navbar/>
-      </div>
-     </div>
+    </header>
+    </>
   );
 };
 

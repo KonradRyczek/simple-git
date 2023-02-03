@@ -37,3 +37,10 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# ssh keys
+*.pub
+ssh-key
+id_rsa
+
+# gitosis-admin
+/gitosis-admin

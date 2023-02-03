@@ -5,11 +5,10 @@ function ToSignUP() {
   window.location.pathname = "/signup"
 }
 
-
 const BtnBrakKonta = ({className}) => {
     
   return (
-    <button className={className} onClick={ToSignUP}>Nie mam jeszcze konta</button>
+    <button className={className} onClick={ToSignUP}>Sign Up</button>
   );
 };
 

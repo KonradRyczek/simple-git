@@ -1,40 +1,25 @@
 import React from "react";
-import "../styles/main.css";
-
-import Footer from "../components/Footer";
+import "../styles/home.css";
 import Header from "../components/Header";
-import Globe from "../components/Globe";
+import Intro from "../components/Intro";
+import Footer from "../components/Footer";
+import BtnBrakKonta from "../components/BtnBrakKonta";
 import { Canvas } from "@react-three/fiber"
-import {OrbitControls} from "@react-three/drei"
+import { Outlet, Link } from "react-router-dom";
 
 const Home = () => {
-return (
-	<div className="">
-		<div >
-		<Header/>
-		</div>		
-		<div className="row mx-auto w-100 mainbody">
-			<div className="col-6 mx-auto bg-primary ">
-				
-				
-				<Canvas>
-					<OrbitControls enableZoom={false} autoRotate={true} autoRotateSpeed={3}/>
-					<ambientLight intensity={0.2}/>
-					<directionalLight position={[-2,5,2]} intensity={1} />
-					<Globe/>
-				</Canvas>
+	return (
+		<div className="homebody">
+			<div >
+				<Header />
 			</div>
-			<div className="col-6 mx-auto bg-secondary">
-				<p>aaa</p>
-				
+				<Intro />
+			<div className="blank"></div>
+			<div>
+				<Footer />
 			</div>
 		</div>
-		<div>
-	  	<Footer/>
-		</div>
-	</div>
-  );
+	);
 };
 
 export default Home;
-// 
