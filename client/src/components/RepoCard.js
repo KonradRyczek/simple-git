@@ -15,7 +15,6 @@ const RepoCard = ({data}) => {
     const reponame = e;
     localStorage.setItem("reponame", reponame);
 
-
     // var jsonData = {
     //     "repoName": e,
     //   //  "username": username

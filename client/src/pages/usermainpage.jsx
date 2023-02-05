@@ -46,9 +46,7 @@ const username = localStorage.getItem("username");
 return (
   <>
   <div className="background-user">
-	  <div>
-		  <UserHeader></UserHeader>
-	  </div>
+      <UserHeader/>
     <div className="dashboard container-xl d-flex flex-column align-items-center p-responsive height-full position-relative z-1">
       <h1 className="text-center-h3"> Hello {localStorage.getItem('username')}, here is your Dashboard</h1>
         <CreateRepoForm/>
@@ -60,9 +58,7 @@ return (
         </div>
       </div>
     </div>
-    <div>
 				<Footer />
-		</div>
   </div>
 </>
   );
