@@ -13,7 +13,7 @@ const RepoCard = ({data}) => {
   const otworzRepo = (e) => {
     console.log("e: " + e);
     const reponame = e;
-
+    localStorage.setItem("reponame", reponame);
     // var jsonData = {
     //     "repoName": e,
     //   //  "username": username
