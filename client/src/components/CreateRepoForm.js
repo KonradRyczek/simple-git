@@ -54,7 +54,7 @@ const CreateRepoForm = ({ }) => {
     return (
         <div className="">
             <form className="form-group mx-auto" onSubmit={handleSubmit}>
-            <label  className="p-3" for="CreateRepo">Create new Repository</label>
+            <label  className="p-3" for="CreateRepo">Create a new Repository</label>
                 <div className="d-flex align-items-center justify-content-center">
                 <input
                     className="form-control-repo shadow-none"
