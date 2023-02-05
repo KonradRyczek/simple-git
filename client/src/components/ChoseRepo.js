@@ -98,9 +98,9 @@ const ChoseRepo =  ({ }) => {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const responseData = await response.json();
-      // console.log(responseData.repositories[0].reponame);
-      // localStorage.setItem("reponame", responseData.repositories[0].reponame);
+      
       return responseData;
+      //console.log("data"+responseData)
     } catch (error) {
       console.log(error);
     }

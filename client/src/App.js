@@ -29,6 +29,7 @@ const access_token = () =>
 export default () => {
   const username = localStorage.getItem('username')
   const reponame = localStorage.getItem('reponame')
+  console.log("appjs "+reponame)
   {access_token()}
   
   return (
