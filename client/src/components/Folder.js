@@ -41,11 +41,13 @@ const CheckOpen = () => {
 }
 
 const OpenFile = () => {
+
+    console.log(explorer.name)
     const access_token = "Bearer " + localStorage.getItem("access_token")
     
     const username = localStorage.getItem("username")
-    const reponame = "bbb"
-    const pathToFile = "bbb"
+    const reponame = localStorage.getItem("reponame")
+    const pathToFile = explorer.name
 
     fetch('http://localhost:3333/gitosis/'+username+'/'+reponame+'/'+pathToFile, {
   

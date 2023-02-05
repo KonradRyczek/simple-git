@@ -13,9 +13,7 @@ const CreateRepoForm = ({ }) => {
     var jsonData = {
         "repoName": repoName,
     }
-    console.log(jsonData)
-    console.log(access_token)
-
+   
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -41,11 +39,17 @@ const CreateRepoForm = ({ }) => {
 
         }).then((responseData) => {
             alert("Pomyślnie stworzono Repozytorioum")
+            setTimeout(() => {
+                window.location.reload();
+                }, 500);
 
         })
             .catch((error) => {
                 console.log(error)
              //   alert("Coś poszło nie tak :(")
+             setTimeout(() => {
+                window.location.reload();
+                }, 500);
             })
 
 
