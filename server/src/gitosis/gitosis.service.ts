@@ -130,7 +130,7 @@ export class GitosisService {
             throw new NotFoundException();
         
         
-        return this.repoManager.getFileFromRepo(dto);
+        return await this.repoManager.getFileFromRepo(dto);
     }
 
 

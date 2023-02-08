@@ -17,7 +17,7 @@ export class RepoManager {
         this.bareReposPath = config.get("GITOSIS_BARE_REPOSITORIES_PATH");
     }
 
-    getFileFromRepo(dto : RepoFileActionDto) {
+    async getFileFromRepo(dto : RepoFileActionDto) {
         const repoPath = this.userReposPath + '/' + dto.username + '/' + dto.repoName;
         const absoluteFilePath = repoPath + '/' + dto.filePath;
 
@@ -26,7 +26,8 @@ export class RepoManager {
             throw new NotFoundException("Couldn't find repo");
 
         const git = simpleGit(repoPath);
-        git.pull("origin", dto.branchName)
+        await git.pull("origin", dto.branchName)
+            .checkout(dto.branchName);
 
         console.log(absoluteFilePath)
         if (!fs.existsSync(absoluteFilePath))
