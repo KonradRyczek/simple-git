@@ -51,12 +51,10 @@ return (
       <h1 className="text-center-h3"> Hello {localStorage.getItem('username')}, here is your Dashboard</h1>
         <CreateRepoForm/>
       <hr/>
-      <div>
       <h1 className="text-center mt-4 mb-5">My repositories</h1>
         <div className="repositories">
           <ChoseRepo/>
         </div>
-      </div>
     </div>
 				<Footer />
   </div>
