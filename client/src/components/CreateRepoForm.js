@@ -13,9 +13,7 @@ const CreateRepoForm = ({ }) => {
     var jsonData = {
         "repoName": repoName,
     }
-    console.log(jsonData)
-    console.log(access_token)
-
+   
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -41,11 +39,17 @@ const CreateRepoForm = ({ }) => {
 
         }).then((responseData) => {
             alert("Pomyślnie stworzono Repozytorioum")
+            setTimeout(() => {
+                window.location.reload();
+                }, 500);
 
         })
             .catch((error) => {
                 console.log(error)
              //   alert("Coś poszło nie tak :(")
+             setTimeout(() => {
+                window.location.reload();
+                }, 500);
             })
 
 
@@ -54,7 +58,7 @@ const CreateRepoForm = ({ }) => {
     return (
         <div className="">
             <form className="form-group mx-auto" onSubmit={handleSubmit}>
-            <label  className="p-3" for="CreateRepo">Create new Repository</label>
+            <label  className="p-3" for="CreateRepo">Create a new Repository</label>
                 <div className="d-flex align-items-center justify-content-center">
                 <input
                     className="form-control-repo shadow-none"

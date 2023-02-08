@@ -13,6 +13,7 @@ const RepoCard = ({data}) => {
   const otworzRepo = (e) => {
     console.log("e: " + e);
     const reponame = e;
+    localStorage.setItem("reponame", reponame);
 
     // var jsonData = {
     //     "repoName": e,
@@ -43,7 +44,7 @@ const RepoCard = ({data}) => {
       }).then((responseData) => {
         
           console.log(responseData)
-          window.location.pathname = username + '/' + reponame;
+          window.location.pathname ="/"+ username + '/' + reponame;
 
       })
           .catch((error) => {
@@ -54,9 +55,11 @@ const RepoCard = ({data}) => {
 
  
   const usunRepo = (e) => {
+    const reponame1 = localStorage.getItem("reponame");
+    console.log(reponame1)
 
     var jsonData = {
-      "repoName": "bbb"//e.name,
+      "repoName":reponame1
   }
       e.preventDefault()
 
@@ -81,12 +84,16 @@ const RepoCard = ({data}) => {
           return response.json();
 
       }).then((responseData) => {
-          alert("Pomyślnie Usunięto Repozytorioum")
+            alert("Pomyślnie Usunięto Repozytorioum")
+
+            setTimeout(() => {
+            window.location.reload();
+            }, 500);
 
       })
           .catch((error) => {
               console.log(error)
-              alert("Coś poszło nie tak :(")
+            //  alert("Coś poszło nie tak :(")
           })
   }
 

@@ -209,36 +209,7 @@
 li{
     list-style: none;
 }
-
-.folder {
-    margin-top: 6px;
-    background-color: lightgray;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2px;
-    width: 300px;
-    cursor: pointer;
-  }
-  .folder > span {
-    margin: 0 5px;
-  }
   
-
-  .file {
-    margin-top: 5px;
-    padding-left: 5px;
-    display: flex;
-    width: 300px;
-    background-color: rgb(238, 238, 238);
-   
-  }
-
-  .fileTresc{
-    background-color: lightgray;
-    margin-top: 6px;
-  }
-
 .a-text-primary {
     color: rgb(0, 254, 192);
     text-decoration: none;

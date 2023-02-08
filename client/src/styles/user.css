@@ -15,21 +15,6 @@
     border-radius: 10px;
 }
 
-.frame-supp {
-    background-color: #233233;
-    border-style: glow 0.50s ease-in-out infinite alternate-reverse;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-	display: block;
-    line-height: 26px;
-	font-size: 20px;
-	padding: 10px;
-	width: 80%;
-    margin-bottom: 5%;
-    padding-top: 30px;
-    padding-bottom: 20px;
-}
-
 .text-center-h3 {
     font-family: 'Roboto';
     text-align: center;
@@ -96,10 +81,11 @@
 
 .repo {
     background-color: #192324;
-    position: relative;
+    position:relative;
     height: 150px;
     border-radius: 20px;
     font-family: 'Roboto';
+    min-width: 175px;
     width: calc(50% - 20px);
     float: left;
     margin-right: 20px;
@@ -107,6 +93,20 @@
     text-align: center;
     padding: 20px;
     box-shadow: 1px 1px 3px #49B1BA;
+}
+
+@media (max-width: 760px) {
+  .repo {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .repo {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+  }
 }
 
 .repoName {
