@@ -5,7 +5,7 @@ const explorer = {
     items: [
       {
         id:"2",
-        name: "publicaaaa",
+        name: "public",
         isFolder: true,
         items: [
           {

@@ -81,10 +81,11 @@
 
 .repo {
     background-color: #192324;
-    position: relative;
+    position:relative;
     height: 150px;
     border-radius: 20px;
     font-family: 'Roboto';
+    min-width: 175px;
     width: calc(50% - 20px);
     float: left;
     margin-right: 20px;
@@ -92,6 +93,20 @@
     text-align: center;
     padding: 20px;
     box-shadow: 1px 1px 3px #49B1BA;
+}
+
+@media (max-width: 760px) {
+  .repo {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .repo {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+  }
 }
 
 .repoName {
